@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>1st JAVASCRIPT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            background-color: mediumpurple;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+
+    <script>
+    /*문자열 -> 작은따옴표 지향*/
+    //alert('삐-빅 정상입니다!: Hello\n행바꾸기\n 272727(숫자사용도 가능)');
+        
+    /*변수 선언 & 대입 & 출력*/
+        var pi;
+        pi = 333;
+        //alert('내가 방금 입력한 숫자: '+ pi * 2);
+    
+    /*6가지 자료형*/
+        var stringVar = 'Stringooo';
+        var numVar = 333;
+        var booleanVar = true;
+        var functionVar = function() {};
+        var objectVar = {};
+        var num;
+        
+//        alert(typeof(stringVar));
+//        alert(numVar);
+//        alert(booleanVar);
+//        alert(functionVar);
+//        alert(objectVar);
+//        alert(typeof(num));
+        
+        window.onload = function(){
+            var list1 = '';        
+            list1 += '<ul>';
+            list1 += '   <li>Hello</li>';
+            list1 += '   <li>JSP</li>';
+            list1 += '</ul>';
+            
+            document.body.innerHTML = list1;
+        };
+        
+        // onload: html이 다 로딩되고 난 후 실행된다 -> body.innerHTML오류없이 정상실행
+        window.onload = function(){
+            var list = '';
+            list += '<ul>';
+            list += '   <li>' + stringVar + '</li>\n';
+            list += '   <li>' + numVar + '</li>\n';
+            list += '   <li>' + booleanVar + '</li>\n';
+            list += '   <li>' + functionVar + '</li>\n';
+            list += '   <li>' + objectVar + '</li>\n';
+            list += '   <li>' + num + '</li>\n';
+            list += '</ul>';
+            //alert(list);
+                               
+            document.body.innerHTML = list;  
+        };
+        
+        // !!오류 : 아직 body가 만들어지기 전에 호출되었기 때문
+        document.body.innerHTML = 'text'; 
+
+        var ff = '김치찌개';
+        var ff = '라면';
+        //alert(ff);
+        
+        //var input = confirm('수락?');
+        //alert(input);
+        //확인 누르면 true, 취소 누르면 false 리턴
+        
+        //alert('5*5'); //console: 5*5
+        //alert(5*5); //console: 25
+        //alert('5'*5); //console: 25
+        
+        //문자열 -> 숫자로 변환 (Number함수)
+        var num1 = '30';
+        var num2 = '30a'
+        var num3 = Number(num1);
+        //alert(typeof(num3));
+        //alert(num3); //30
+
+        var num4 = Number(num2);
+        //alert(typeof(num4));
+        //alert(num4); //NaN => 숫자가 아닐때는 이렇게 표시됨!
+        
+        //alert('' == false);
+        //alert('' === false);
+        //alert('273' == 273);
+        //alert('273' === 273);
+        
+        //true || alert('실행안됨');
+        //false || alert('실행ㅇㅇ');
+
+        /*배열*/
+        var array = [1,2,3,4,5];
+        alert(array);
+        
+            var result = 0;    
+            //int i=0 이 아님:
+        for(var i=0; i<array.length; i++){
+            result += array[i];
+        }
+            alert(result);
+        
+        var array = [
+            1,
+            'one',
+            false,
+            function(){},
+            {},
+            [1,2]
+        ];
+        alert(array);
+        
+        for(var v in array){
+            alert(typeof(v)); // 인덱스 넘버는 문자이기에 string 출력
+            alert(v); // 인덱스 넘버 출력
+        }
+        
+        //객체의 프로퍼티 열거 -> var v : 식별할 수 있는 이름 또는 인덱스
+        for(var v in array){
+            alert(typeof(array[v])); // 각 인덱스 내의 내용물 타입 출력
+        }
+        
+   </script>
+</head>
+
+<body>
+<h1 style="text-align: center">JAVASCRIPT PRACTICE</h1>
+
+</body></html>

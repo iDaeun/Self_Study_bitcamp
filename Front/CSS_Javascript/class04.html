@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script>
+        //window.open();
+        //var child = window.open('', 'child', 'width=600, height 300');
+       // child.document.write('<h1 onclick="self.close()">from parent window</h1>');
+
+        //function moveUrl() {
+            //alert(location.href);
+        //    location.href = 'http://www.naver.com';
+        //}
+
+        //alert(1);
+    </script>
+    <script>
+        window.onload = function() {
+            //캐스팅
+            var clock = document.getElementById('clock');
+            setInterval(function() {
+                clock.innerHTML = new Date();
+            }, 1000);
+            
+            
+            
+        //태그 생성
+        var header = document.createElement('h1');
+        //태그에 넣은 텍스트 생성
+        var text = document.createTextNode('Hello~');
+
+        //이미지 태그 생성
+        var img = document.createElement('img');
+        img.src = '../html5/images/marvel.jpg';
+        img.width = 100;
+
+        //태그에 텍스트를 삽입
+        header.appendChild(text);
+        //새로 만든 태그를 body태그에 삽입
+        //1. document.body.appendChild(header);
+        //2. document.getElementById('msg').appendChild(header);
+        //document.body.appendChild(header);
+        //document.getElementById('msg').appendChild(img);
+
+        //문서객체 캐스팅 : tag를 문서객체로 만드는 것
+        var h1 = document.getElementById('msg');
+
+        var div1 = document.querySelector('#text');
+        div1.innerHTML = 'hello';
+        div1.style.color = 'blue';
+
+        var innterhtml = h1.innerHTML;
+
+        h1.innerHTML = '<span style="color:red">새로운 엘리먼트</span>';
+
+        //alert(typeof(h1));
+        //alert(innterhtml);
+
+        var p1 = document.querySelector('.title');
+        p1.innerHTML = '제목입니다. <i>내용이 들어갑니다.</i>';
+        p1.style.backgroundColor = 'purple';
+
+        //태그 삭제 : 
+        //1. 삭제 대상 캐스팅
+        //2. 삭제대상의 부모 태그를 캐스팅
+        //3. 부모태그 객체 removeChild(삭제대상 객체);
+
+        if (confirm('삭제?')) {
+            var r = document.querySelector('#remove');
+            document.body.removeChild(r);
+        }
+        };
+        
+    </script>
+</head>
+
+<body>
+    <!--<h1 style="cursor: pointer; background-color: aqua;" onclick="moveUrl();">네이버</h1>-->
+    <h1 id="clock"></h1>
+    <h1 id="msg">h1</h1>
+    <!--
+<script>alert(2)</script>
+<h1>h2</h1>
+<script>alert(3)</script>
+<h1>h3</h1>
+<script>alert(4)</script>
+<h1>h4</h1>
+<script>alert(5)</script>
+<h1>h5</h1>
+<script>alert(6)</script>
+-->
+    <div id="text"></div>
+    <p class="title"></p>
+    <h1 id="remove">이 태그는 지워질겁니다.</h1>
+
+</body></html>

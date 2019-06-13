@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+        //$ = jQuery
+        //ready() = onload 속성처리와 같다
+        //브라우저에 HTML이 모두 표시되고 난 뒤 실행
+        $(document).ready(function() {
+            // alert('실행');
+
+            $('*').css('color', 'red');
+            $('h1').css('background-color', 'black');
+            $('#title').css('font-size', '40px');
+            $('.italic').css('font-style', 'italic');
+
+            // val() = getter
+            var str =
+                $('input[type=text]').val();
+            //  alert(str);
+            // val("blahblah") = setter
+            // input의 value값을 바꿔줌
+            $('input[type=text]').val('안뇽');
+            $('input:submit').val('수정');
+            
+            setTimeout(function(){
+                var chk = $('input:checkbox:checked').val();
+                alert(chk);
+            },5000);
+            
+            setTimeout(function(){
+                var v = $('select>option:selected').val();
+                alert(v);
+            },1000*10);
+            
+            $('h2:odd').css('color','blue');
+            $('h2:even').css('color','green');
+            $('h2:first').css('background-color', 'yellow').css('color','black');
+            $('h2:last').css('background-color','gray');
+        });
+    </script>
+
+</head>
+
+<body>
+    <h1 id="title">h1 Tag</h1>
+    <h1 class="italic">h1 Tag</h1>
+    <h2>h1 Tag</h2>
+    <input type="text" value="first">
+    <input type="submit" value="등록">
+    <br><br>
+    <!--%%%%%%% value = Y %%%%%%-->
+    개인정보 동의 <input type="checkbox" value="Y"><br>
+    성별
+    <!--name => 파라미터로 들어감-->
+    <select name="gender">
+       <option value="0">성별</option>
+        <option value="W">여자</option>
+        <option value="M">남자</option>
+    </select>
+
+    <h2>h1 Tag</h2>
+    <h2 class="italic">h1 Tag</h2>
+    <h2>h1 Tag</h2>
+    <h2>h1 Tag</h2>
+    <h1>h1 Tag</h1>
+
+
+</body></html>
+
+

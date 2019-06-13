@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>3rd JAVASCRIPT</title>
+    <style>
+        * {
+            background-color: darkgreen;
+            color: aliceblue;
+        }
+    </style>
+    <script>
+        var obj1 = {}; //객체생성
+        var arr1 = []; //배열생성
+        alert(typeof(arr1));
+
+        //속성 표현 -> 속성 이름: 속성 (자바스크립트의 데이터 6가지 종류)
+        var person = {
+            name: 'kkang',
+            eat: function(food) {
+                alert(this.name + '님이 ' + food + '를 먹습니다.');
+            } //객체의 속성의 타입이 함수인 경우 -> 메소드
+        };
+
+        //객체의 속성 참조
+        alert(person.name);
+        //객체의 메소드 호출
+        person.eat('밥');
+
+        var product = {
+            name: 'milk',
+            price: '1500원',
+            language: '한국어'
+        };
+
+        //객체 생성 이후 속성 추가 가능 (동적으로 속성 추가)
+        product.color = 'red';
+        product.hello = function() {
+            alert('안녕!');
+        };
+
+        product.hello();
+
+        var output = '';
+        for (var key in product) {
+            output += '*' + key + ':' + product[key] + '\n';
+        }
+        alert(output);
+
+        /*방법1*/
+
+        //생성자 함수 정의
+        //함수의 이름(식별자)의 첫글자 대문자로 쓴다.
+        function Student(n, k, e, m) {
+            this.name = n;
+            this.kor = k;
+            this.eng = e;
+            this.math = m;
+
+            //총점
+            this.getSum = function() {
+                return this.kor + this.eng + this.math;
+            };
+            //평균
+            this.getAverage = function() {
+                return this.getSum() / 4;
+            };
+            //출력
+            this.toString = function() {
+                return this.name + '\t' + this.getSum() + '\t' + this.getAverage() + '\n';
+            };
+        }
+        
+        //프로토타입 재정의 -> 공통으로 쓰이는 부분 저장 (공용 메소드)
+        
+        Student.prototype.getSum = function(){
+            return this.kor + this.eng + this.math;
+        };
+        Student.prototype.getAverage = function(){
+            return this.getSum() / 4;
+        };
+        Student.prototype.toString = function(){
+            return this.name + '\t' + this.getSum() + '\t' + this.getAverage() + '\n';
+        };
+
+        var students = [];
+        students.push(new Student('바뀜1',87,93,50));
+        students.push(new Student('바뀜2',87,93,50));
+        students.push(new Student('바뀜3',87,93,50));
+        students.push(new Student('바뀜4',87,93,50));
+        students.push(new Student('바뀜5',87,93,50));
+
+        var output = '이름\t 총점\t 평균\n';
+        for (var i = 0; i < students.length; i++) {
+            output += students[i].toString();
+        }
+        alert(output);
+
+        /*방법2*/
+
+        //학생 정보를 저장하는 배열 생성
+        //var students = [{},{},{}];
+        var students = [];
+        students.push({
+            name: '홍길동1',
+            kor: 87,
+            math: 90,
+            eng: 70
+        });
+        students.push({
+            name: '홍길동2',
+            kor: 86,
+            math: 95,
+            eng: 75
+        });
+        students.push({
+            name: '홍길동3',
+            kor: 87,
+            math: 94,
+            eng: 70
+        });
+        students.push({
+            name: '홍길동4',
+            kor: 84,
+            math: 92,
+            eng: 74
+        });
+        students.push({
+            name: '홍길동5',
+            kor: 82,
+            math: 91,
+            eng: 73
+        });
+        students.push({
+            name: '홍길동6',
+            kor: 83,
+            math: 99,
+            eng: 72
+        });
+        students.push({
+            name: '홍길동7',
+            kor: 84,
+            math: 97,
+            eng: 71
+        });
+        students.push({
+            name: '홍길동8',
+            kor: 81,
+            math: 96,
+            eng: 72
+        });
+        students.push({
+            name: '홍길동9',
+            kor: 82,
+            math: 95,
+            eng: 73
+        });
+
+        for (var k in students) {
+
+            //총점
+            students[k].getSum = function() {
+                return this.kor + this.math + this.eng;
+            };
+            //평균점수
+            students[k].getAverage = function() {
+                return this.getSum() / 3;
+            };
+        }
+        var output = '이름\t 총점\t 평균\n';
+        for (var i = 0; i < students.length; i++) {
+            output += students[i].name + '\t' + students[i].getSum() + '\t' + students[i].getAverage() + '\n';
+        }
+        alert(output);
+        
+        /*배열 자르기, 정렬*/
+        students.sort(function(left, right){
+            return right.getSum() - left.getSum();
+        });
+        
+        students = students.slice(0,3);
+    </script>
+</head>
+
+<body>
+
+</body></html>

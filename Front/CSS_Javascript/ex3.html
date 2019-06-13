@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+     <script>
+    function nightDayHandler(self){
+        var target = document.querySelector('body');
+        if(self.value === 'night'){
+        target.style.backgroundColor = 'black';
+        target.style.color = 'white';
+        self.value = 'day';       
+
+        var alist = document.querySelectorAll('a');
+        var i = 0;
+    while(i<alist.length){ 
+    alist[i].style.color = 'powderblue';
+    i = i+1;}                                           
+        } else {
+        target.style.backgroundColor = 'white';
+        target.style.color = 'black';
+        self.value = 'night';
+
+            var alist = document.querySelectorAll('a');
+    var i = 0;
+    while(i<alist.length){ 
+    alist[i].style.color = 'blue';
+    i = i+1;
+          }                                             
+        }
+    }
+    </script>
+</head>
+ 
+<body>
+    <h1><a href="#">WEB</a></h1>
+    <input id="night_day" type="button" value="Night" onclick="nightDayHandler(this);">
+
+    <!--토글-->
+    <!--if조건문에 따라서 조건이 바뀜-->
+    <ol>
+        <li><a>HTML</a></li>
+        <li><a>CSS</a></li>
+        <li><a>JSP</a></li>
+    </ol>
+    <h2>JSP</h2>
+    <p>이번 인수를 계기로 야놀자는 펜션 제휴점주들과의 협력 강화에 나선다. 펜션 사업주들에게 객실예약 현황을 보다 손쉽게 관리할 수 있는 예약달력과 판매채널 자동연동 서비스를 제공하고, 판매 촉진을 위한 광고 솔루션도 한층 고도화한다. 야놀자는 온라인상에서의 모든 예약관리를 야놀자가 대행해주는 올인원 총판 대행 서비스도 개발하고 있다.</p>
+
+</body></html>

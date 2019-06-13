@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>2nd JAVASCRIPT</title>
+    <style>
+        *{
+            background-color: palegreen;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+    /*함수 : 선언적함수, 익명함수*/
+    
+        //1. 익명함수 -> 변수 선언 = 함수정의;
+        var f1 = function(){
+            alert('f1() 함수 호출');
+        };
+        
+        //2.선언적 함수
+        function f2(){
+            alert('f2() 함수 호출');
+        }
+        
+        //alert(typeof(f2));
+        //alert(f1);
+        //alert(f2);
+        
+        /*리턴값 = 숫자*/
+        function add(x,y){
+            return x+y;
+        }
+        
+        /*리턴값 = 문자열*/
+        function add(x,y){
+            return 'x'+'+'+'y'+'='+(x+y);
+        }
+        
+        //alert(add(10,20));
+        
+        function sumAll(){
+            for(var i=0; i<arguments.length; i++){
+                alert(arguments[i]);
+            }
+        }
+        
+        sumAll(1,2,3);
+
+        function sumAll(){
+        
+        var sum = 0;
+            for(var i=0; i<arguments.length; i++){
+                sum += arguments[i];           
+            }
+            return sum;
+        }
+        
+        //alert(sumAll(1,2,3));  
+        
+        var arr1 = new Array();
+        var arr2 = new Array(10);
+        var arr3 = new Array(1,2,3,4,5);
+        
+        //alert(typeof(arr1)+'+'+arr1.length);
+        //alert(typeof(arr2)+'+'+arr2.length);        
+        //alert(typeof(arr3)+'+'+arr3.length);    
+        
+//        function callTenTimes(callback){
+//            for(var i=0; i<1; i++){
+//                callback();
+//            }
+//        }
+//        
+//        var callback = function(){
+//            alert('함수호출');
+//        };
+//        
+//        callTenTimes(callback);
+//        
+//        /*자주 쓰이는 방법: 익명함수!!*/        
+//        callTenTimes(function(){
+//           document.body.innerHTML = '<h1>'+number+'</h1>';
+//           number++;
+//        } , 1000);
+//        
+//        var intervalID = setInterval(function(){
+//            alert('alert');}, 1000);
+//        
+//        setTimeout(function(){
+//            clearInterval(intervalID);}, 10000);
+        var number = 0;    
+    
+        var sId = setInterval(function(){
+           document.body.innerHTML = '<h1>'+number+'</h1>';
+           number++;
+            if(number>10){
+                clearInterval(sId);
+            }
+        } , 1);
+        
+        var won = '1000원';
+        var dollor = '1.5$';
+        
+        var n1 = Number(won);
+        var n2 = Number(dollor);
+        
+        var n3 = parseInt(won);
+        var n4 = parseInt(dollor);
+        
+        var n5 = parseFloat(won);
+        var n6 = parseFloat(dollor);
+        
+        alert(n1+':'+n2);
+        alert(n3+':'+n4);
+        alert(n5+':'+n6);
+        
+        var newScript = '';
+        newScript += 'var num7=10;';
+        newScript += 'alert(num7);';
+        /*문자열 => 자바스크립트 코드로 변환*/
+        eval(newScript); // = 10
+
+        
+    </script>
+</head>
+
+<body>
+<script>
+//        var number = 0;    
+//    
+//        var sId = setInterval(function(){
+//           document.body.innerHTML = '<h1>'+number+'</h1>';
+//           number++;
+//            if(number>10){
+//                clearInterval(sId);
+//            }
+//        } , 1000);
+</script>
+</body></html>

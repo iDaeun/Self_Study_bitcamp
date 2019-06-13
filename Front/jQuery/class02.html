@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <style>
+        .title{
+            background-color: aquamarine;
+            color: darkslateblue;
+            font-size: 48px;
+            text-align: center;
+            border-radius: 5px;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var arr = [];
+            arr.push({
+                name: 'NAVER',
+                url: 'http://www.naver.com'
+            });
+            arr.push({
+                name: 'DAUM',
+                url: 'http://www.daum.net'
+            });
+            arr.push({
+                name: 'GOOGLE',
+                url: 'http://www.google.com'
+            });
+
+            var nHtml = '';
+
+            // $.each(배열원본, 처리 함수(index,item))
+            // 1. NAVER 2. DAUM 3. GOOGLE
+            $.each(arr, function(index, item) {
+                nHtml += '<a href ="' +
+                    item.url + '">' +
+                    index + '.' +
+                    item.name +
+                    ' ' +
+                    '</a>';
+            });
+            //document.body.innerHTML = nHtml;
+
+            //$('h1').css('background-color', 'yellow');
+
+            /*배열 여러가지 방법으로 다루기*/
+            $('h1').each(function(index, item) {
+                //--------------------1-------------------//
+                alert(item.innerHTML);
+                //---------------------2------------------//
+                var v = $(item).html();
+                alert(v);
+                //---------------------3------------------//
+                item.innerHTML += '[' + index + ']';
+                //--------------------4-------------------//
+                //html(',,,') = setter
+                //html() = getter
+                $(item).html($(item).html() + ' [' + index + ']');
+                //--------------------5-------------------//
+                var insertHtml = '';
+                insertHtml += '<a href="' + arr[index].url + '">';
+                insertHtml += arr[index].name;
+                insertHtml += '</a>'
+                $(item).html(insertHtml);
+                
+                if(index%2 == 1){
+                    //element컨트롤하기: 클래스 동적으로 생성해주기
+                    //item을 검사하여 title클래스로 바꿔줌
+                    $(item).addClass('title');
+                }
+            });
+
+        }); //ready()
+    </script>
+
+</head>
+
+<body>
+    <h1>h1 - 0</h1>
+    <h1>h1 - 1</h1>
+    <h1>h1 - 2</h1>
+
+</body></html>

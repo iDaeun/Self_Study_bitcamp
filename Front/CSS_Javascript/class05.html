@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <form id="loginform" action="http://www.naver.com">
+       <!--require: 유효성 검사-->
+        아이디<input type="text" id="uId" required><br>
+        이메일<input type="email"><br>
+        비번<input type="password" id="uPw"><br>
+        <!--submit -> action에 있는 사이트로 보내줌-->
+        이용약관 동의<input type="checkbox" id="chk">
+        <input type="submit" value="로그인"><br>
+    </form>
+
+    <h1 id="title">자바스크립트의 이벤트 처리</h1>
+    <input type="text" id="msg" placeholder="메시지를 입력해주세요">
+    <button id="btn">이벤트 변경</button>
+
+    <input type="button" id="btn00" value="버튼-인라인방식 이벤트처리" ondblclick="f1()">
+
+    <input type="button" id="deBtn" value="삭제" onclick="delMsg(1)">
+
+    <h2 id="text"></h2>
+
+
+    <script>
+        function delMsg(index) {
+            var result = confirm('정말 삭제?');
+
+            if (result) {
+                alert(index + '번 메시지를 삭제합니다');
+            }
+        }
+
+        //함수를 따로 정의해놓고 스크립트에서 처리함
+        function f1() {
+            var message = '안녕하세요';
+            alert(message);
+        }
+
+        window.onload = function() {
+
+            var loginform = document.getElementById('loginform');
+            
+            loginform.onsubmit = function() {
+                var uId = document.getElementById('uId');
+                var uPw = document.getElementById('uPw');
+                var chk = document.getElementById('chk');
+                
+                //alert(chk.checked);
+                if(!chk.checked){
+                    alert('이용약관에 동의해줘!!!!!!!!!!!!!!!!!!');
+                    return false;
+                }
+                
+                if(uId.value.length<1){
+                    alert('아이디를 입력해주세요!!');
+                    uId.focus();
+                    return false;
+                }
+                if(uPw.value.length<1){
+                    alert('비밀번호를 입력해주세요!!');
+                    uPw.focus();
+                    return false;
+                }
+                return true;
+            }
+
+            var cnt = 0;
+            //버튼 캐스팅(문서객체로 변환)
+            var btn = document.getElementById('btn');
+            //버튼에 이벤트 속성을 함수로 적용(이벤트 적용)
+            btn.onclick = function(e) {
+                //alert('click!');
+
+                //                var event = e || window.event;
+                //                var text = document.getElementById('text');
+                //                for (var key in event) {
+                //                    text.innerHTML += key + ':' + event[key] + '<br>';
+                //                }
+
+                //this는 이벤트가 발생한 객체를 가리킨다.(btn)
+                this.style.color = 'red';
+
+                var title = document.getElementById("title");
+                /*alert(title.innerHTML);*/
+
+                var msgString = document.getElementById('msg').value;
+
+                title.innerHTML += '<br>' +
+                    msgString +
+                    cnt++
+                    + '<input type="button" id="deBtn" value="삭제' +
+                    cnt +
+                    '"onclick="delMsg(' +
+                    cnt++
+                    + ');">';
+
+                inputMsg.focus();
+            };
+
+            var inputMsg = document.getElementById('msg');
+
+            //focus => this의 value값을 변수에 담음
+            inputMsg.onfocus = function() {
+                this.value = '';
+                //var msgstr = this.value;
+                //alert('input focus Event: this.value = '+msgstr);
+                //inputMsg.onfocus = null;
+            };
+
+        };
+
+    </script>
+</body>
+
+</html>

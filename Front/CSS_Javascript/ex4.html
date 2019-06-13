@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>hahaha</title>
+</head>
+
+<body>
+<!--
+    <h1>태그이름으로 선택</h1>
+    <a id="link" href="http://www.naver.com">link</a>
+    <button onclick="changeLink()">바꾸기!!</button>
+    <p id="text">검정색임</p>
+    <button onclick="changeRedColor()">빨간색</button>
+    <button onclick="changeBlackColor()">검정색</button>
+    <p id="text">첫번째 단락</p>
+    <ul>
+        <li class="odd">1</li>
+        <li>2</li>
+        <li class="odd">3</li>
+        <li>4</li>
+        <li class="odd">5</li>
+    </ul>
+    
+    
+-->
+<!--    <h1>appendChild()메소드</h1>-->
+    <!--<p id="text">새로운 속성 생성</p>-->
+<!--
+    <h1>remove()메소드</h1>
+    <button onclick="remove()">속성노드삭제!!!</button>
+    <p id="text" style="color:red; background-color: aqua;">이 단락의 속성 삭제될 예정</p>
+-->
+<!--
+        <div id="list">
+        <p>HTML</p>
+        <p id="item">CSS</p>
+        <p>JQuery</p>
+        </div>
+-->
+<!--    <p id="text"></p>-->
+<!--
+    <h2 id="item">JSP</h2>
+    <div id="list">
+        <p>HTML</p>
+        <p>CSS</p>
+        <p>JQuery</p>
+    </div>
+-->
+    <!--<button onclick="appendNode()">노드추가!</button>-->
+    
+<!--
+    <h1>cloneNode()</h1>
+    <button onclick="cloneElement()">노드복제</button>
+    <h2 id="item">JSP</h2>
+    <div id="list">
+        <p>HTML</p>
+        <p>CSS</p>
+    </div>
+-->
+<!--
+   <h1>프로퍼티로 등록</h1>
+   <p id="text"> 이 문자열은 HTML문서가 로드되면 다른 문자열로 바뀜</p>
+-->
+<!--
+   <h1>HTML 태그 내의 속성으로 등록</h1>
+   <p onclick="alert('문자열을 클릭함')">이 문자열을 클릭해봐!!</p>
+    
+-->
+   <h1>addEventListener()</h1>
+   <button id="btn">텍스트 보여주기!</button>
+   <p id="text"></p>
+   
+    <script>
+        var showBtn = document.getElementById('btn');
+        showBtn.addEventListener('click',showText);
+        function showText(){
+            document.getElementById('text').innerHTML = '텍스트ㅡ트트!!';
+        }
+        
+//        var btn = document.getElementById('btn');
+//        btn.addEventListener('click', clickBtn);
+//        
+//        function clickBtn(event){
+//            document.getElementById('text').innerHTML="이 이벤트의 타입은"+event.type+"이며 이벤트의 대상은" + event.target+"입니다.";
+//        }
+        
+//        window.onload = function(){
+//            var text = document.getElementById("text");
+//            text.innerHTML = "HTML문서 로드됨!"
+//        }
+//        
+//        function changeText(elememt){
+//            elememt.innerHTML = "내용바뀜";
+//        }
+//        function promptDialogBox(){
+//            var inputStr = prompt("이름입력: " ," ");
+//            
+//            if(inputStr != null){
+//                document.getElementById("text").innerHTML = "당신의 이름은 "+inputStr+"입니다.";
+//            }
+//        }
+        
+        //        function cloneElement(){
+//            var parent = document.getElementById("item");
+//            var origin = document.getElementById("list");
+//            parent.appendChild(origin.cloneNode(true));
+//        }
+        
+//        function remove(){
+//            var text = document.getElementById("text");
+//            text.removeAttribute("style");
+//        }
+        
+//        function remove(){
+//            var parent = document.getElementById("list");
+//            var removedItem = document.getElementById("item");
+//            parent.removeChild(removedItem);
+//        }
+        
+//    function appendNode(){
+//        var parent = document.getElementById("list");
+//        var newItem = document.getElementById("item");
+//        parent.appendChild(newItem);
+//    }
+        
+//        function createNode(){
+//            var criteriaNode= document.getElementById("text");
+//            var newNode = document.createElement("p");
+//            newNode.innerHTML="새로운 단락임";
+//            document.body.insertBefore(newNode, criteriaNode);
+//        }
+        
+//        function createNode(){
+//            var text = document.getElementById("text");
+//            var newAttribute = document.createAttribute("style");
+//            newAttribute.value="color:red";
+//            text.setAttributeNode(newAttribute);
+//        }
+        
+//        function createNode(){
+//            var elementNode = document.getElementById("text");
+//            var newText = document.createTextNode("새로운 텍스트에요!");
+//            elementNode.appendChild(newText);
+//        }
+        
+        
+    </script>
+    
+    <script>
+//        var selectedItem = document.getElementsByTagName("li");
+//        for (var i = 0; i < selectedItem.length; i++) {
+//            selectedItem.item(i).style.color = 'red';
+//        }
+        
+//        var selectedItem = document.getElementById("even");
+//        selectedItem.style.color="red";
+        
+//        var selectedItem = document.getElementsByClassName("i");
+//        for(var i=0; i<selectedItem.length; i++){
+//            selectedItem.item(i).style.color="red";
+//        }
+        
+//        var selectedItem = document.getElementsByName("1");
+//        for(var i=0; i<selectedItem.length; i++){
+//            selectedItem.item(i).style.color="red";
+//        }
+        
+//        var selectedItem = document.querySelectorAll("li.odd");
+//        for(var i=0; i<selectedItem.length; i++){
+//            selectedItem.item(i).style.color="red";
+//        }
+        
+//        var title = document.title;
+//        document.write(title);
+        
+//        var str = document.getElementById("text");
+//        str.innerHTML = "문장바뀜";
+        
+//        function changeLink(){
+//            var link = document.getElementById("link");
+//            link.href = "http://www.google.com";
+//            link.innerHTML = "내용변경!!";
+//        }
+            
+//        var str = document.getElementById("text");
+//        function changeRedColor(){
+//            str.style.color="red";
+//        }
+//        function changeBlackColor(){
+//            str.style.color="black";
+//        }
+    </script>
+</body></html>

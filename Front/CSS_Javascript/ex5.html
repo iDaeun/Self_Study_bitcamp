@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #main_wrap {
+            width: 600px;
+            background-color: aquamarine;
+        }
+
+        hr {
+            border: 0;
+            border-top: 2px solid black;
+            padding: 5px;
+        }
+
+        #list_table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #list_table td {
+            border: 1px solid black;
+        }
+
+        a {
+            cursor: pointer;
+        }
+
+        #form1 {
+            border: 3px solid black;
+            width: 300px;
+            background-color: darkkhaki;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="main_wrap">
+        <h1>오늘도 나는 복습 뚠뚠 복습 뚠뚠,,</h1>
+        <hr>
+        <h3># 회원등록</h3>
+        <form id="form">
+            <table>
+                <tr>
+                    <td>
+                        <input type="text" id="id" placeholder="아이디">
+                    </td>
+                    <td>
+                        <input type="password" id="pw" placeholder="비밀번호">
+                    </td>
+                    <td>
+                        <input type="text" id="name" placeholder="이름">
+                    </td>
+                    <td>
+                        <button type="submit">등록</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <hr>
+
+        <h3># 회원리스트</h3>
+        <table id="list_table">
+            <tbody id="tbody">
+                <tr id="tr">
+                    <td>순번</td>
+                    <td>아이디</td>
+                    <td>비밀번호</td>
+                    <td>이름</td>
+                    <td>관리</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <form id="form1">
+        <h3># 회원정보수정</h3>
+        <table id="edit_table">
+            <tr>
+                <td>아이디</td>
+                <td><input type="text" id="edit_id"></td>
+            </tr>
+            <tr>
+                <td>비밀번호</td>
+                <td><input type="password" id="edit_pw"></td>
+            </tr>
+            <tr>
+                <td>이름</td>
+                <td>
+                    <input type="text" id="edit_name">
+                    <input type="hidden" id="hidden">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="수정하기" id="edit_button2">
+                    <input type="button" value="취소" id="delete_button">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <script>
+        /*var members = [];*/
+        var memebes;
+
+        function Member(id, pw, name) {
+            this.id = id;
+            this.name = name;
+            this.pw = pw;
+        }
+
+        /*------------------------------- on load ----------------------------------*/
+        window.onload = function() {
+
+            if (localStorage.getItem('members') == null) {
+                members = [];
+
+                localStorage.setItem('members', JSON.stringify(members));
+            } else {
+                members =
+                    JSON.parse(localStorage.getItem('members'));
+                addlist();
+            }
+
+            var form = document.getElementById("form");
+
+            form.onsubmit = function() {
+                var id = document.getElementById("id");
+                var pw = document.getElementById("pw");
+                var name = document.getElementById("name");
+
+                if (id.value < 1) {
+                    alert('아이디 다시 입력!');
+                    return false;
+                }
+                if (pw.value < 1) {
+                    alert('비번 다시 입력!');
+                    return false;
+                }
+                if (name.value < 1) {
+                    alert('이름 다시 입력!');
+                    return false;
+                }
+
+                var newMember = new Member(id.value, pw.value, name.value);
+
+                members.push(newMember);
+                localStorage.setItem('members', JSON.stringify(members));
+                alert("저장됨");
+
+                addlist();
+
+                return false;
+            };
+
+            var form1 = document.getElementById('form1');
+
+            form1.onsubmit = function() {
+
+                var edit_id = document.getElementById('edit_id');
+                var edit_pw = document.getElementById('edit_pw');
+                var edit_name = document.getElementById('edit_name');
+
+                if (edit_id.value < 1) {
+                    alert('아이디 다시 입력');
+                    return false;
+                }
+                if (edit_pw.value < 1) {
+                    alert('비번 다시 입력');
+                    return false;
+                }
+                if (edit_name.value < 1) {
+                    alert('이름 다시 입력');
+                    return false;
+                }
+
+                members[hidden.value].id = edit_id.value;
+                members[hidden.value].pw = edit_pw.value;
+                members[hidden.value].name = edit_name.value;
+
+                localStorage.setItem('members', JSON.stringify(members));
+                addlist();
+
+                alert('수정완료');
+
+                form1.reset();
+
+                return false;
+            };
+
+        };
+        /*------------------------------- on load ----------------------------------*/
+
+        var delete_button = document.getElementById('delete_button');
+        delete_button.onclick = function() {
+            document.getElementById('form1').style.display = 'none';
+        };
+
+        function addlist() {
+            var memList = '<tr><td>순번</td><td>아이디</td><td>비밀번호</td><td>이름</td><td>관리</td></tr>';
+
+            for (var i = 0; i < members.length; i++) {
+                /*memList += members[i].newHtml(i);*/
+            memList += '<tr>';
+            memList += '<td>' + i + '</td>';
+            memList += '<td>' + members[i].id + '</td>';
+            memList += '<td>' + members[i].pw + '</td>';
+            memList += '<td>' + members[i].name + '</td>';
+            memList += '<td><a onclick="editbutton(' + i + ')">수정</a><a onclick="delbutton(' + i + ')">삭제</a></td>';
+            memList += '</tr>';
+                
+            }
+
+            document.getElementById('tbody').innerHTML = memList;
+        }
+
+/*        Member.prototype.newHtml = function(index) {
+
+            var nHtml = '';
+            nHtml += '<tr>';
+            nHtml += '<td>' + index + '</td>';
+            nHtml += '<td>' + this.id + '</td>';
+            nHtml += '<td>' + this.pw + '</td>';
+            nHtml += '<td>' + this.name + '</td>';
+            nHtml += '<td><a onclick="editbutton(' + index + ')">수정</a><a onclick="delbutton(' + index + ')">삭제</a></td>';
+            nHtml += '</tr>';
+
+            return nHtml;
+        };*/
+
+        function editbutton(index) {
+            alert(index + '번 수정');
+
+            document.getElementById('form1').style.display = 'block';
+    
+            var edit_id = document.getElementById('edit_id');
+            var edit_pw = document.getElementById('edit_pw');
+            var edit_name = document.getElementById('edit_name');
+            var hidden = document.getElementById('hidden');
+
+            edit_id.value = members[index].id;
+            edit_pw.value = members[index].pw;
+            edit_name.value = members[index].name;
+            hidden.value = index;
+        }
+
+        function delbutton(index) {
+
+            var delchk = confirm('삭제 ㄱ?');
+
+            if (delchk) {
+                alert(index + '번 삭제');
+
+                members.splice(index, 1);
+                
+                localStorage.setItem('members',JSON.stringify(members));
+                addlist();
+            }
+        }
+    </script>
+
+</body></html>
