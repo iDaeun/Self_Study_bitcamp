@@ -5,6 +5,18 @@
     <meta charset="utf-8">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+    <style>
+        div{
+            border: 4px dotted black;
+            margin: 5px;
+            background-color: aquamarine;
+        }
+        
+        .title{
+            color: red;
+        }
+    </style>
 
     <script>
         $(document).ready(function() {
@@ -19,23 +31,73 @@
                 return i % 2 == 1; //true -> 선택, false -> 미선택
             }).css('color', 'red');
 
-            $('h1').css('background-color', 'orange').filter(':even').css('color', 'white').end().filter(':odd').css('color', 'red');
+            //--------------------------------------------------------------------
+            
             // 1) 모든 h1 -> 오랜지 배경 적용
             // 2) 짝수번째 탐색/선택 -> 폰트색 하양
             // 3) 짝수번째 선택 해제 -> 모든 h1을 선택
             // 4) 홀수번째 요소들 선택 -> 폰트색 빨간색
+            /*$('h1').css('background-color', 'orange').filter(':even').css('color', 'white').end().filter(':odd').css('color', 'red');*/
 
-           // $('h1').css('background-color', 'aqua').add('h2').css('color', 'blue').css('float', 'left');
-            
+            $('h1').css('background-color', 'aqua').add('h2').css('color', 'blue');
+
             //div > input, div속성 꾸며주기
             $('input').parent().css('border', '3px solid black');
-        });
+            
+            //--------------------------------------------------------------------
 
+            var xml = '';
+            xml += '<friends>';
+            xml += ' <friend>';
+            xml += ' <name>네이버</name>';
+            xml += ' <language>JAVA</language>';
+            xml += ' </friend>';
+            xml += ' <friend>';
+            xml += ' <name>다음</name>';
+            xml += ' <language>C#</language>';
+            xml += ' </friend>';
+            xml += ' <friend>';
+            xml += ' <name>구글</name>';
+            xml += ' <language>JSP</language>';
+            xml += '</friend>';
+            xml += '</friends>';
+            
+            // 문자열 => xml객체로 만들어줌
+            var xmlDoc = $.parseXML(xml);
+
+            // xml문서를 jQuery객체로 생성 $(xmlDoc), find메소드 사용 -> 태그 찾기
+            // each -> 반복처리
+            // 데이터 축출 -> text()
+            $(xmlDoc).find('friend').each(function(index) {
+
+                var name = $(this).find('name').text();
+                var language = $(this).find('language').text();
+
+                var output = '';
+                output += '<div>';
+                output += '<h1 class="title">';
+                output += name;
+                output += '</h1>';
+                output += '<h3>';
+                output += ' ' + language;
+                output += '</h3>';
+                output += '</div>';
+                
+                document.body.innerHTML += output;
+            });
+            
+             //--------------------------------------------------------------------
+            //클래스 속성 제거            
+            setTimeout(function(){
+                $('h1').removeClass('title');
+            },5*1000);
+        });
     </script>
 
 </head>
 
 <body>
+   <div>
     <h1>h1-00</h1>
     <h1>h1-01</h1>
     <h1>h1-02</h1>
@@ -46,7 +108,8 @@
     <h1>h1-07</h1>
     <h1>h1-08</h1>
     <h1>h1-09</h1>
-    <h2>h1-00</h2>
+    <h2>h2-00</h2>
+    </div>
 
     <div>
         <input>
@@ -54,6 +117,6 @@
 
 
 
-</body>
 
-</html>
+
+</body></html>

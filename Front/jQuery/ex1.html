@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
 
@@ -7,29 +8,52 @@
 
 </head>
 
-<body>
-    
-    <h1>선택한 요소의 저장</h1>
-    <ul>
-        <li>1</li>
-        <li><span>2</span>번째 아이템</li>
-        <li>3</li>
-    </ul>
-    <button>필터링</button>
-<!--    <button>length?</button>
-    <p id="len"></p>-->
-    
-    <script>
-/*    $(function(){
-        var items = $('li');
-        $('button').on('click', function(){
-           $('#len').text('저장된 li요소의 총 개수는' + items.length); 
+<script>
+    $(document).ready(function() {
+        var arr = [];
+        arr.push({
+            name: 'NAVER',
+            url: 'http://www.naver.com'
         });
-    });*/
-        
-        
-    </script>
+        arr.push({
+            name: 'DAUM',
+            url: 'http://www.daum.net'
+        });
+        arr.push({
+            name: 'GOOGLE',
+            url: 'http://www.google.com'
+        });
 
-</body></html>
+        var nHtml = '';
 
+        // $.each(배열원본, 처리 함수(index,item))
+        // 1. NAVER 2. DAUM 3. GOOGLE
+        //            $.each(arr, function(index, item) {
+        //                nHtml += '<a href ="' +
+        //                    item.url + '">' +
+        //                    index + '.' +
+        //                    item.name +
+        //                    ' ' +
+        //                    '</a>';
+        //            });
+        $.each(arr, function(index) {
+            nHtml += '<a href ="' +
+                arr[index].url + '">' +
+                index + '.' +
+                arr[index].name +
+                ' ' +
+                '</a>';
+        });
+        document.body.innerHTML = nHtml;
 
+    });
+
+</script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>

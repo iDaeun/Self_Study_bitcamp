@@ -1,0 +1,19 @@
+<Sites>
+
+	<site>
+		<name>NAVER</name>
+		<url>http://www.naer.com</url>
+	</site>
+
+	<site>
+		<name>Daum</name>
+		<url>http://www.daum.net</url>
+	</site>
+
+	<site>
+		<name>Facebook</name>
+		<url>http://www.facebook.com</url>
+	</site>
+
+
+</Sites>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <style>
+        a {
+            background-color: hotpink;
+        }
+
+        a:hover {
+            border: 8px solid black;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function() {
+
+            // 나중에는 : 서버에서 이런 형식으로 읽어올거임
+            var xml = '';
+            xml += '<Sites>';
+            xml += '  <site>';
+            xml += '  <name>NAVER</name>';
+            xml += '  <url>http://www.naver.com</url>';
+            xml += '  </site>';
+            xml += '  <site>';
+            xml += '  <name>Daum</name>';
+            xml += '  <url>http://www.daum.net</url>';
+            xml += '  </site>';
+            xml += '  <site>';
+            xml += '  <name>Facebook</name>';
+            xml += '  <url>http://www.facebook.com</url>';
+            xml += '  </site>';
+            xml += '  </Sites>';
+
+            var xmlDoc = $.parseHTML(xml);
+
+            $(xmlDoc).find('site').each(function(index) {
+                var name = $(this).find('name').text();
+                var url = $(this).find('url').text();
+
+                var output = '';
+                output += '<div>';
+                output += '<h1>';
+                output += name;
+                output += '</h1>';
+                output += '<h2>';
+                output += '<a href="' + url + '">' + url + '</a>';
+                output += '</h2>';
+                output += '</div>';
+
+                document.body.innerHTML += output;
+            });
+
+            //--------------------------------------------------------------------
+
+            //attr의 getter()
+            var imgPath = $('img').attr('src');
+            // alert(imgPath);
+
+            //attr의 setter()
+            setTimeout(function() {
+                //1.
+                /*$('img').attr('width',function(index){
+                    return (index+1)*100;
+                });*/
+                //2.
+                /*$('img').attr({
+                src: 'stone.jpg',
+                width: function(index){
+               return (index+1)*100;
+               }
+                                });*/
+
+                //--------------------------------------------------------------------
+
+                //html의 속성
+                var chk1 = $('input:checkbox').attr('checked');
+                //자바스크립트의 속성
+                var chk2 = $('input:checkbox').prop('checked');
+                alert(chk1 + ";" + chk2);
+                
+                //check상태 true로 바꿔버리기 ! (setter)
+                $('input:checkbox').prop('checked', true);
+
+                /*<input type="checkbox" checked="checked">*/
+                // checked : chk1 = checked, chk2 = true
+                // unchecked : chk1 = checked, chk2 = false
+
+                if (!chk2) {
+                    //alert('개인정보 동의에 체크해주세요.');
+                }
+
+                //html의 속성 : 명시적인 경로 
+                //class01.html
+                var href1 = $('a').attr('href');
+                //자바스크립트의 속성 : url가져옴 //http://127.0.0.1:52971/Front/jQuery/class01.html
+                var href2 = $('a').prop('href');
+                alert(href1 + ';' + href2);
+                
+                //--------------------------------------------------------------------
+                //스타일 속성 검사
+                alert($('a').css('color'));
+                
+                // html: 태그도 같이 가져옴
+                var text1 = $('h1').html();
+                // text: 그대로 가져옴
+                var text2 = $('h1').text();
+                console.log(text1 +';'+ text2);
+                
+                //html : 태그 인식 가능
+                $('h1').html('<i>안녕</i>');
+                //text: 태그를 텍스트로 인지
+                $('h1').text('<i>안녕</i>');
+
+            }, 3000);
+
+        });
+    </script>
+
+</head>
+
+<body>
+
+    <!--    <img src="crop.jpg" width="500px">
+    <img src="crop.jpg" width="500px">
+    <img src="crop.jpg" width="500px">
+    <img src="crop.jpg" width="500px">
+    <img src="crop.jpg" width="500px">
+    -->
+    
+    <h1>
+        <p>안녕하쇼-!</p>
+        
+    </h1>
+
+    <!--<input type="checkbox" checked="checked">-->
+    개인정보 동의<input type="checkbox">
+    <br><br><br>
+    <a href="class01.html">test</a>
+
+
+    <select>
+        <option></option>
+    </select>
+</body></html>
+
+
