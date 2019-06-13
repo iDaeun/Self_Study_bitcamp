@@ -1,2 +1,6 @@
-# JAVA-_Self_Studying
-solo learn: java basics
+# Self Study
+- Java
+- HTML
+- CSS
+- Javascript
+- JQuery
