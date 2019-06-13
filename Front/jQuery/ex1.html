@@ -1,59 +1,186 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
+    
+    <style>
+        .title{
+            background-color: aqua;
+        }
+    </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-</head>
+    <script>
+        $(document).ready(function() {
 
-<script>
-    $(document).ready(function() {
-        var arr = [];
-        arr.push({
-            name: 'NAVER',
-            url: 'http://www.naver.com'
-        });
-        arr.push({
-            name: 'DAUM',
-            url: 'http://www.daum.net'
-        });
-        arr.push({
-            name: 'GOOGLE',
-            url: 'http://www.google.com'
-        });
+            $('*').css('color', 'red');
+            $('h1').css('color', 'black');
+            $('#title').css('font-size', '40px');
+            $('.italic').css('font-style', 'italic');
 
-        var nHtml = '';
+            var str =
+                $('input[type=text]').val();
+            console.log(str);
 
-        // $.each(배열원본, 처리 함수(index,item))
-        // 1. NAVER 2. DAUM 3. GOOGLE
-        //            $.each(arr, function(index, item) {
-        //                nHtml += '<a href ="' +
-        //                    item.url + '">' +
-        //                    index + '.' +
-        //                    item.name +
-        //                    ' ' +
-        //                    '</a>';
-        //            });
-        $.each(arr, function(index) {
-            nHtml += '<a href ="' +
-                arr[index].url + '">' +
-                index + '.' +
-                arr[index].name +
-                ' ' +
-                '</a>';
-        });
-        document.body.innerHTML = nHtml;
+            $('input[type=text]').val('바꿨지롱');
+            $('input:submit').val('수정함');
 
-    });
+            setTimeout(function() {
+                var chk = $('input:checkbox:checked').val();
+               // alert(chk);
+            }, 2000);
 
-</script>
+            setTimeout(function() {
+                var v = $('select>option:selected').val();
+              //  alert(v);
+            }, 3000);
+
+            $('h2:odd').css('color', 'blue');
+            $('h2:even').css('color', 'green');
+            $('h2:first').css('color', 'yellow');
+            $('h2:last').css('color', 'gray');
+            
+            var arr = [];
+            arr.push({
+                name:'naver',
+                url: 'http://www.naver.com'
+            });
+            arr.push({
+                name:'daum',
+                url: 'http://www.daum.net'
+            });
+            arr.push({
+                name:'google',
+                url: 'http://www.google.com'
+            });
+            
+            var nHtml = '';
+            $.each(arr,function(index, item){
+                nHtml += '<a href="' + item.url + '">' + index + item.name + '</a>';
+            });
+            //document.body.innerHTML = nHtml;
+            
+            $('h3').each(function(index, item){
+                //console.log(item.innerHTML);
+                
+                var v = $(item).html();
+                //console.log(v);
+                
+                //console.log(item.innerHTML += '['+index+']');
+                
+                //$(item).html($(item).html()+'['+index+']');
+                
+                var insertHtml = '';
+                insertHtml += '<a href="' + arr[index].url+'">';
+                insertHtml += arr[index].name;
+                insertHtml += '</a>'
+                $(item).html(insertHtml);
+                
+                if(index%2 == 1){
+                    $(item).addClass('title');
+                }
+            });
+            
+            $('h4:even').css('background-color', 'purple').css('color','pink');
+            $('h4').filter(':odd').css('background-color', 'yellow');
+            $('h4').filter(function(i){
+                return i%2==1;
+            }).css('color','blue');
+            
+            $('h4').css('font-style','italic').add('h5').css('color','gray');
+            $('input').parent().css('border','10px solid black');
+            
+            var xml = '';
+            xml += '<friends>';
+            xml += ' <friend>';
+            xml += ' <name>네이버</name>';
+            xml += ' <language>JAVA</language>';
+            xml += ' </friend>';
+            xml += ' <friend>';
+            xml += ' <name>다음</name>';
+            xml += ' <language>C#</language>';
+            xml += ' </friend>';
+            xml += ' <friend>';
+            xml += ' <name>구글</name>';
+            xml += ' <language>JSP</language>';
+            xml += '</friend>';
+            xml += '</friends>';
+            
+            var xmlDoc = $.parseXML(xml);
+            $(xmlDoc).find('friend').each(function(index){
+                
+                var name = $(this).find('name').text();
+                var language = $(this).find('language').text();
+                
+                var output ='';
+                output+= '<div>';
+                output+= '<h1 class="title">';
+                output+= name;
+                output+= '</h1>';
+                output+= '<h3>';
+                output+= ' '+language;
+                output+= '</h3>';
+                output+= '</div>';
+                
+               // document.body.innerHTML += output;
+                
+                //document.getElementById("p").innerHTML += output;
+                document.getElementsByTagName("p")[0].innerHTML += output;
+                
+                setTimeout(function(){
+                    $('h1').removeClass('title');
+                },3000);
+            });
+            
+        });//ready()
+    </script>
 
 </head>
 
 <body>
+    <h1 id="title">h1 tag</h1>
+    <h1 class="italic">h1 tag</h1>
+    <h2>h2 Tag</h2>
+    <input type="text" value="first">
+    <input type="submit" value="등록">
+    <hr>
+    개인정보동의 <input type="checkbox" value="Y"><br>
+    성별
+    <select name="gender">
+        <option value="0">성별</option>
+        <option value="W">여자</option>
+        <option value="M">남자</option>
+    </select>
 
-</body>
+    <h2>h1 Tag</h2>
+    <h2 class="italic">h1 Tag</h2>
+    <h2>h1 Tag</h2>
+    <h2>h1 Tag</h2>
+    <h1>h1 Tag</h1>
 
-</html>
+    <h3>h1 - 0</h3>
+    <h3>h1 - 1</h3>
+    <h3>h1 - 2</h3>
+    
+    <div>
+    <h4>h1-00</h4>
+    <h4>h1-01</h4>
+    <h4>h1-02</h4>
+    <h4>h1-03</h4>
+    <h4>h1-04</h4>
+    <h4>h1-05</h4>
+    <h4>h1-06</h4>
+    <h4>h1-07</h4>
+    <h4>h1-08</h4>
+    <h4>h1-09</h4>
+    <h5>h2-00</h5>
+    </div>
+
+    <div>
+        <input>
+    </div>
+    
+    <p>d</p>
+    
+</body></html>
