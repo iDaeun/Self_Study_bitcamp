@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            //동적 문서객체를 생성
+            //h1 태그의 문서 객체 생성
+            //appendTo('대상') -> 객체를 추가 => 화면에 구현
+            $('<h1></h1>').html('<i>안녕하세요!</i>').appendTo('body');
+            $('<p><b>하이하이</b></p>').appendTo('body');
+            
+//            //동적으로 문서객체 만들어주기 (attr() 속성으로 추가됨)
+//            $('<img>').attr({
+//                src: 'crop.jpg',
+//                width: 300
+//            }).appendTo('body');
+//            
+//            //style속성으로 style형태로 추가됨
+//            $('<img>',{
+//                src: 'stone.jpg',
+//                width: 100,
+//                height: 150
+//            }).appendTo('body');
+            
+            //-------------------------------------------------------------------------
+            
+            var h1 = '<h1>새로운 H1 Tag00</h1>';
+            var h2 = '<h1>새로운 H1 Tag01</h1>';
+            
+            $('body').append(h1, h2, h1, h1, h2);
+            
+//            var arr = [];
+//            arr.push({name: 'naver', url: 'http://www.naver.com'});
+//            arr.push({name: 'daum', url: 'http://www.daum.net'});
+//            arr.push({name: 'google', url: 'http://www.google.com'});
+//            
+//            $('div').append(function(index){
+//                
+//                var output = '';
+//                output += '<a href=""'+arr[index].url+'">'+arr[index].name+'</a>';
+//                
+//                return output;
+//            });
+            
+            //-------------------------------------------------------------------------
+            setInterval(function(){
+                 $('img').first().appendTo('div');
+            },1000);
+        });
+    </script>
+
+</head>
+
+<body>
+
+<!--
+<div></div>
+<div></div>
+<div></div>
+-->
+    
+    <div style="width: 500px; height: 200px; border: 15px solid black; overflow: hidden">
+    <img src="crop.jpg" width="500">
+    <img src="stone.jpg" width="500">
+    <img src="crop.jpg" width="500">
+    </div>
+
+</body>
+
+</html>

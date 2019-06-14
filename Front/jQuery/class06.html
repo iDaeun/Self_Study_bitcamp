@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .reverse {
+            background-color: mediumpurple;
+            color: white;
+            text-align: right;
+        }
+
+        h1 {
+            border: 3px solid black;
+        }
+
+        div {
+            border: 3px solid gray;
+            border-radius: 5px;
+            width: 150px;
+            padding: 10px;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('h1').on('click', function() {
+                //html = h1-00, h1-01, h1-02
+                //this = 이벤트가 발생한 element객체
+                //이벤트 발생한 위치 기반으로 찾아내서 처리하기 때문에 *this 중요!*
+                $(this).html(function(index, html) {
+                    //클릭한번만 가능하도록 (한번만 처리):
+                    $(this).off();
+                    return html + '+';
+                });
+            });
+
+            //object으로 받아줌
+            $('h1').on({
+                mouseenter: function() {
+                    $(this).addClass('reverse');
+                },
+                mouseleave: function() {
+                    $(this).removeClass('reverse');
+                }
+            });
+
+
+            //hover로 묶어줌:
+            $('h1').hover(function() {
+                $(this).addClass('reverse');
+            }, function() {
+                $(this).removeClass('reverse');
+            });
+
+            //***this***
+            $('div').click(function() {
+                var name = $('h1', this).text();
+                var pNum = $('p', this).text();
+
+                alert(name + ' : ' + pNum);
+            });
+
+            //----------------------------------------------------------------------
+
+            //기본 이벤트를 제거하고 이벤트 전달을 막을 때는 이벤트 객체에 있는 아래의 메서드를 사용
+            $('a').click(function(event) {
+                alert('이동하지 않습니다');
+                event.preventDefault();
+            });
+
+            //----------------------------------------------------------------------
+
+            $('h3').click(function(event) {
+                alert('h3 click!');
+                event.stopPropagation();
+            });
+            $('h4').click(function(event) {
+                alert('h3 click!');
+                event.stopPropagation();
+            });
+            $('h5').click(function(event) {
+                alert('h3 click!');
+                event.stopPropagation();
+            });
+
+            //----------------------------------------------------------------------
+
+            //새롭게 추가된 태그에 이벤트 반영X
+            $('h1').on('click', function() {
+                var length = $('h1').length;
+                var nHtml = $(this).html();
+                $('#wrap').append('<h1>' + length + '-' + nHtml + '</h1>');
+                // <h1>1-headers</h1>
+            });
+
+            //나중에 생성되는 <h1>태그에도 이벤트 반영시킴
+            $('#wrap').on('click', 'h1', function() {
+                var length = $('h1').length;
+                var nHtml = $(this).html();
+                $('#wrap').append('<h1>' + length + '-' + nHtml + '</h1>');
+            });
+
+            //----------------------------------------------------------------------
+
+            //입력되는 문자 수 빼기 (키보드에서 손 떼면 바로 계산적용됨)            
+            $('textarea').keyup(function() {
+                //textarea의 문자 -> string
+                var inputVal = $(this).val();
+                var inputLength = inputVal.length;
+                //150자까지 가능
+                var remain = 150 - inputLength;
+
+                if (remain < 1) {
+                    alert('글자 수 제한으로 더 이상 글을 쓸 수 없음!');
+                    //문자수 잘라주기 (start, 몇개)
+                    var inStr = inputVal.substr(0, 150);
+                    //150개 문자열만 넣어주기
+                    $(this).val(inStr);
+                    //남은 문자 개수 표현해주기 (150글자 넘어가면 그냥 계속 0으로 표시)
+                    $('h2').html('0');
+                    return; //끝내기
+                }
+                //남은 글자 개수 표시
+                $('h2').html(remain);
+            });
+
+            //----------------------------------------------------------------------
+
+            $('#form').submit(function(event) {
+                var userId = $('#userId').val();
+                var userPw = $('#userPw').val();
+
+                //유효성 검사
+                if (userId.length < 1) {
+                    alert('아이디 입력!!!');
+                    $('#userId').focus();
+                    return false;
+                }
+                if (userPw.length < 1) {
+                    alert('비밀번호 입력!!!');
+                    $('#userPw').focus();
+                    return false;
+                }
+
+                return true;
+            });
+            
+             //----------------------------------------------------------------------
+            
+            $('#allcheck').change(function(){
+                // = 자바스크립트: this.checked;
+                var chk = $(this).prop('checked');
+                
+                if(chk){
+                    $('#item').children().prop('checked',true);
+                } else{
+                    $('#item').children().prop('checked',false);
+                }
+            });
+            
+            $('#year').change(function(){
+                var v1 = $('#year>option:selected').val();
+                //alert(v1);
+                location.href=v1;
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h1>h1-00</h1>
+    <h1>h1-01</h1>
+    <h1>h1-02</h1>
+
+    <div>
+        <h1>Jessie</h1>
+        <p>1234</p>
+    </div>
+    <div>
+        <h1>Andy</h1>
+        <p>5678</p>
+    </div>
+
+    <a href="http://www.naver.com">NAVER</a>
+
+    <h3 style="padding: 10px;background-color: deeppink">
+        <h4 style="padding: 10px; background-color: hotpink; width: 50%">
+            <h5 style="padding: 10px; background-color: lightpink; width: 25%">클릭!!!</h5>
+        </h4>
+    </h3>
+
+    <div id="wrap">
+        <h1>headers</h1>
+    </div>
+
+    <form style="border: 3px solid purple" id="form">
+      
+      <select id="year">
+          <option value="http://www.naver.com">네이버</option>
+          <option value="http://www.daum.net">다음</option>
+          <option value="http://www.google.com">구글</option>
+      </select> <br>
+       
+       모두선택 <input type="checkbox" id="allcheck">
+       <div id="item">
+            <input type="checkbox">1<br>   
+            <input type="checkbox">2<br>   
+            <input type="checkbox">3<br>   
+            <input type="checkbox">4<br>   
+            <input type="checkbox">5<br>   
+       </div>       
+        id <input type="text" id="userId" name="userId"><br>
+        pw <input type="text" id="userPw" name="userPw"><br>
+        내용<br>
+        <textarea></textarea>
+        <h2>150</h2><br>
+        <input type="submit" value="입력">
+    </form>
+
+</body></html>
