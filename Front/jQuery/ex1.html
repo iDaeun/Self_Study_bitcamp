@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    
+
     <style>
-        .title{
+        .title {
             background-color: aqua;
         }
     </style>
@@ -28,69 +28,69 @@
 
             setTimeout(function() {
                 var chk = $('input:checkbox:checked').val();
-               // alert(chk);
+                // alert(chk);
             }, 2000);
 
             setTimeout(function() {
                 var v = $('select>option:selected').val();
-              //  alert(v);
+                //  alert(v);
             }, 3000);
 
             $('h2:odd').css('color', 'blue');
             $('h2:even').css('color', 'green');
             $('h2:first').css('color', 'yellow');
             $('h2:last').css('color', 'gray');
-            
+
             var arr = [];
             arr.push({
-                name:'naver',
+                name: 'naver',
                 url: 'http://www.naver.com'
             });
             arr.push({
-                name:'daum',
+                name: 'daum',
                 url: 'http://www.daum.net'
             });
             arr.push({
-                name:'google',
+                name: 'google',
                 url: 'http://www.google.com'
             });
-            
+
             var nHtml = '';
-            $.each(arr,function(index, item){
+            $.each(arr, function(index, item) {
                 nHtml += '<a href="' + item.url + '">' + index + item.name + '</a>';
             });
             //document.body.innerHTML = nHtml;
-            
-            $('h3').each(function(index, item){
+
+            $('h3').each(function(index, item) {
                 //console.log(item.innerHTML);
-                
+
                 var v = $(item).html();
                 //console.log(v);
-                
+
                 //console.log(item.innerHTML += '['+index+']');
-                
+
                 //$(item).html($(item).html()+'['+index+']');
-                
+
                 var insertHtml = '';
-                insertHtml += '<a href="' + arr[index].url+'">';
+                insertHtml += '<a href="' + arr[index].url + '">';
                 insertHtml += arr[index].name;
                 insertHtml += '</a>'
                 $(item).html(insertHtml);
-                
-                if(index%2 == 1){
+
+                if (index % 2 == 1) {
                     $(item).addClass('title');
                 }
             });
-            
-            $('h4:even').css('background-color', 'purple').css('color','pink');
+
+            $('h4:even').css('background-color', 'purple').css('color', 'pink');
             $('h4').filter(':odd').css('background-color', 'yellow');
-            $('h4').filter(function(i){
-                return i%2==1;
-            }).css('color','blue');
-            
-            $('h4').css('font-style','italic').add('h5').css('color','gray');
-            $('input').parent().css('border','10px solid black');
-            
+            $('h4').filter(function(i) {
+                return i % 2 == 1;
+            }).css('color', 'blue');
+
+            $('h4').css('font-style', 'italic').add('h5').css('color', 'gray');
+            $('input').parent().css('border', '10px solid black');
+
             var xml = '';
             xml += '<friends>';
             xml += ' <friend>';
@@ -106,34 +106,69 @@
             xml += ' <language>JSP</language>';
             xml += '</friend>';
             xml += '</friends>';
-            
+
             var xmlDoc = $.parseXML(xml);
-            $(xmlDoc).find('friend').each(function(index){
-                
+            $(xmlDoc).find('friend').each(function(index) {
+
                 var name = $(this).find('name').text();
                 var language = $(this).find('language').text();
-                
-                var output ='';
-                output+= '<div>';
-                output+= '<h1 class="title">';
-                output+= name;
-                output+= '</h1>';
-                output+= '<h3>';
-                output+= ' '+language;
-                output+= '</h3>';
-                output+= '</div>';
-                
-               // document.body.innerHTML += output;
-                
+
+                var output = '';
+                output += '<div>';
+                output += '<h1 class="title">';
+                output += name;
+                output += '</h1>';
+                output += '<h3>';
+                output += ' ' + language;
+                output += '</h3>';
+                output += '</div>';
+
+                // document.body.innerHTML += output;
+
                 //document.getElementById("p").innerHTML += output;
                 document.getElementsByTagName("p")[0].innerHTML += output;
-                
-                setTimeout(function(){
+
+                setTimeout(function() {
                     $('h1').removeClass('title');
-                },3000);
+                }, 3000);
             });
+
+            var imgPath = $('img').attr('src');
+            console.log(imgPath);
+
+            //$(selector).attr(object);
+            setTimeout($('img').attr({
+                src: 'stone.jpg',
+                width: function(index) {
+                    return (index + 1) * 100;
+                }
+            }), 1000);
+
+            /*function() {
+            $('img').attr('width', function(index) {
+                return (index + 1) * 100;
+            });*/
             
-        });//ready()
+            /*checked*/
+            var chk1 = $('input:checkbox').attr('checked'); //checked
+            var chk2 = $('input:checkbox').prop('checked'); //true
+            /*unchecked*/
+            var chk1 = $('input:checkbox').attr('checked'); //undefined
+            var chk2 = $('input:checkbox').prop('checked'); //false
+            
+            console.log(chk1 +'|||'+ chk2);
+            
+            //alert($('a').css('color'));
+            
+            var text1 = $('#hey').html(); //<p data-brackets-id="2251" style="color: red;">안녕하쇼-!</p>
+            var text2 = $('#hey').text(); //안녕하쇼-!
+            
+            $('#hey').html('<i>hello</i>'); //hello
+            $('#hey').text('<i>hello</i>'); //<i>hello</i>
+            
+            console.log(text1 +'|||'+ text2);
+
+        }); //ready()
     </script>
 
 </head>
@@ -145,7 +180,7 @@
     <input type="text" value="first">
     <input type="submit" value="등록">
     <hr>
-    개인정보동의 <input type="checkbox" value="Y"><br>
+    <!--개인정보동의 <input type="checkbox" value="Y"><br>-->
     성별
     <select name="gender">
         <option value="0">성별</option>
@@ -162,25 +197,46 @@
     <h3>h1 - 0</h3>
     <h3>h1 - 1</h3>
     <h3>h1 - 2</h3>
-    
+
     <div>
-    <h4>h1-00</h4>
-    <h4>h1-01</h4>
-    <h4>h1-02</h4>
-    <h4>h1-03</h4>
-    <h4>h1-04</h4>
-    <h4>h1-05</h4>
-    <h4>h1-06</h4>
-    <h4>h1-07</h4>
-    <h4>h1-08</h4>
-    <h4>h1-09</h4>
-    <h5>h2-00</h5>
+        <h4>h1-00</h4>
+        <h4>h1-01</h4>
+        <h4>h1-02</h4>
+        <h4>h1-03</h4>
+        <h4>h1-04</h4>
+        <h4>h1-05</h4>
+        <h4>h1-06</h4>
+        <h4>h1-07</h4>
+        <h4>h1-08</h4>
+        <h4>h1-09</h4>
+        <h5>h2-00</h5>
     </div>
 
     <div>
         <input>
     </div>
-    
+
     <p>d</p>
-    
+
+    <img src="crop.jpg" width="500px">
+    <img src="crop.jpg" width="500px">
+    <img src="crop.jpg" width="500px">
+    <img src="crop.jpg" width="500px">
+    <img src="crop.jpg" width="500px">
+
+    <h1 id="hey">
+        <p>안녕하쇼-!</p>
+
+    </h1>
+
+    <!--<input type="checkbox" checked="checked">-->
+    개인정보 동의<input type="checkbox">
+    <br><br><br>
+    <a href="class01.html">test</a>
+
+
+    <select>
+        <option></option>
+    </select>
+
 </body></html>
