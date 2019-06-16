@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-    <head>
+
+<head>
     <meta charset="utf-8">
 
     <style>
@@ -25,6 +26,7 @@
             width: 150px;
             padding: 10px;
         }
+
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -152,26 +154,27 @@
 
                 return true;
             });
-            
-             //----------------------------------------------------------------------
-            
-            $('#allcheck').change(function(){
+
+            //----------------------------------------------------------------------
+
+            $('#allcheck').change(function() {
                 // = 자바스크립트: this.checked;
                 var chk = $(this).prop('checked');
-                
-                if(chk){
-                    $('#item').children().prop('checked',true);
-                } else{
-                    $('#item').children().prop('checked',false);
+
+                if (chk) {
+                    $('#item').children().prop('checked', true);
+                } else {
+                    $('#item').children().prop('checked', false);
                 }
             });
-            
-            $('#year').change(function(){
+
+            $('#year').change(function() {
                 var v1 = $('#year>option:selected').val();
                 //alert(v1);
-                location.href=v1;
+                location.href = v1;
             });
         });
+
     </script>
 </head>
 
@@ -202,21 +205,21 @@
     </div>
 
     <form style="border: 3px solid purple" id="form">
-      
-      <select id="year">
-          <option value="http://www.naver.com">네이버</option>
-          <option value="http://www.daum.net">다음</option>
-          <option value="http://www.google.com">구글</option>
-      </select> <br>
-       
-       모두선택 <input type="checkbox" id="allcheck">
-       <div id="item">
-            <input type="checkbox">1<br>   
-            <input type="checkbox">2<br>   
-            <input type="checkbox">3<br>   
-            <input type="checkbox">4<br>   
-            <input type="checkbox">5<br>   
-       </div>       
+
+        <select id="year">
+            <option value="http://www.naver.com">네이버</option>
+            <option value="http://www.daum.net">다음</option>
+            <option value="http://www.google.com">구글</option>
+        </select> <br>
+
+        모두선택 <input type="checkbox" id="allcheck">
+        <div id="item">
+            <input type="checkbox">1<br>
+            <input type="checkbox">2<br>
+            <input type="checkbox">3<br>
+            <input type="checkbox">4<br>
+            <input type="checkbox">5<br>
+        </div>
         id <input type="text" id="userId" name="userId"><br>
         pw <input type="text" id="userPw" name="userPw"><br>
         내용<br>
@@ -225,4 +228,6 @@
         <input type="submit" value="입력">
     </form>
 
-</body></html>
+</body>
+
+</html>
