@@ -4,22 +4,227 @@
 <head>
     <meta charset="utf-8">
 
+    <style>
+        .reverse {
+            background-color: purple;
+            color: white;
+            text-align: right;
+        }
+    </style>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
-        $(document).ready(function(){
-            $('<h1></h1>').html('Hello World').appendTo('body');
+        $(document).ready(function() {
+            //            $('<h1></h1>').html('Hello World').appendTo('body');
             $('<p><b>할로</b></p>').appendTo('body');
-            
+
             $('<img>').attr({
                 src: 'crop.jpg',
                 width: 300
             }).appendTo('body');
-        });
+
+            $('<img>', {
+                src: 'stone.jpg',
+                width: 100,
+                height: 150
+            }).appendTo('body');
+
+            //var h1 = '<h1>새로운 h1 tag00</h1>'
+            //var h2 = '<h1>새로운 h1 tag01</h1>'
+            //$('body').append(h1, h2, h1, h1, h2);
+
+            //            var arr = [];
+            //            arr.push({
+            //                name: 'naver',
+            //                url: 'http://www.naver.com'
+            //            });
+            //            arr.push({
+            //                name: 'daum',
+            //                url: 'http://www.daum.net'
+            //            });
+            //            arr.push({
+            //                name: 'google',
+            //                url: 'http://www.google.com'
+            //            });
+            //            $('div').append(function(index) {
+            //                var output = '';
+            //                output += '<a href="' + arr[index].url + '">' + arr[index].name + '</a>';
+            //                return output;
+            //            });
+
+            //            setInterval(function() {
+            //                $('img').first().appendTo('div');
+            //            }, 1000);
+
+            //            $('h1').on('click', function() {
+            //                $(this).html(function(index, html) {
+            //                    $(this).off();
+            //                    return html + '+';
+            //                });
+            //            });
+
+            //            $('h1').on({
+            //                mouseenter: function() {
+            //                    $(this).addClass('reverse');
+            //                },
+            //                mouseleave: function() {
+            //                    $(this).removeClass('reverse');
+            //                }
+            //            });
+
+            $('h1').hover(function() {
+                    $(this).addClass('reverse');
+                },
+                function() {
+                    $(this).removeClass('reverse');
+                });
+
+            // $('div').click(function() {
+            // var name = $('h1', this).html();
+            // var pNum = $('p', this).html();
+            // alert(name + "===" + pNum);
+            // });
+
+            $('a').click(function(event) {
+                alert('이동하지 않음');
+                event.preventDefault();
+            });
+
+            $('#div1').click(function(event) {
+                alert('div1 click!');
+                event.stopPropagation();
+            });
+            $('#div2').click(function(event) {
+                alert('div2 click!');
+                event.stopPropagation();
+            });
+            $('h5').click(function(event) {
+                alert('div3 click!');
+                event.stopPropagation();
+            });
+
+            $('h1').on('click', function() {
+                var length = $('h1').length;
+                var nHtml = $(this).html();
+                $('#wrap').append('<h1>' + length + '-' + nHtml + '</h1>');
+            });
+
+            $('#wrap').on('click', 'h1', function() {
+                var length = $('h1').length;
+                var nHtml = $(this).html();
+                $('#wrap').append('<h1>' + length + '--' + nHtml + '</h1>')
+            });
+
+
+            $('textarea').keyup(function() {
+                var inputVal = $(this).val();
+                var inputLength = inputVal.length;
+                var remain = 150 - inputLength;
+
+                if (remain < 1) {
+                    alert('글자수 제한');
+                    var inStr = inputVal.substr(0, 150);
+                    $(this).val(inStr);
+                    $('h2').html('0');
+                    return;
+                }
+                $('h2').html(remain);
+            });
+
+            $('#form').submit(function(event) {
+                var userId = $('#userId').val();
+                var userPw = $('#userPw').val();
+
+                if (userId.length < 1) {
+                    alert('아이디입력해라');
+                    $('#userId').focus();
+                    return false;
+                }
+                if (userPw.length < 1) {
+                    alert('비밀번호입력해라');
+                    $('#userPw').focus();
+                    return false;
+                }
+                return true;
+            });
+
+            $('#allcheck').change(function() {
+                var chk = $(this).prop('checked');
+                if (chk) {
+                    $('#item').children().prop('checked', true);
+                } else {
+                    $('#item').children().prop('checked', false);
+                }
+            });
+
+            $('#year').change(function() {
+                var v1 = $('#year>option:selected').val();
+                location.href = v1;
+            });
+
+        }); //ready()
     </script>
 
 <body>
+    <!--    <div></div>
+    <div></div>
+    <div></div>-->
+
+    <div style="width: 500px; height: 200px; border: 15px solid black; overflow: hidden">
+        <img src="crop.jpg" width="500">
+        <img src="stone.jpg" width="500">
+        <img src="crop.jpg" width="500">
+    </div>
+
+    <!--
+    <h1>h1-00</h1>
+    <h1>h1-01</h1>
+    <h1>h1-02</h1>
+
+    <div>
+        <h1>Jessie</h1>
+        <p>1234</p>
+    </div>
+    <div>
+        <h1>Andy</h1>
+        <p>5678</p>
+    </div>
+-->
+
+    <a href="http://www.naver.com">NAVER</a>
+
+    <div id="div1" style="padding:10px;background-color: aqua; width :100%; ">
+        <div id="div2" style="padding:10px;background-color: aquamarine;width: 50%;">
+            <h5 style="padding:10px;background-color: chartreuse;width: 25%"> <a href="http://www.naver.com">클릭 !!!</a></h5>
+        </div>
+    </div>
+
+    <div id="wrap">
+        <h1>headers</h1>
+    </div>
+
+    <form style="border: 3px solid black" id="form">
+
+        <select id="year">
+            <option value="http://www.naver.com">네이버</option>
+            <option value="http://www.daum.net">다음</option>
+            <option value="http://www.google.com">구글</option>
+        </select><br>
+        모두선택 <input type="checkbox" id="allcheck">
+        <div id="item">
+            <input type="checkbox">1<br>
+            <input type="checkbox">2<br>
+            <input type="checkbox">3<br>
+            <input type="checkbox">4<br>
+            <input type="checkbox">5<br>
+        </div>
+        id <input type="text" id="userId" name="userId"><br>
+        pw <input type="text" id="userPw" name="userPw"><br>
+        내용<br>
+        <textarea></textarea>
+        <h2>150</h2><br>
+        <input type="submit" value="입력">
+    </form>
 
 </body>
-</head>
-
-</html>
+</head></html>
