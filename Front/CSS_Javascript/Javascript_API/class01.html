@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form API</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+    <script>
+        $(document).ready(function(){
+            $('#range').change(function(){
+                alert($(this).val());
+            });
+            
+            $('#color').change(function(){
+                //color값 -> <span>에 표시 [html() setter]
+                $('#color+span').html($(this).val());
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <form>
+        <!--크롬이 정보를 저장하고 있음-->
+        <!--유효성 검사 : required, novalidate-->
+        아이디<input type="text" name="keyword" autocomplete="on" required; placeholder="아이디" autofocus><br>
+        이메일<input type="email" name="email" novalidate><br>
+        나이<input type="number" name="age"><br>
+        URL<input type="url" name="url"><br>
+        Tel<input type="tel" name="tel"><br>
+        Range<input type="range" name="range" id="range" style="width: 100%"><br>
+        Date <input type="date" name="date" id="date"><br>
+        Week <input type="week" name="week" id="week"><br>
+        <!--정규식 넣어 규칙 만들기 : pattern으로 범위 주기"[범위]{자릿수}"-->
+        Pattern : 우편번호 <input type="text" name="zip" id="zip" pattern="[0-9]{5}"><br>
+        color <input type="color" name="color" id="color"><span></span><br>
+        <input type="submit" value="제출">
+    </form>
+
+</body></html>
