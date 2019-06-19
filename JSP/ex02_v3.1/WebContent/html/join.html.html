@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+
+	<form method="get" action="../parameter.do">
+		<input name="name" placeholder="이름을 입력하세요"/><br>
+		취미 : <input type="checkbox" name="hobby" value="독서"/>독서
+		<input type="checkbox" name="hobby" value="영화"/>영화
+		<input type="checkbox" name="hobby" value="운동"/>운동<br>
+		<input type="submit" value="get전송"/>
+	</form>
+	
+	<hr>
+	
+	<form method="post" action="../parameter.do">
+		<input name="name" placeholder="이름을 입력하세요"/><br>
+		취미 : <input type="checkbox" name="hobby" value="독서"/>독서
+		<input type="checkbox" name="hobby" value="영화"/>영화
+		<input type="checkbox" name="hobby" value="운동"/>운동<br>
+		<input type="submit" value="post전송"/>
+	</form>
+
+</body>
+</html>
