@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>test01_servlet_v2.5</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!--중간 일꾼에게 받을 내용의 정보를 공개하기! 요청처리할 객체에대한 정보-->
+  <servlet>
+  	<description>개발자가 이 서블릿에 대한 설명을 적는 곳</description>
+  	<display-name>개발자가 이 서블릿의 별명을 적어놓는곳</display-name>
+  	<!-- 이름 -->
+  	<servlet-name>HelloServlet</servlet-name>
+  	<!-- 전체경로 -->
+  	<servlet-class>servlet.HelloServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <!--이 두개 매우 중요! 요청정보&요청처리할객체-->
+  <servlet-name>HelloServlet</servlet-name>
+  <url-pattern>/hello</url-pattern>
+  </servlet-mapping>
+</web-app>
