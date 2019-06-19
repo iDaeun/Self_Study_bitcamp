@@ -14,7 +14,7 @@
 	<div id="main_wrap">
 
 		<!-- header시작 -->
-		<%@ include file="/web/folder/header.jsp"%>
+		<%@ include file="folder/header.jsp"%>
 		<!-- header끝-->
 
 		<!-- nav시작 -->
