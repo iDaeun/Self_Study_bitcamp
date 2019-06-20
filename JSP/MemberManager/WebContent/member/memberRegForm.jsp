@@ -10,11 +10,12 @@
 <!-- css파일 연결해주기 -->
 <link href="/mm/css/default.css" rel="stylesheet" type="text/css">
 <!-- 구글폰트 -->
-<link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Merienda+One&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
-<body>
 
+<body>
+<div id="main_wrap">
 <!-- 해더 시작 , 상대경로 -->
 <%@include file="../frame/header.jsp" %>
 <!-- 해더 시작 -->
@@ -57,7 +58,7 @@
 
 <!-- footer 시작 -->
 <%@include file="../frame/footer.jsp" %>
-<!-- footer 시작 -->
-
+<!-- footer 끝-->
+</div>
 </body>
 </html>
