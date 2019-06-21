@@ -55,7 +55,8 @@
 	}
 	
 	#footer{
-		border: 5px solid rgb(237,0,140);
+		border: 0;
+		border-top: 5px solid rgb(237,0,140);
 		padding: 15px;
 	}
 	
