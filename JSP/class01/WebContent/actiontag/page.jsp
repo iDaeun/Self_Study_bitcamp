@@ -1,3 +1,4 @@
+<%@page import="member.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -11,6 +12,10 @@
     String pType = request.getParameter("type");
     String no = request.getParameter("no");
     String uname = request.getParameter("uname");
+    
+    //속성 안에 객체를 담고 보내주기!!
+    Member member = new Member(uname, pType, no);
+    request.setAttribute("result", member);
     
     /* 경로:http://localhost:9090/web/actiontag/page.jsp -> nullPointerException 방지 */
     if(pType == null){
@@ -26,18 +31,13 @@
     }
     
     if(pType.equals("a")){ %> <!-- 태그 -> java가 아니기 때문에 나눠줌 -->
-    	<jsp:forward page="page_a.jsp">
-    		<jsp:param value="<%= no%>" name="no"/>
-    		<jsp:param value="<%= uname%>" name="uname"/>
-    	</jsp:forward>
+    	<jsp:forward page="page_a.jsp"/>
+    	<!-- param을 통해서 보내줄 필요 없음! 위에서 setAttribute을 통해서 속성으로 객체를 담아줬기 때문~ -->
+
     <% } else if(pType.equals("b")){ %>
-    	<jsp:forward page="page_b.jsp">
-    	    <jsp:param value="<%= no%>" name="no"/>
-    		<jsp:param value="<%= uname%>" name="uname"/>
-    	</jsp:forward>
+    	<jsp:forward page="page_b.jsp"/>
+
     <% } else{ %>
-    	<jsp:forward page="page_c.jsp">
-    	    <jsp:param value="<%= no%>" name="no"/>
-    		<jsp:param value="<%= uname%>" name="uname"/>
-    	</jsp:forward>
+    	<jsp:forward page="page_c.jsp"/>
+
     <% } %>

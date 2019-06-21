@@ -1,3 +1,4 @@
+<%@page import="member.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,9 +12,18 @@
 </head>
 <body>
 	<h1>Page_a.jsp에서 만들어진 응답결과</h1>
-	<br>
+<%-- 	<br>
 	no 파라미터의 값: <%= request.getParameter("no") %>
 	<br>
-	uname 파라미터의 값: <%= request.getParameter("uname") %>
+	uname 파라미터의 값: <%= request.getParameter("uname") %> --%>
+	
+	<%
+		/* getAttribute return값 = object -> Member으로 형변환 */
+		Member member = (Member)request.getAttribute("result");
+	%>
+	<%= member %>
+	아이디: <%= member.getId() %><br>
+	이름: <%= member.getName() %><br>
+	번호: <%= member.getpNum() %><br>
 </body>
 </html>

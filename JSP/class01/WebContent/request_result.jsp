@@ -47,7 +47,8 @@
 			<td>이름</td>
 			<td>
 				<%String name = request.getParameter("uName");
-					if(name == null){
+				/* html에서 넘어오는 것은 공백문자가 넘어온다!!! */
+					if(name == null || name.length()<1 ){
 						name = ">>이름 미입력";
 					}%> 
 				<%=name %>
@@ -66,6 +67,7 @@
 		<tr>
 			<td>관심분야</td>
 			<td>
+				<!-- String -> int로 가져오기 위해서는 Integer.parse -->
 				<%
 				String[] hobby = request.getParameterValues("hobby");
 				if(hobby != null && hobby.length>0){
