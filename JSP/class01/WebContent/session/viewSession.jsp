@@ -18,5 +18,6 @@
 	id : <%= session.getAttribute("id") %> <br>
 	isLogin : <%= session.getAttribute("isLogin") %> <br>
 	age : <%= session.getAttribute("age") %> <br>
+	<%= session.getAttribute("user") %>
 </body>
 </html>

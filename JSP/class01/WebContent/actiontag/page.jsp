@@ -15,7 +15,10 @@
     
     //속성 안에 객체를 담고 보내주기!!
     Member member = new Member(uname, pType, no);
+    //페이지,request보여주기위해
     request.setAttribute("result", member);
+    //session보여주기위해
+    session.setAttribute("user", member);
     
     /* 경로:http://localhost:9090/web/actiontag/page.jsp -> nullPointerException 방지 */
     if(pType == null){
@@ -26,7 +29,7 @@
     	no = "0";
     }
     
-    if(uname == null){
+    if(uname == null || uname.length()<1){
     	uname = "noname";
     }
     

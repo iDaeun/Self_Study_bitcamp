@@ -25,5 +25,7 @@
 	아이디: <%= member.getId() %><br>
 	이름: <%= member.getName() %><br>
 	번호: <%= member.getpNum() %><br>
+	
+	<a href="../session/viewSession.jsp">sessionView</a>
 </body>
 </html>
