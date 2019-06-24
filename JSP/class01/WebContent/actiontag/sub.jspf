@@ -1,0 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!-- JSPF 파일 :  -->
+<%
+	/* 공통적으로 써야하는 변수 (ex.경로)*/
+	String dataFolder = "c:\\data";
+%>
