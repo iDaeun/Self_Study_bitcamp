@@ -16,9 +16,11 @@
 	type = <%=request.getParameter("type") %> <br>
 	name = <%=request.getParameter("name") %> <br>
 	code = <%= request.getAttribute("code") %> <br>
+	<br><br>
 	<!-- forward -->
-	request.setAttribute() -> name1 = <%= request.getAttribute("code") %> <br>
-	request.setAttribute() -> type1 = <%= request.getAttribute("code") %> <br>
+	request.setAttribute() -> name1 = <%= request.getAttribute("name") %> <br>
+	request.setAttribute() -> type1 = <%= request.getAttribute("type") %> <br>
+	request.setAttribute() -> code = <%= request.getAttribute("code") %> 
 </h1>
 
 </body>
