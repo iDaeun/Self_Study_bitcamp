@@ -51,10 +51,23 @@
 	<div id="wrap">
 		<div id="menu">
 			
+			<!-- form action -> 현재페이지로 줘서 -> 사용자 입력값으로 페이지 이동할 수 있도록!!!! -->
+<!-- 		<form action="layout.jsp" method="get">
+			<input type="text" name="ctgy">
+			<input type="submit">
+			</form> -->
+			
 			<!-- 파라미터로 전달하기: -->
+<%-- 			<jsp:include page="menu.jsp">
+				<jsp:param value='<%=request.getParameter("ctgy")%>' name="ctgy"/>
+			</jsp:include> --%>
+			
+			<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+			<!-- 위에 설정한 내용을 참고해서 -> 파라미터로 전달하기: -->
 			<jsp:include page="menu.jsp">
 				<jsp:param value='<%=ctgy%>' name="ctgy"/>
 			</jsp:include>
+			
 		</div>
 		<div id="aside"></div>
 	</div>
