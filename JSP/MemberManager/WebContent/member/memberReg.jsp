@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 자바빈 사용 -->
+<jsp:useBean id="member" class="member.memberInfo"/>
+<jsp:setProperty property="*" name="member"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,13 +19,13 @@
 
 <body>
 <div id="main_wrap">
-<%	
+<%-- <%	
 	request.setCharacterEncoding("utf-8");
 	
 	String userId = request.getParameter("uId");
 	String userPw = request.getParameter("uPw");
 	String userName = request.getParameter("uName");
-%>
+%> --%>
 
 <!-- 해더 시작 , 상대경로 -->
 <%@include file="../frame/header.jsp" %>
@@ -34,7 +37,7 @@
 
 <!-- contents 시작 -->
 <div id="contents">
-	<h3>회원가입요청 처리 페이지</h3>
+<%-- 	<h3>회원가입요청 처리 페이지</h3>
 	<hr>
 	<table>
 		<tr>
@@ -57,7 +60,34 @@
 			<td></td>
 			<td></td>
 		</tr>
-	</table>
+	</table> --%>
+
+<!-- 자바빈 -->
+	<h3>회원가입요청 처리 페이지</h3>
+	<hr>
+	<table>
+		<tr>
+			<td>아이디(이메일)</td>
+			<td><input type="email" name="uId" value="<%= member.getId()%>"></td>
+		</tr>
+		<tr>
+			<td>비밀번호</td>
+			<td><input type="password" name="uPw" value="<%= member.getPw()%>"></td>
+		</tr>
+		<tr>
+			<td>이름</td>
+			<td><input type="text" name="uName" value="<%= member.getName()%>"></td>
+		</tr>
+		<tr>
+			<td>사진</td>
+			<td><input type="file" name="uPhoto" required></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>	
+
 </div>
 <!-- contents 시작 -->
 	

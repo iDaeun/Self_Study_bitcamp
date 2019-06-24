@@ -32,15 +32,15 @@
 	<table>
 		<tr>
 			<td>아이디(이메일)</td>
-			<td><input type="email" name="uId" required></td>
+			<td><input type="email" name="id" required></td>
 		</tr>
 		<tr>
 			<td>비밀번호</td>
-			<td><input type="password" name="uPw" required></td>
+			<td><input type="password" name="pw" required></td>
 		</tr>
 		<tr>
 			<td>이름</td>
-			<td><input type="text" name="uName" required></td>
+			<td><input type="text" name="name" required></td>
 		</tr>
 		<tr>
 			<td>사진</td>
