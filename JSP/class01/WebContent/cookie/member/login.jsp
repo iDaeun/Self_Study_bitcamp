@@ -5,6 +5,15 @@
 	String id = request.getParameter("id");
 	String pw = request.getParameter("pw");
 	
+	//아이디 저장 여부 체크박스 변수
+	String save;
+	//null인지 구분
+	if(request.getParameter("save") != null){
+	save = request.getParameter("save");
+	} else {
+	save = "null";
+	}
+	
 	boolean chk = false;
 	
 	// 아이디 입력값 = 비밀번호 입력값 
@@ -17,6 +26,14 @@
 	
 		chk = true;
 	}
+	
+	//체크박스에 체크 되었다면 -> 아이디 저장 (유효기간:1일)
+	if(save.equals("on")){
+		Cookie c3 = CookieBox.createCookie(id, id, 60*60*24);
+		response.addCookie(c3);
+		
+		out.println("<h2>아이디를 성공적으로 저장하였습니다:-)</h2>");	
+	} 
 %>
 <!DOCTYPE html>
 <html>
@@ -26,37 +43,21 @@
 <style>
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+</script>
 </head>
 <body>
-
-	<script>
-		$(document).ready(function(){
-			
-			//"아이디 저장하기" -> 체크 눌렀는지 확인
-			if($('#save').attr("checked","checked")){
-				
-				// 체크되어있는 상태라면 쿠키로 저장 (유효기간:1일)
-				<%
-				Cookie c3 = CookieBox.createCookie(id, id, 60*60*24);
-				response.addCookie(c3);
-				%>
-				
-				alert("아이디 저장함");
-				
-			} 
-		});
-	</script>
-
 	<%
 	 if(chk){
 		 //로그인 했을때
-		 out.println("<h1>로그인 되었습니다</h1>");
+		 out.println("<h1>로그인 완료!</h1>");
 		 out.println("<a href='loginCheck.jsp'>loginCheck</a>");
 	 } else {
 		 //로그인 하지 않았을때
 		 out.println("<script> alert('로그인실패'); history.go(-1); </script>");
 	 }
 	%>
+	
 
 </body>
 </html>

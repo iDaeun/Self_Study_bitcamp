@@ -14,10 +14,10 @@
 	<h1>로 그 인</h1>
 	
 	<hr>
-	<form action="login.jsp" method="post">
+	<form action="login.jsp" method="get">
 	
 	아이디 <input type="text" name="id"> <br>
-	아이디 저장하기  <input type="checkbox" name="save"> <hr>
+	아이디 저장하기  <input type="checkbox" id="save" name="save"> <hr>
 	비밀번호 <input type="password" name="pw"> <br>
 
 	<input type="submit" value="LOGIN"> <br>
