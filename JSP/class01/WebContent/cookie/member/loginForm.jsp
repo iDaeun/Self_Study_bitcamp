@@ -18,8 +18,7 @@
 	
 	아이디 <input type="text" name="id"> <br>
 	아이디 저장하기  <input type="checkbox" name="save"> <hr>
-	비밀번호 <input type="password" name=
-	"pw"> <br>
+	비밀번호 <input type="password" name="pw"> <br>
 
 	<input type="submit" value="LOGIN"> <br>
 	
