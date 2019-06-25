@@ -33,20 +33,17 @@
 		$(document).ready(function(){
 			
 			//"아이디 저장하기" -> 체크 눌렀는지 확인
-			if($('#save').prop("checked")){
+			if($('#save').attr("checked","checked")){
+				
 				// 체크되어있는 상태라면 쿠키로 저장 (유효기간:1일)
 				<%
 				Cookie c3 = CookieBox.createCookie(id, id, 60*60*24);
 				response.addCookie(c3);
 				%>
 				
-				alert('아이디 저장함');
-			} else {
-				<%
-				Cookie c4 = CookieBox.createCookie(id, id, -1);
-				response.addCookie(c4);
-				%>
-			}
+				alert("아이디 저장함");
+				
+			} 
 		});
 	</script>
 
