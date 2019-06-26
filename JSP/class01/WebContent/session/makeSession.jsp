@@ -17,6 +17,7 @@
 		session.setAttribute("id", "tiger");
 		session.setAttribute("isLogin", true);
 		session.setAttribute("age", 20);
+		// 위 정보들 -> class를 만들어 객체를 생성하여 -> 특정 객체를 저장하는 형식으로 만들 수 있다!
 	%>
 	<h3>session에 데이터를 저장했습니다.</h3>
 	

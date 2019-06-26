@@ -14,6 +14,7 @@
 <%
 	/* 현재 session 소멸시킴 */
 	request.getSession(false).invalidate();
+	// = session.invalidate();
 %>
 <h1>로그아웃 되었습니다.</h1>
 	
