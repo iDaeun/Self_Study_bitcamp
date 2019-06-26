@@ -21,9 +21,9 @@
 		chk = true;
 	}
 	
-	//체크박스에 체크 되었다면 -> 아이디 저장 (유효기간:1일)
+	//체크박스에 체크 되었다면 -> 아이디 cookie에 저장 (유효기간:1일)
 	if(save != null && save.equals("on")){
-		Cookie c3 = CookieBox.createCookie(id, id, 60*60*24);
+		Cookie c3 = CookieBox.createCookie("savedId", id, 60*60*24);
 		response.addCookie(c3);
 		
 		out.println("<h2>아이디를 성공적으로 저장하였습니다:-)</h2>");	
@@ -51,7 +51,5 @@
 		 out.println("<script> alert('로그인실패'); history.go(-1); </script>");
 	 }
 	%>
-	
-
 </body>
 </html>
