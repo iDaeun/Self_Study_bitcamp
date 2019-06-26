@@ -6,13 +6,7 @@
 	String pw = request.getParameter("pw");
 	
 	//아이디 저장 여부 체크박스 변수
-	String save;
-	//null인지 구분
-	if(request.getParameter("save") != null){
-	save = request.getParameter("save");
-	} else {
-	save = "null";
-	}
+	String save = request.getParameter("save");
 	
 	boolean chk = false;
 	
@@ -28,7 +22,7 @@
 	}
 	
 	//체크박스에 체크 되었다면 -> 아이디 저장 (유효기간:1일)
-	if(save.equals("on")){
+	if(save != null && save.equals("on")){
 		Cookie c3 = CookieBox.createCookie(id, id, 60*60*24);
 		response.addCookie(c3);
 		
