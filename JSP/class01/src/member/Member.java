@@ -34,6 +34,10 @@ public class Member {
 	public void setpNum(String pNum) {
 		this.pNum = pNum;
 	}
+	
+	public int getNum() {
+		return 1;
+	}
 
 	@Override
 	public String toString() {
