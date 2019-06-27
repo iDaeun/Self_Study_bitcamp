@@ -84,7 +84,9 @@
     	</c:otherwise>
     </c:choose> --%>
     
-<%--     <%
+<%--     <% 0
+
+
     
     /* 경로:http://localhost:9090/web/actiontag/page.jsp -> nullPointerException 방지 */
     if(pType == null){
