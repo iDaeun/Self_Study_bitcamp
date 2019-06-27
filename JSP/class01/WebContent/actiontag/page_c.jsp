@@ -16,14 +16,20 @@
 	no 파라미터의 값: <%= request.getParameter("no") %>
 	<br>
 	uname 파라미터의 값: <%= request.getParameter("uname") %> --%>
+	
+	<!-- ==== JSTL사용 ==== -->
+	pageType = ${pageType} <br>
+	pNo = ${pNo} <br>
+	userName = ${userName}<br>
+	<hr>	
 		
-	<%
+<%-- 	<%
 		/* getAttribute return값 = object -> Member으로 형변환 */
 		Member member = (Member)request.getAttribute("result");
 	%>
 	<%= member %>
 	아이디: <%= member.getId() %><br>
 	이름: <%= member.getName() %><br>
-	번호: <%= member.getpNum() %><br>
+	번호: <%= member.getpNum() %><br> --%>
 </body>
 </html>
