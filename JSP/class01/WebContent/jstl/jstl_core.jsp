@@ -23,6 +23,7 @@
 	    list.add(new Member("강다은0","kkang-10","000-000-0000"));
 	    	
     	application.setAttribute("members", list);
+    	
     %>
     
 <!DOCTYPE html>
@@ -40,6 +41,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
+
+	<c:url value="/member/list.jsp" var="uri_mList">
+		<c:param name="pno">5</c:param>
+	</c:url>
+
+	<h3>단순출력: ${uri_mList}</h3>
+	<h3>링크연동1:<a href="${uri_mList}">회원리스트1</a></h3>
+	<h3>링크연동2:<a href='<c:url value="/member/list.jsp" />'>회원리스트2</a></h3>
 
 	<c:set value="test" var="msg"/>
 	msg: ${msg} <br>
