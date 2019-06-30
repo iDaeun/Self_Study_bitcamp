@@ -71,6 +71,9 @@
 	</c:out>
 	<hr>
 	
+		<c:out value="${param.code}" default="nono!"/>
+	<hr>
+	
 	<h1>회원 리스트</h1>
 	<table>
 		<tr>

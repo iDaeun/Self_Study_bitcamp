@@ -21,10 +21,12 @@
 	<!-- EL표현식 -->
 	<!-- 쿠키에 key값을 참조하여 cookie객체를 가져온다음 -> getValue() -->
 	<h3>EL을 이용한 Cookie 참조</h3>
-	<h4>name : ${cookie.name.value }</h4>
-	<h4>id : ${cookie.id.value }</h4>
-	<h4>email : ${cookie.email.value }</h4>
-	<h4>code2 : ${cookie.code2.value }</h4>
+	<h4>name : ${cookie.name.value}</h4>
+	<!-- cookie key값 "id" -> cookie객체 -->
+	<!-- 객체의 name : 객체의 value -->
+	<h4>${cookie.id.name} : ${cookie.id.value}</h4>
+	<h4>email : ${cookie.email.value}</h4>
+	<h4>code2 : ${cookie.code2.value}</h4>
 	
 	<hr>
 
