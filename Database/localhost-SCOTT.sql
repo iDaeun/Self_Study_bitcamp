@@ -56,3 +56,59 @@ select ename || ' is a ' || job as str from emp;
 select deptno from emp;
 select distinct deptno from emp;
 
+-- select의 조건절 : select 칼럼명.. from 테이블명 where 조건절(true/false);
+-- where의 조건은 행을 찾는다
+select * 
+from dept
+where deptno = 10
+;
+select empno, ename, job
+from emp
+where deptno = 10
+;
+-- 문자데이터 조회
+-- 문자 비교인 경우 작은 따옴표로 표현, 대소문자 구별!
+select *
+from emp
+where ename='SCOTT'
+;
+-- 날짜 검색 : 날짜 데이터를 ''로 묶어준다
+select ename, hiredate
+from EMP
+where hiredate = '80/12/17'
+;
+select ename, hiredate
+from EMP
+where hiredate > '80/12/17'
+;
+
+-- 논리 연산 : AND, OR, NOT
+SELECT *
+FROM EMP
+WHERE DEPTNO = 10 AND JOB ='MANAGER';
+
+SELECT *
+FROM EMP
+WHERE deptno = 10 OR DEPTNO = 20;
+
+SELECT *
+FROM EMP
+WHERE NOT deptno = 30;
+
+-- WHERE 칼럼명 BETWEEN A AND B : A이상 B이하의 범위 연산
+SELECT *
+FROM EMP
+WHERE SAL BETWEEN 2000 AND 3000; -- = WHERE SAL >= 2000 AND SAL <= 3000
+-- 초과, 미만으로 쓰려면 아래와 같이 써야함 :
+SELECT *
+FROM EMP
+WHERE SAL > 2000 AND SAL < 3000;
+-- 날짜 연산도 가능하다
+select *
+from emp
+where hiredate between '1987/01/01' and '1987/12/31';
+
+-- IN : OR의 조건이 많을때 사용
+select *
+from emp
+where comm in(300,500,1400); -- where comm=300 or comm=500 or comm=1400
