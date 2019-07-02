@@ -52,6 +52,7 @@
 
 	<c:set value="test" var="msg"/>
 	msg: ${msg} <br>
+	msg: <%=pageContext.getAttribute("msg") %><br>
 	
 	<c:if test="${msg eq 'test'}">
 		msg의 문자열은 test와 같습니다.	
