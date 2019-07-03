@@ -6,9 +6,9 @@ DESC dept;
 -- 데이터를 검색하는 명령
 -- select {칼럼 이름 , ...} from 테이블 이름
 -- 1) 행단위로 찾고 2) 칼럼으로 찾아냄
-select * from dept;
-select deptno from dept; -- 모든 부서의 부서번호 리스트
-select dname from dept; -- 모든 부서의 이름 리스트
+select * from dept; --  dept부서의 모든 리스트
+select deptno from dept; -- dept부서의 부서번호 리스트
+select dname from dept; -- dept부서의 이름 리스트
 select dname, loc, deptno from dept; -- *으로 불러온것과 칼럼의 순서들이 다름
 
 -- emp 테이블 확인
@@ -112,3 +112,5 @@ where hiredate between '1987/01/01' and '1987/12/31';
 select *
 from emp
 where comm in(300,500,1400); -- where comm=300 or comm=500 or comm=1400
+
+
