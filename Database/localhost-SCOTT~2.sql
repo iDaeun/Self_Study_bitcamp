@@ -80,3 +80,90 @@ select *
 from emp
 order by sal desc, ename asc; -- 급여가 같을 경우 ename이 빠른 사람 먼저 표시
 
+---------------------------------------------------------------------------------
+-- 주요함수
+
+-- TO_CHAR
+-- DATE => STR : TO_CHAR(날짜타입, '패턴')
+select sysdate as 날짜, TO_CHAR(sysdate, 'YYYY-MM-DD') as 변환날짜
+from dual;
+
+select hiredate, TO_CHAR(hiredate, 'YYYY.MM.DD. DAY') as "date"
+from emp;
+
+select hiredate, TO_CHAR(hiredate, 'YYYY.MM.DD. DY') as "date"
+from emp;
+
+select hiredate, TO_CHAR(hiredate, 'YYYY.MM.DD. HH24:MI:SS AM') as "date"
+from emp;
+
+-- NUMBER => STR : TO_CHAR(숫자타입, '패턴')
+select TO_CHAR(10000,'L000,000.00')
+from dual
+;
+
+select TO_CHAR(10000,'L999,999')
+from dual
+;
+
+select sal, TO_CHAR(sal, 'L999,999')
+from emp
+;
+
+select sal, TO_CHAR(sal, 'L999,999') as "월급여", TO_CHAR(sal*12+nvl(comm,0), 'L999,999') as "연봉"
+from emp
+;
+
+-- STR => DATE : TO_DATE(원본, 'YYYYMMDD')
+select ename, hiredate, TO_DATE(19810220, 'YYYYMMDD')
+from emp
+where hiredate = TO_DATE(19810220, 'YYYYMMDD')
+;
+
+select ename, hiredate, TO_DATE(19810220, 'YYYYMMDD')
+from emp
+where hiredate = TO_DATE('1981-02-20', 'YYYY-MM-DD') -- String값으로 날짜 데이터 받고, 처리할때 함수 이용하여 맞춰줌 
+;
+
+select ename, hiredate, TO_DATE(19810220, 'YYYYMMDD')
+from emp
+where hiredate = TO_DATE('1981.02.20', 'YYYY.MM.DD')
+;
+
+select sysdate, TO_DATE('1994/11/25', 'YYYY/MM/DD'), sysdate - TO_DATE('1994/11/25', 'YYYY/MM/DD') as "며칠이 지났는지",
+    trunc(sysdate - TO_DATE('1994/11/25', 'YYYY/MM/DD'))
+from dual
+;
+
+-- DECODE 함수 : switch case 형식과 유사함
+select ename, deptno,
+    DECODE(deptno,
+                10 , 'ACCOUNTING',
+                20 , 'RESEARCH',
+                30 , 'SALES',
+                40 , 'OPERATION'
+    ) as "decode결과값" -- 부서 번호에 따라 나누기
+from emp
+;
+
+select ename, job, sal,
+    DECODE(job,
+            'ANALYST', sal*1.05,
+            'SALESMAN', sal*1.10,
+            'MANAGER', sal*1.15,
+            'CLERK', sal*1.20
+    ) as "UPSAL" -- decode함수가 적용되지 않는 부분은 => null값으로 나옴
+from emp
+;
+
+-- CASE 함수 : if else문과 유사함
+select ename, deptno,
+    CASE 
+         when deptno = 10 then 'ACCOUNTING'
+         when deptno = 20 then 'RESEARCH'
+         when deptno = 30 then 'SALES'
+         when deptno = 40 then 'OPERATIONS'
+    END 
+    as DNAME
+from emp
+;

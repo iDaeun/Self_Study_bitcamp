@@ -11,7 +11,7 @@ select *
 from dept;
 
 --1. 덧셈연산자를 이용하여 모든 사원에 대해서 $300의 급여 인상을 계산한 후 사원의 이름, 급여, 인상된 급여를 출력하시오.
-select ename, sal, sal+300 as 인상된급여 
+select ename as "사원의 이름", sal as "급여", sal+300 as "인상된급여" 
 from emp
 ;
 
