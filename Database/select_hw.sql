@@ -106,4 +106,55 @@ where (job = 'CLERK' or job = 'SALESMAN') and not (sal in(1600, 950, 1300))
 --15. 커미션이 $500 이상인 사원의 이름과 급여 및 커미션을 출력하시오.
 select ename, sal, comm
 from emp
-where (comm is not null) and comm >= 500;
+where (comm is not null) and comm >= 500
+;
+
+-------------------------------------------------------------------------
+
+--16. SUBSTR 함수를 사용하여 사원들의 입사한 년도와 입사한 달만 출력하시오.
+select 
+SUBSTR(hiredate, 1,2) as "입사년도",
+SUBSTR(hiredate, 4,2) as "입사한 달"
+from emp
+;
+
+--17. SUBSTR 함수를 사용하여 4월에 입사한 사원을 출력하시오.
+select ename as "4월 입사자"
+from empXML DB 저장소
+
+where SUBSTR(hiredate, 4,2) = '04'
+;
+
+--18. MOD 함수를 사용하여 사원번호가 짝수인 사람만 출력하시오.
+select ename as "사원번호가 짝수인 사람"
+from emp
+where MOD(empno,2) = 0
+;
+
+--19. 입사일을 년도는 2자리(YY), 월은 숫자(MON)로 표시하고 요일은 약어 (DY)로 지정하여 출력하시오.
+select TO_CHAR (hiredate, 'YY MON DY') as "입사일"
+from emp
+;
+
+--20. 올해 몇 칠이 지났는지 출력하시오. 현재날짜에서 올해 1월 1일을 뺀 결과를 출력하고 TO_DATE 함수를 사용하여 데이터 형을 일치 시키시오.
+select trunc(sysdate - TO_DATE('2019/01/01', 'YYYY/MM/DD')) as "올해 지난 일 수"
+from dual
+;
+
+--21. 사원들의 상관 사번을 출력하되 상관이 없는 사원에 대해서는 NULL 값 대신 0으로 출력하시오.
+select nvl(mgr, 0) as "상관 사번"
+from emp
+;
+
+--22. DECODE 함수로 직급에 따라 급여를 인상하도록 하시오. 
+--직급이 ‘ANALIST”인 사원은 200, ‘SALESMAN’인 사원은 180, ‘MANAGER’인 사원은 150, ‘CLERK”인 사원은 100을 인상하시오.
+select job as "직급", sal as "원래 급여",
+    DECODE( job,
+        'ANALYST', sal + 200,
+        'SALESMAN', sal + 180,
+        'MANAGER', sal + 150,
+        'CLERK', sal + 100    
+    ) as "인상된 급여"
+from emp
+;
+
