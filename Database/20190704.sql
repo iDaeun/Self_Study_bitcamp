@@ -186,7 +186,7 @@ using(deptno) -- 두 테이블의 칼럼의 이름이 동일할때 using으로 �
 ;
 
 -- # ANSI Outter Join = (+)
--- left out join = 오른쪽에 상관없이 모두 출력할 것이다! (표현하고자 하는 테이블기준으로 left, right정함)
+-- left outer join = 오른쪽에 상관없이 모두 출력할 것이다! (표현하고자 하는 테이블기준으로 left, right정함)
 select e.ename, m.ename
 from emp e left outer join emp m
 on e.mgr = m.empno
