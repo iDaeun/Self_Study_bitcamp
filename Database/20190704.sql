@@ -90,3 +90,121 @@ select job,
 from emp
 group by job
 ;
+
+-- # HAVING : 그룹의 결과를 제한
+-- 부서의 평균 급여가 2000이상인 부서만 출력
+select deptno, sum(sal), round (avg(sal)), count(*), count(comm), max(sal), min(sal)
+from emp
+group by deptno
+having avg(sal) >= 2000
+;
+
+-- 부서의 최대급여가 2900이상인 부서만 출력
+select deptno, sum(sal), round (avg(sal)), count(*), count(comm), max(sal), min(sal)
+from emp
+group by deptno
+having max(sal) >= 2900
+;
+
+-- ## JOIN : 2개 이상의 테이블을 옆으로 붙인다 -> 표현하는 칼럼이 늘어난다.
+-- 테이블을 붙이는 것 = CROSS JOIN *경우의 수 형태로 {1,2,3} * {1,2} (1-1),(2-2)와 같이 같은 값 찾아줌
+select *
+from emp, dept
+;
+
+select *
+from emp, dept
+where emp.deptno = dept.deptno
+;
+
+-- 이름이 scott(EMP)인 사원의 이름과 부서이름(DEPT)을 출력
+select ename, dname, emp.deptno, dept.deptno
+from emp, dept
+where emp.deptno = dept.deptno and ename='SCOTT'
+;
+
+-- 주문테이블에서 회원의 이름과 주문정보를 출력 -> 박지성고객
+-- orders, customer
+select o.orderid, c.name
+from orders o, customer c
+where o.custid = c.custid and c.name = '박지성'
+;
+
+select *
+from emp E, dept D -- table + 공백 + 별칭
+where E.deptno = D.deptno
+;
+
+-- customer(5), book(10), orders(10) -> cross join = 500
+-- o.custid = c.custid / o.bookid = b.bookid
+select *
+from orders o, customer c, book b
+where o.custid = c.custid and o.bookid=b.bookid
+;
+
+-- 박지성 고객이 주문한 책의 이름 출력
+select b.bookname, b.publisher
+from orders o, customer c, book b
+where o.custid = c.custid and o.bookid = b.bookid
+    and c.name = '박지성'
+;
+
+-- # Non-Equi Join : where절에 조인조건을 = 연산자 이외의 비교 연산자 사용
+select ename, sal, grade
+from emp e, salgrade s
+where e.sal between s.losal and s.hisal
+    and ename = 'SCOTT'
+;
+
+-- # Self Join : 자신의 테이블 내에서 조인
+select e.ename || '의 매니저는 '|| m.ename ||'입니다.'
+from emp e, emp m
+where e.mgr = m.empno
+order by m.ename
+;
+
+-- # Outer Join : null값이 나와 배제된 행을 결과에 포함시키기
+select e.empno, e.ename, e.mgr, m.ename
+from emp e, emp m
+where e.mgr = m.empno(+) -- 만족하지 못하는 값에 (+) 추가
+;
+
+-- ## ANSI JOIN
+select *
+from emp cross join dept
+;
+
+-- # ANSI Inner Join
+select *
+from emp inner join dept -- = from emp = dept
+on emp.deptno = dept.deptno -- = where emp.deptno = dept.deptno
+;
+
+select *
+from emp join dept
+using(deptno) -- 두 테이블의 칼럼의 이름이 동일할때 using으로 묶어줌
+;
+
+-- # ANSI Outter Join = (+)
+-- left out join = 오른쪽에 상관없이 모두 출력할 것이다! (표현하고자 하는 테이블기준으로 left, right정함)
+select e.ename, m.ename
+from emp e left outer join emp m
+on e.mgr = m.empno
+;
+
+select *
+from customer
+;
+select distinct custid
+from orders
+;
+-- order 테이블 쪽에서 고객 모두 출력
+select *
+from orders o, customer c
+where o.custid(+) = c.custid
+;
+
+select *
+from orders o right outer join customer c
+on o.custid = c.custid
+;

@@ -246,3 +246,4 @@ group by job, deptno -- 중복되는 job, 부서번호 묶어줌
 ;
 
 
+

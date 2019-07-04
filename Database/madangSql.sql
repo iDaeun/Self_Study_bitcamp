@@ -18,6 +18,12 @@ select saleprice
 from orders
 where custid = 1;
 
+select sum(saleprice) as "총구매액", count(*) as "총 구매횟수"
+from orders o, customer c
+where o.custid = c.custid
+    and name = '박지성'
+;
+
 --(4) 박지성이구매한도서의수(박지성의고객번호는1번으로놓고작성)
 select orderid
 from orders
