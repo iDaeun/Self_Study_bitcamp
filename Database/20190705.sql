@@ -25,7 +25,6 @@ where deptno = (
                 where ename = 'SCOTT'
                 );
 
--- # 다중행
 -- 사원들 중 평균 급여보다(sub Q) 많은 급여를 받는 사원의 이름과 급여를 출력(main Q)
 
 select *
@@ -44,6 +43,7 @@ where sal > (
             from emp
             );
 
+-- # 다중행
 -- # IN
 -- 급여가 3000 이상인 사원의 소속 부서번호 (sub Q) => 결과값 여러개일 수도 있음 => in 사용하기
 -- 해당 부서에 근무하는 사원의 리스트 출력 (main Q)
