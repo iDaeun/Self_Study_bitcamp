@@ -112,6 +112,7 @@ where (comm is not null) and comm >= 500
 -------------------------------------------------------------------------
 
 --16. SUBSTR 함수를 사용하여 사원들의 입사한 년도와 입사한 달만 출력하시오.
+-- substr(문자열, 자리위치, 문자의 개수)
 select 
 SUBSTR(hiredate, 1,2) as "입사년도",
 SUBSTR(hiredate, 4,2) as "입사한 달"
@@ -191,7 +192,7 @@ from emp
 select job,
     min(sal)
 from emp
-where not(mgr is null)
+where not(mgr is null) -- where mgr is not null
 group by job
 having min(sal) >= 2000
 order by min(sal) desc
@@ -204,7 +205,8 @@ from emp
 group by deptno
 ;
 
---30. 각 부서에 대해 부서번호 이름, 지역 명, 사원 수, 부서내의 모든 사원의 평균 급여를 출력하시오. 평균 급여는 정수로 반올림 하시오. DECODE 사용.
+--30. 각 부서에 대해 부서번호 이름, 지역 명, 사원 수, 부서내의 모든 사원의 평균 급여를 출력하시오. 
+--평균 급여는 정수로 반올림 하시오. DECODE 사용.
 select deptno as "부서번호",
     DECODE(deptno,
             10 , 'ACCOUNTING',
@@ -224,9 +226,18 @@ from emp
 group by deptno
 ;
 
+select e.deptno, d.dname, d.loc, count(*), round(avg(sal)) -- join 사용하기
+from emp e, dept d
+where e.deptno = d.deptno
+group by e.deptno, d.dname, d.loc
+;
 
---31. 업무를 표시한 다음 해당 업무에 대해 부서 번호별 급여 및 부서 10, 20, 30의 급여 총액을 각각 출력하시오. 
---별칭은 각 job, dno, 부서 10, 부서 20, 부서 30, 총액으로 지정하시오. ( hint. Decode, group by )
+
+
+--31. 업무를 표시한 다음 
+--    해당 업무에 대해 
+--    부서 번호별 급여 및 부서 10, 20, 30의 급여 총액을 각각 출력하시오. 
+--    별칭은 각 job, dno, 부서 10, 부서 20, 부서 30, 총액으로 지정하시오. ( hint. Decode, group by )
 
 select job, deptno as "DNO",
     decode (deptno, 10, sal) as "부서10",
@@ -243,6 +254,17 @@ select job, deptno as "DNO",
     sum(sal) as "총액"
 from emp
 group by job, deptno -- 중복되는 job, 부서번호 묶어줌
+;
+
+select job, deptno,
+
+    decode(deptno, 10, sum(sal)) as "부서 10",
+    decode(deptno, 20, sum(sal)) as "부서 20",
+    decode(deptno, 30, sum(sal)) as "부서 30",
+    sum(sal) as "총액"
+
+from emp
+group by job, deptno
 ;
 -------------------------------------------------------------------------
 --32. EQUI 조인을 사용하여 SCOTT 사원의 부서번호와 부서 이름을 출력하시오.
