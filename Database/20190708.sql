@@ -257,3 +257,58 @@ select * from dept
 -- 특정 행을 삭제
 delete from dept01
 where deptno = 30;
+
+-------------------------------
+desc memberinfo;
+
+-- 이름           널?       유형           
+------------ -------- ------------ 
+-- IDX          NOT NULL NUMBER(7)    
+-- ID           NOT NULL VARCHAR2(12) 
+-- PW           NOT NULL VARCHAR2(16) 
+-- NAME         NOT NULL VARCHAR2(10) 
+-- PHOTO                 VARCHAR2(30) 
+-- REGISTERDATE          DATE 
+
+-- 회원가입 INSERT
+-- insert into memberinfo(IDX, ID, PW, NAME, PHOTO, REGISTERDATE);
+
+-- 1.
+insert into memberinfo values (1, 'APPLE', '111', 'apple', 'apple.jpg', sysdate);
+-- 2.
+insert into memberinfo values (2, 'Bear', '222', 'bear', 'bear.jpg', sysdate);
+-- 3.
+insert into memberinfo values (3, 'Cloud', '333', 'cloud', '', '');
+-- 4.
+insert into memberinfo values (4, 'Dog', '444', 'dog', 'dog.jpg', sysdate);
+-- 5.
+insert into memberinfo values (5, 'Eve', '555', 'eve', 'eve.jpg', '');
+
+-- 회원 데이터 수정 : PK를 조건으로 수정한다
+-- 회원 이름만 수정
+update memberinfo
+set name = 'apple1'
+where idx = 1;
+
+update memberinfo
+set name = 'cloud1'
+where idx = 3;
+
+-- 비밀번호만 수정
+update memberinfo
+set pw = '1111'
+where idx = 1;
+
+-- 이름, 비밀번호 수정
+update memberinfo
+set name = 'dog1', pw = '4444'
+where idx = 4;
+
+-- 데이터 추가
+insert into memberinfo
+(idx, id, pw, name)
+values (6, 'Flower', '666', 'flower');
+
+-- 데이터 삭제
+delete from memberinfo
+where idx = 6;
