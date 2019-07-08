@@ -274,15 +274,15 @@ desc memberinfo;
 -- insert into memberinfo(IDX, ID, PW, NAME, PHOTO, REGISTERDATE);
 
 -- 1.
-insert into memberinfo values (1, 'APPLE', '111', 'apple', 'apple.jpg', sysdate);
+insert into memberinfo values (memberinfo_idx_seq.nextval, 'APPLE', '111', 'apple', 'apple.jpg', sysdate);
 -- 2.
-insert into memberinfo values (2, 'Bear', '222', 'bear', 'bear.jpg', sysdate);
+insert into memberinfo values (memberinfo_idx_seq.nextval, 'Bear', '222', 'bear', 'bear.jpg', sysdate);
 -- 3.
-insert into memberinfo values (3, 'Cloud', '333', 'cloud', '', '');
+insert into memberinfo values (memberinfo_idx_seq.nextval, 'Cloud', '333', 'cloud', '', '');
 -- 4.
-insert into memberinfo values (4, 'Dog', '444', 'dog', 'dog.jpg', sysdate);
+insert into memberinfo values (memberinfo_idx_seq.nextval, 'Dog', '444', 'dog', 'dog.jpg', sysdate);
 -- 5.
-insert into memberinfo values (5, 'Eve', '555', 'eve', 'eve.jpg', '');
+insert into memberinfo values (memberinfo_idx_seq.nextval, 'Eve', '555', 'eve', 'eve.jpg', '');
 
 -- 회원 데이터 수정 : PK를 조건으로 수정한다
 -- 회원 이름만 수정
@@ -311,4 +311,78 @@ values (6, 'Flower', '666', 'flower');
 
 -- 데이터 삭제
 delete from memberinfo
-where idx = 6;
+where idx = 4;
+
+-- 트렌젝션
+COMMIT; -- 지금까지 데이터 UPDATE
+ROLLBACK; -- 이전의 COMMIT부분으로 되돌리기
+
+--------------------------------------------------
+-- ## VIEW : 사용자에게 보여주는 가상테이블 (특정 컬럼을 제외하거나 복잡한 sql문을 간소화 시킨다)
+
+select empno, ename, deptno
+from emp
+where deptno = 30;
+
+-- # VIEW 생성 : CREATE VIEW 뷰 이름 AS 서브쿼리
+create view emp_view30
+as
+select empno, ename, deptno
+from emp
+where deptno = 30;
+
+-- 인라인뷰 작성
+-- 사원 중에서 입사일이 빠른 사람 5명(TOP-5)만을 얻어 오는 질의문을 작성해 봅시다.
+select rownum, empno, ename, hiredate -- rownum 뒤죽박죽..!
+from emp
+order by hiredate;
+
+-- inline view로 생성하면 -> rownum이 순차적으로 출력된다~
+select rownum, empno, ename, hiredate
+from (
+select empno, ename, hiredate
+from emp
+order by hiredate
+)
+where rownum <= 5 -- rownum 비교는 바깥쪽으로 영역이 되면 오류 (예: rownum > 5)
+;
+
+-- view로 만들기
+create or replace view emp_viewHD
+as
+select empno, ename, hiredate
+from emp
+order by hiredate
+;
+
+select rownum, empno, ename, hiredate
+from  emp_viewHD -- view로 검색 
+where rownum <= 5
+;
+
+-- ## SEQUENCE 만들기 : 자동 숫자 증가 처리해주는 객체 
+CREATE sequence test_seq; -- 디폴트: 시작 = 1, 증가값 = 1
+
+DROP sequence test_seq; -- 삭제
+
+select test_seq.CURRVAL from dual; -- 현재 값 반환
+select test_seq.NEXTVAL from dual; -- 다음 값 반환
+
+create sequence test1_seq
+increment by 10
+start with 0
+minvalue 0
+;
+
+DROP sequence test1_seq;
+
+select test1_seq.NEXTVAL from dual;
+
+desc dept01;
+select * from dept01;
+
+insert into dept01 values (test_seq.nextval, 'design', 'seoul');
+insert into dept01 values (test1_seq.nextval, 'design', 'seoul');
+
+-- 회원가입시 증가하는 idx값을 위한 sequence생성
+create sequence memberinfo_idx_seq;
