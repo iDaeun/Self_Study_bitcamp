@@ -44,7 +44,11 @@ CREATE TABLE GUESTBOOK_MESSAGE(
 );
 
     CREATE SEQUENCE GM_MID_SEQ;
+    
+    DROP TABLE GUESTBOOK_MESSAGE;
+    DROP SEQUENCE GM_MID_SEQ;
 
+    select rownum, message_id, guest_name from GUESTBOOK_MESSAGE order by message_id desc;
 
 
 
