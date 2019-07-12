@@ -116,7 +116,7 @@ public class MessageDao {
 		return totalCnt;
 	}
 
-	// ★ 전체 출력 기능
+	// ★ firstRow, endRow 사이의 리스트 -> 전체 출력 기능
 	public List<Message> selectList(Connection conn, int firstRow, int endRow) {
 
 		List<Message> list = new ArrayList<Message>();
