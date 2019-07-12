@@ -11,6 +11,7 @@ import guestbook_model.MessageListView;
 import jdbc.ConnectionProvider;
 
 public class GetMessageListService {
+	// SINGLIETON
 	// MessageListView를 생성해서 결과를 반환
 	private GetMessageListService() {}
 	
