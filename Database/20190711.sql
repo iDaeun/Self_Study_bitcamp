@@ -33,6 +33,8 @@ select smi_idx_seq.nextval from SurfingMemberInfo;
 --	private int level;
 --	private Date registerDate;
 
+select pw from SurfingMemberInfo where id = 121;
+
 ---------------------------------------------------------
 --2019.07.11 GUESTBOOK DDL
 
