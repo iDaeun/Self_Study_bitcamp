@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>jQuery Ajax Basic</title>
+<meta content="charset=utf-8">
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+	$(document).ready(function() {
+
+		//$('#btn').click(function() {
+			$('#uId').focusout(function() {
+				
+				$('#idchkMsg').html("");
+
+			$.ajax({
+				/* (1) uId 입력 -> idCheck.jsp으로 get방식으로 보냄 */
+				url : 'idCheck.jsp',
+				type : 'GET',
+				
+				data : {
+					
+				/* (2) data : 요청 매개변수를 지정 */	
+				/* 입력한 uId값 -> 매개변수해서 idCheck.jsp로 보내줌 */
+				/* [url] .jsp?uId=어쩌구 */
+					uId : $('#uId').val(),
+					//price: '1000'
+				},
+				
+				success : function(data) {
+					
+				/* (3) 성공 -> 매개변수data(1-1에서 받은 응답text)가 Y일때, 아닐때 다르게 처리 */
+					if (data == 'Y') {
+						//alert("YYYY!!")
+						//$('body').append('<span>goooood id</span>');
+						$('#idchkMsg').html('GOOD ID');
+						$('#idchkMsg').css('color','blue');
+					} else {
+						//alert("NNNN!!");
+						//$('body').append('<span>baaaaaad id</span>');
+						$('#idchkMsg').html('INVALID ID');
+						$('#idchkMsg').css('color','red');
+					}
+					//$('body').append(data);
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+
+	<input type="text" id="uId" value="">
+	<!-- <input type="button" id="btn" value="idcheck"> -->
+	<br>
+	<span id="idchkMsg"></span>
+
+</body>
+</html>

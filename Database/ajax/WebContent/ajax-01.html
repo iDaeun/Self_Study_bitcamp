@@ -5,9 +5,11 @@
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script>
         $(document).ready(function () {
-            $.ajax('data.html', {
+            $.ajax('data.xml', {
+            	// 성공 시 -> body태그에 data.html파일을 삽입!
                 success: function (data) {
                     $('body').append(data);
+                    // title, meta -> 빼고 나머지 요소는 body에 표현됨
                 }
             });
         });

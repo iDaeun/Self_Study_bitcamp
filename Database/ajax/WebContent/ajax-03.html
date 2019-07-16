@@ -5,23 +5,35 @@
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script>
         $(document).ready(function () {
-            $.ajax({
-                url: 'parameter.jsp',
-                type: 'GET',
-                data: {
-                    name: $('#txt').val(),
-                    price: 'test'
-                },
-                success: function (data) {
-                    $('body').append(data);
-                }
-            });
+        	
+        	setTimeout(function(){
+        		
+        		 $.ajax({
+                     url: 'idCheck.jsp',
+                     type: 'GET',
+                     data: {
+                     	// parameter.jsp -> getParameter -> "name", "price"
+                         name: $('#txt').val(),
+                         price: '1000'
+                     },
+                     success: function (data) {
+                     	// body태그에 삽입
+                     	if(data=='Y'){
+                     		alert("멋진 아이디 입니다!!")
+                     	}
+                         $('body').append(data);
+                     }
+                 });
+        		
+        	}, 5000);
+        	
+           
         });
     </script>
 </head>
 <body>
 
-<input type="text" id="txt" value="akwldrkwpxm"><br>
+<input type="text" id="txt" value="Y"><br>
 
 </body>
 </html>
