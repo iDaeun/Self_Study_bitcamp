@@ -82,9 +82,9 @@ insert into users values ( 'Rex', 'R555', '렉스', sysdate);
 drop table users;
 drop sequence users_idx_seq;
 
+commit;
 
-
-select * from users where user_id = 'admin';
+select user_id from users where user_id = 'admin';
 
 
 
