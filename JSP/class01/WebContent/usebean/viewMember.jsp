@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:useBean id="userData" class="member.UserInfo" scope="request"/>
+<jsp:useBean id="userData" class="library_model.UserInfo" scope="request"/>
 <!-- request.getAttribute("userData") -->
 <!DOCTYPE html>
 <html>

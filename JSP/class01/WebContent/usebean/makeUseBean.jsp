@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:useBean id="userInfo" class="member.UserInfo"/>
+<jsp:useBean id="userInfo" class="library_model.UserInfo"/>
 <jsp:setProperty property="name" value="hot" name="userInfo"/>
 <!-- 
 	1. 해당 영역(page)에 userInfo 이름의 member.UserInfo 타입 객체가 있는지 확인

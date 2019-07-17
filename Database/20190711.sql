@@ -84,7 +84,7 @@ drop sequence users_idx_seq;
 
 
 
-
+select * from users where user_id = 'admin';
 
 
 

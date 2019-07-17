@@ -1,4 +1,4 @@
-<%@page import="member.memberInfo"%>
+<%@page import="library_model.memberInfo"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.PreparedStatement"%>

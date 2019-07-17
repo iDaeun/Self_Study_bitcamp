@@ -30,12 +30,12 @@
 					
 				/* (3) 성공 -> 매개변수data(1-1에서 받은 응답text)가 Y일때, 아닐때 다르게 처리 */
 					if (data == 'Y') {
-						//alert("YYYY!!")
+						alert(data)
 						//$('body').append('<span>goooood id</span>');
 						$('#idchkMsg').html('GOOD ID');
 						$('#idchkMsg').css('color','blue');
 					} else {
-						//alert("NNNN!!");
+						alert(data);
 						//$('body').append('<span>baaaaaad id</span>');
 						$('#idchkMsg').html('INVALID ID');
 						$('#idchkMsg').css('color','red');
