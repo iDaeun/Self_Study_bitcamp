@@ -56,14 +56,12 @@ CREATE TABLE GUESTBOOK_MESSAGE(
 -- PROJECT : Library 
 
 CREATE TABLE USERS (
-	USER_IDX  NUMBER(4) , -- 회원번호
-	USER_ID   VARCHAR2(20) constraint ur_id_nn NOT NULL, -- 아이디
+	USER_ID   VARCHAR2(20),-- 아이디
 	USER_PW   VARCHAR2(30) constraint ur_pw_nn NOT NULL, -- 비밀번호
 	USER_NAME VARCHAR2(20) constraint ur_name_nn NOT NULL, -- 이름
 	USER_REG  DATE default sysdate constraint ur_date_nn NOT NULL,  -- 가입일
     
-    constraint ur_idx_pk primary key (USER_IDX),
-    constraint ur_id_uq unique (USER_ID)
+    constraint ur_id_pk primary key (USER_ID)
 );
 
 select * from users;
@@ -74,12 +72,12 @@ start with 0
 minvalue 0
 ;
 
-insert into users values ( USERS_idx_seq.nextval, 'admin', 'admin', '관리자', sysdate);
-insert into users values ( USERS_idx_seq.nextval, 'Jessie', 'J111', '제시', sysdate);
-insert into users values ( USERS_idx_seq.nextval, 'Forkey', 'F222', '포키', sysdate);
-insert into users values ( USERS_idx_seq.nextval, 'Woody', 'W333', '우디', sysdate);
-insert into users values ( USERS_idx_seq.nextval, 'Boo', 'B444', '보', sysdate);
-insert into users values ( USERS_idx_seq.nextval, 'Rex', 'R555', '렉스', sysdate);
+insert into users values ( 'admin', 'admin', '관리자', sysdate);
+insert into users values ( 'Jessie', 'J111', '제시', sysdate);
+insert into users values ( 'Forkey', 'F222', '포키', sysdate);
+insert into users values ( 'Woody', 'W333', '우디', sysdate);
+insert into users values ( 'Boo', 'B444', '보', sysdate);
+insert into users values ( 'Rex', 'R555', '렉스', sysdate);
 
 drop table users;
 drop sequence users_idx_seq;
