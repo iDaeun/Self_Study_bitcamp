@@ -1,12 +1,12 @@
-package library_service;
+package users.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import jdbc.ConnectionProvider;
-import library_dao.LibraryDao;
-import library_exception.InfoNotFoundException;
-import library_exception.InvalidUserPasswordException;
-import library_model.MemberInfo;
+import users.dao.UsersDao;
+import users.exception.InfoNotFoundException;
+import users.exception.InvalidUserPasswordException;
+import users.model.MemberInfo;
 
 public class LoginService {
 	
@@ -19,14 +19,14 @@ public class LoginService {
 	}
 	
 	// 아이디&비밀번호 매칭
-	public boolean logCheck(String user_id, String user_pw) throws SQLException, InfoNotFoundException, InvalidUserPasswordException {
+	public boolean idPwCheck(String user_id, String user_pw) throws SQLException, InfoNotFoundException, InvalidUserPasswordException {
 		boolean chk = false;
 		
 		Connection conn = null;
 		
 		try {
 			conn = ConnectionProvider.getConnection();
-			LibraryDao dao = LibraryDao.getInstance();
+			UsersDao dao = UsersDao.getInstance();
 			
 			// 1. 아이디로 회원 정보 확인
 			MemberInfo memberInfo = dao.select(conn, user_id);
@@ -43,6 +43,7 @@ public class LoginService {
 			
 			// 4. 아이디&비밀번호 일치 -> true 
 			chk = true;
+			System.out.println("LoginService: "+chk);
 			
 			
 		} catch (SQLException e) {

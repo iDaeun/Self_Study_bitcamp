@@ -1,4 +1,5 @@
-<%@page import="library_service.RegService"%>
+
+<%@page import="users.service.RegService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -7,7 +8,7 @@
 %>
 
 <!-- usebean - memberInfo.java에 데이터 저장 -->
-<jsp:useBean id="member" class="library_model.MemberInfo"/>
+<jsp:useBean id="member" class="users.model.MemberInfo"/>
 <jsp:setProperty property="*" name="member" />
 
 <%
@@ -24,9 +25,9 @@
 <title>Library Homepage</title>
 <!-- boostrap연결 -->
 
-<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="/lib/css/bootstrap.css">
 <!-- css연결 -->
-<link rel="stylesheet" href="cssFiles/default.css" type="text/css">
+<link rel="stylesheet" href="/lib/cssFiles/default.css" type="text/css">
 
 <!-- 구글폰트 -->
 <link
@@ -37,18 +38,18 @@
 	rel="stylesheet">
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="js/bootstrap.js"></script>
+<script src="/lib/js/bootstrap.js"></script>
 
 </head>
 <body>
 
 	<div id="main_wrap">
 		<!-- header 시작 -->
-		<%@include file="frame/header.jsp"%>
+		<%@include file="../../frame/header.jsp"%>
 		<!-- header 끝 -->
 
 		<!-- nav 시작 -->
-		<%@include file="frame/nav.jsp"%>
+		<%@include file="../../frame/nav.jsp"%>
 		<!-- nav 끝 -->
 
 		<!-- context 시작 -->
@@ -75,7 +76,7 @@
 		<!-- context 끝 -->
 
 		<!-- footer 시작 -->
-		<%@include file="frame/footer.jsp"%>
+		<%@include file="../../frame/footer.jsp"%>
 		<!-- footer 끝 -->
 	</div>
 

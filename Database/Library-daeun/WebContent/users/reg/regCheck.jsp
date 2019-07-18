@@ -1,9 +1,11 @@
+<%@page import="users.dao.UsersDao"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="jdbc.ConnectionProvider"%>
 <%@page import="java.sql.Connection"%>
-<%@page import="library_dao.LibraryDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page trimDirectiveWhitespaces="true" %> 
+
 <%
 	String user_id = request.getParameter("user_id");
 
@@ -14,7 +16,7 @@
 		conn = ConnectionProvider.getConnection();
 
 		// DAO -> DB에 해당 아이디가 존재하는지 확인
-		LibraryDao dao = LibraryDao.getInstance();
+		UsersDao dao = UsersDao.getInstance();
 		chk = dao.regCheck(conn, user_id);
 		System.out.println("regChek1"+chk);
 		if (chk) {

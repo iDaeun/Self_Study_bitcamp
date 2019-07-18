@@ -1,20 +1,22 @@
-package library_dao;
+package users.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import library_model.MemberInfo;
 
-public class LibraryDao {
+import jdbc.JdbcUtil;
+import users.model.MemberInfo;
 
-	private static LibraryDao dao = new LibraryDao();
+public class UsersDao {
 
-	public static LibraryDao getInstance() {
+	private static UsersDao dao = new UsersDao();
+
+	public static UsersDao getInstance() {
 		return dao;
 	}
 
-	private LibraryDao() {
+	private UsersDao() {
 	}
 
 	// 아이디 중복체크 기능
@@ -79,7 +81,9 @@ public class LibraryDao {
 		
 		return rCnt;
 	}
-
+	
+	// (아이디&비밀번호 매칭) 입력된 아이디의 memberInfo객체 리턴
+	//  내 정보 출력
 	public MemberInfo select(Connection conn, String user_id) {
 		
 		MemberInfo memberInfo = null;
@@ -102,7 +106,7 @@ public class LibraryDao {
 				memberInfo.setUser_id(rs.getString(1));
 				memberInfo.setUser_pw(rs.getString(2));
 				memberInfo.setUser_name(rs.getString(3));
-				memberInfo.setUser_reg(rs.getDate(4));
+				memberInfo.setUser_reg(new java.sql.Date(rs.getDate(4).getTime()));
 
 			}
 
@@ -112,4 +116,26 @@ public class LibraryDao {
 		
 		return memberInfo;
 	}
+
+	// 아이디에 해당되는 회원정보 삭제
+	public int deleteMem(Connection conn, String user_id) throws SQLException {
+		
+		int rCnt = 0;
+		PreparedStatement pstmt = null;
+		String sql = "delete from users where user_id=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			rCnt = pstmt.executeUpdate();
+			
+		} finally {
+			JdbcUtil.close(pstmt);
+		}
+		
+		return rCnt;
+		
+	}
+	
+
 }

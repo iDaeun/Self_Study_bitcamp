@@ -1,4 +1,4 @@
-package library_exception;
+package users.exception;
 
 public class InfoNotFoundException extends Exception {
 	public InfoNotFoundException(String message) {

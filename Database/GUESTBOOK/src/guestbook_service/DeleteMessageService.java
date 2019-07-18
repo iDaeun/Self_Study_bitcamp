@@ -49,7 +49,7 @@ public class DeleteMessageService {
 				throw new InvalidMessagePasswordException("비밀번호가 일치하지 않습니다.");
 			}
 			
-			// 5. 비밀번호가 일치하면 정상 처리 commit
+			// 5. 비밀번호가 일치하면 삭제진행
 			dao.deleteMssage(conn, messageId);
 
 			// 정상처리

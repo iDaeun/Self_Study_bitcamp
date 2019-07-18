@@ -1,4 +1,4 @@
-package library_exception;
+package users.exception;
 
 public class InvalidUserPasswordException extends Exception {
 	public InvalidUserPasswordException(String message) {

@@ -1,11 +1,11 @@
-package library_service;
+package users.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import jdbc.ConnectionProvider;
-import library_dao.LibraryDao;
-import library_model.MemberInfo;
+import users.dao.UsersDao;
+import users.model.MemberInfo;
 
 public class RegService {
 	
@@ -24,7 +24,7 @@ public class RegService {
 		
 		try {
 			conn = ConnectionProvider.getConnection();
-			LibraryDao dao = LibraryDao.getInstance();
+			UsersDao dao = UsersDao.getInstance();
 			
 			rCnt = dao.regInsert(conn, memberInfo);
 			
