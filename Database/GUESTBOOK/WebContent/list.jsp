@@ -71,10 +71,10 @@
 			for (Message message : viewData.getMessageList()) {
 	%>
 	<div>
-		메세지 번호 :
-		<%=message.getId()%><br> 손님 이름 :
-		<%=message.getGuestName()%><br> 메세지 :
-		<%=message.getMessage()%><br> <a href="confirmDeletion.jsp?messageId=<%=message.getId()%>">삭제하기</a>
+		메세지 번호 : <%=message.getId()%><br> 
+		손님 이름 :	<%=message.getGuestName()%><br> 
+		메세지 :<%=message.getMessage()%><br> 
+		<a href="confirmDeletion.jsp?messageId=<%=message.getId()%>">삭제하기</a>
 	</div>
 	<%
 		}

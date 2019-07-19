@@ -1,5 +1,5 @@
+<%@page import="users.service.MyPgService"%>
 <%@page import="users.model.MemberInfo"%>
-<%@page import="users.service.MyPageService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -13,7 +13,7 @@
 	loginInfo = (LoginInfo)session.getAttribute("login");
 	user_id = loginInfo.getUser_id();
 	
-	MyPageService service = MyPageService.getInstance();
+	MyPgService service = MyPgService.getInstance();
 	MemberInfo memberInfo = service.selectMyInfo(user_id);
 %>
 

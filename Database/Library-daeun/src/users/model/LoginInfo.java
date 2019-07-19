@@ -1,14 +1,14 @@
 package users.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class LoginInfo {
 	private String user_id;
-	private Date user_reg;
+	private Timestamp user_reg;
 	
 	public LoginInfo(String user_id) {
 		this.user_id = user_id;
-		this.user_reg = new Date();
+		this.user_reg = new Timestamp(System.currentTimeMillis());
 	}
 
 	public String getUser_id() {
@@ -19,11 +19,11 @@ public class LoginInfo {
 		this.user_id = user_id;
 	}
 
-	public Date getUser_reg() {
+	public Timestamp getUser_reg() {
 		return user_reg;
 	}
 
-	public void setUser_reg(Date user_reg) {
+	public void setUser_reg(Timestamp user_reg) {
 		this.user_reg = user_reg;
 	}
 

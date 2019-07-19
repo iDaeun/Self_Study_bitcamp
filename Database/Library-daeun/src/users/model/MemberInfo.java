@@ -1,22 +1,22 @@
 package users.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class MemberInfo {
 	private String user_id;
 	private String user_pw;
 	private String user_name;
-	private Date user_reg;
+	private Timestamp user_reg;
 	
 	public MemberInfo() {
-		this.user_reg = new Date();
+		this.user_reg = new Timestamp(System.currentTimeMillis());
 	}	
 	
 	public MemberInfo(String user_id, String user_pw, String user_name) {
 		this.user_id = user_id;
 		this.user_pw = user_pw;
 		this.user_name = user_name;
-		this.user_reg = new Date();
+		this.user_reg = new Timestamp(System.currentTimeMillis());
 	}
 
 
@@ -50,12 +50,13 @@ public class MemberInfo {
 	}
 
 
-	public Date getUser_reg() {
+	public Timestamp getUser_reg() {
 		return user_reg;
+		
 	}
 
 
-	public void setUser_reg(Date user_reg) {
+	public void setUser_reg(Timestamp user_reg) {
 		this.user_reg = user_reg;
 	}
 	

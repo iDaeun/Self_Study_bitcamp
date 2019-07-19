@@ -1,3 +1,4 @@
+<%@page import="users.exception.RentException"%>
 <%@page import="users.service.LoginService"%>
 <%@page import="users.service.DeleteMemService"%>
 <%@page import="users.exception.InvalidUserPasswordException"%>
@@ -35,10 +36,20 @@
 		msg = e.getMessage();
 	}
 	
-	// 비밀번호 맞음 -> 회원 정보 삭제
+	// 비밀번호 맞음 -> fk에 해당된 내용 삭제 후 => 회원 정보 삭제
 	if(chk){
+		
+		// fk에 해당된 내용 삭제 후 => 회원 정보 삭제 
 		DeleteMemService delService = DeleteMemService.getInstance();
+		
+		try{
 		rCnt = delService.deleteMem(user_id);
+		
+		// 대출되어있으면 -> 예외처리로 응답 메세지 전달
+		} catch(SQLException e){
+			msg = e.getMessage();
+		} catch(Exception e){
+		msg = e.getMessage();}
 	}
 %>
 
@@ -91,15 +102,14 @@
 				<%	
 				}
 				%>
-				</h1>
-				<h1>
+				 
 				<%
 				if(msg.length()>0){
 				%>
 					<%=msg %>
 					<script>
-					alert('비밀번호 재입력 바람');
-					history.go(-1);
+					//alert('비밀번호 재입력 바람');
+					//history.go(-1);
 					</script>
 				<%	
 				}
