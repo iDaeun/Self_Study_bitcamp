@@ -60,6 +60,7 @@ CREATE TABLE USERS (
 	USER_PW   VARCHAR2(30) constraint ur_pw_nn NOT NULL, -- 비밀번호
 	USER_NAME VARCHAR2(20) constraint ur_name_nn NOT NULL, -- 이름
 	USER_REG  TIMESTAMP default sysdate constraint ur_date_nn NOT NULL,  -- 가입일
+    USER_PHOTO LONG,
     
     constraint ur_id_pk primary key (USER_ID)
 );
@@ -67,20 +68,22 @@ CREATE TABLE USERS (
 select * from users;
 desc users;
 
+drop table users;
+
 create sequence USERS_idx_seq
 start with 0
 minvalue 0
 ;
 
-insert into users values ( 'admin1', 'admin1', '관리자', sysdate);
-insert into users values ( 'Jessie', 'J111', '제시', sysdate);
-insert into users values ( 'Forkey', 'F222', '포키', sysdate);
-insert into users values ( 'Woody', 'W333', '우디', sysdate);
-insert into users values ( 'Boo', 'B444', '보', sysdate);
-insert into users values ( 'Rex', 'R555', '렉스', sysdate);
-insert into users values ( 'test1', 'test1', 'test일', sysdate);
-insert into users values ( 'test2', 'test2', 'test이', sysdate);
-insert into users values ( 'test3', 'test3', 'test삼', sysdate);
+insert into users values ( 'admin1', 'admin1', '관리자', sysdate, '');
+insert into users values ( 'Jessie', 'J111', '제시', sysdate, '');
+insert into users values ( 'Forkey', 'F222', '포키', sysdate, '');
+insert into users values ( 'Woody', 'W333', '우디', sysdate, '');
+insert into users values ( 'Boo', 'B444', '보', sysdate, '');
+insert into users values ( 'Rex', 'R555', '렉스', sysdate, '');
+insert into users values ( 'test1', 'test1', 'test일', sysdate, '');
+insert into users values ( 'test2', 'test2', 'test이', sysdate, '');
+insert into users values ( 'test3', 'test3', 'test삼', sysdate, '');
 
 drop table users;
 drop sequence users_idx_seq;
@@ -134,12 +137,12 @@ ALTER TABLE RENT
 
 select * from rent;
 
-insert into RENT values ( '1', '1', 'test4', 'Y', sysdate, sysdate);
+insert into RENT values ( '1', '1', 'test4', 'N', sysdate, sysdate);
 
 update rent set book_ren = 'N' where book_ren = 'Y';
 
 update rent set user_id = '' where user_id = 'test2';
-
+drop table rent;
 
 alter table book rename to ORACLEBOOK;
 
@@ -161,6 +164,10 @@ ALTER TABLE BOOK
 select * from book;
 -- 대출이면 => N !!!!
 insert into BOOK values ( '1', 'testbook1', 'testbook1', 'testbook1', 'testbook1');
+
+select * from rent;
+delete from rent where book_ren = 'N';
+drop table book;
 
 ---------------------------------------------------------
 -- 2. 건의사항
@@ -185,6 +192,7 @@ FOREIGN KEY (USER_ID) REFERENCES USERS (USER_ID);
 
 select * from SUGGESTIONS;
 insert into SUGGESTIONS values ( 1, 'testsuggestion1', 'testsuggestion1', 'testsuggestion1', 'test4');
+drop table suggestions;
 
 ---------------------------------------------------------
 -- 3. 열람실
@@ -222,7 +230,7 @@ CREATE SEQUENCE NO_SEQ
     ;
 
 select * from NEWBOOK;
-
+drop table newbook;
 insert into NEWBOOK values ( 1, 'newbooktest', 'newbooktest', 'newbooktest', 'test4');
 
 commit;

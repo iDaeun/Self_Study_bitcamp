@@ -150,7 +150,7 @@ public class UsersDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		String sql = "select user_id, user_pw, user_name, user_reg "
+		String sql = "select rownum, user_id, user_pw, user_name, user_reg "
 				+ "from ( select rownum rnum, user_id, user_pw, user_name, user_reg "
 				+ "from ( select * from users order by user_reg desc ) where rownum <= ? ) " + "where rnum >= ?";
 
@@ -165,11 +165,12 @@ public class UsersDao {
 			while (rs.next()) {
 
 				MemberInfo memberInfo = new MemberInfo();
-
-				memberInfo.setUser_id(rs.getString(1));
-				memberInfo.setUser_pw(rs.getString(2));
-				memberInfo.setUser_name(rs.getString(3));
-				memberInfo.setUser_reg(rs.getTimestamp(4));
+				
+				memberInfo.setRownum(rs.getInt(1));
+				memberInfo.setUser_id(rs.getString(2));
+				memberInfo.setUser_pw(rs.getString(3));
+				memberInfo.setUser_name(rs.getString(4));
+				memberInfo.setUser_reg(rs.getTimestamp(5));
 
 				// 반복하며 list에 추가
 				memberList.add(memberInfo);

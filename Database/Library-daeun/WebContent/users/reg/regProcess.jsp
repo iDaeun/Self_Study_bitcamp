@@ -1,4 +1,9 @@
-
+<%@page import="java.io.File"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="org.apache.commons.fileupload.FileItem"%>
+<%@page import="java.util.List"%>
+<%@page import="org.apache.commons.fileupload.disk.DiskFileItemFactory"%>
+<%@page import="org.apache.commons.fileupload.servlet.ServletFileUpload"%>
 <%@page import="users.service.RegService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -10,6 +15,62 @@
 <!-- usebean - memberInfo.java에 데이터 저장 -->
 <jsp:useBean id="member" class="users.model.MemberInfo"/>
 <jsp:setProperty property="*" name="member" />
+
+<%
+	// 사진파일 저장
+	String user_id = "";
+	String user_pw = "";
+	String user_name = "";
+	String user_photo = "";
+    long fileSize = 0;
+    String user_photo_name = "";
+	
+	// upload할 경로
+	String uploadPath = "/user_photo_upload";
+	String dir = request.getSession().getServletContext().getRealPath(uploadPath);
+	System.out.println(dir);
+	
+	boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+	DiskFileItemFactory factory = new DiskFileItemFactory();
+	ServletFileUpload upload = new ServletFileUpload(factory);
+	
+	List<FileItem> items = upload.parseRequest(request);
+	Iterator<FileItem> itr = items.iterator();
+	
+	while(itr.hasNext()){
+		FileItem item = itr.next();
+		
+		// type 구별해주기
+		if(item.isFormField()){
+			// type != file
+			if(item.getFieldName().equals("user_id")){
+				user_id = item.getString("utf-8");
+			}
+			
+			if(item.getFieldName().equals("user_pw")){
+				user_pw = item.getString("utf-8");
+			}
+			
+			if(item.getFieldName().equals("user_name")){
+				user_name = item.getString("utf-8");
+			}
+			
+		} else {
+			// type == file
+			if(item.getFieldName().equals("user_photo")){
+				user_photo = item.getName(); // 파일이름
+				fileSize = item.getSize(); // 파일 사이즈
+				
+				// 중복되지 않도록 이름 처리
+				user_photo_name = System.nanoTime()+"_"+user_photo;
+				
+				// 파일 업로드
+				item.write(new File(dir, user_photo_name));
+			}
+		}
+	}
+	
+%>
 
 <%
 	RegService service = RegService.getInstance();

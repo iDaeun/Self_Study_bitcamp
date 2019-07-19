@@ -156,7 +156,7 @@
 			<div id="ct">
 				<h1>회원가입</h1>
 
-				<form onsubmit="return checkz()" action="regProcess.jsp" method="post">
+				<form onsubmit="return checkz()" action="regProcess.jsp" method="post" enctype="multipart/form-data">
 					<table>
 						<tr>
 							<td>아이디</td>
@@ -177,6 +177,10 @@
 						<tr>
 							<td>이름</td>
 							<td><input	type="text" name="user_name" id="user_name"> <span id="name_span"></span></td>
+						</tr>
+						<tr>
+							<td>사진</td>
+							<td><input	type="file" name="user_photo" id="user_photo"> </td>
 						</tr>
 						<tr>
 							<td></td>

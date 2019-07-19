@@ -3,19 +3,23 @@ package users.model;
 import java.sql.Timestamp;
 
 public class MemberInfo {
+	private int rownum = 0;
 	private String user_id;
 	private String user_pw;
 	private String user_name;
 	private Timestamp user_reg;
+	private String user_photo;
 	
 	public MemberInfo() {
 		this.user_reg = new Timestamp(System.currentTimeMillis());
+		this.user_photo = "";
 	}	
 	
 	public MemberInfo(String user_id, String user_pw, String user_name) {
 		this.user_id = user_id;
 		this.user_pw = user_pw;
 		this.user_name = user_name;
+		this.user_photo = "";
 		this.user_reg = new Timestamp(System.currentTimeMillis());
 	}
 
@@ -60,9 +64,29 @@ public class MemberInfo {
 		this.user_reg = user_reg;
 	}
 	
+
+	public int getRownum() {
+		return rownum;
+	}
+
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
+	
+
+	public String getUser_photo() {
+		return user_photo;
+	}
+
+	public void setUser_photo(String user_photo) {
+		this.user_photo = user_photo;
+	}
+	
+	
 	// 로그인 시에 비밀번호 비교 
 	public boolean matchPassword(String user_pw) {
 		return this.user_pw.equals(user_pw);
 	}
-	
+
+
 }

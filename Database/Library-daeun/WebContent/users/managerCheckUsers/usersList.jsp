@@ -77,6 +77,7 @@
 				for (MemberInfo memberInfo : mListView.getMemberList()){
 			%>
 			<div>
+				#0<%=memberInfo.getRownum() %> <br>
 				회원 아이디 : <%=memberInfo.getUser_id() %> <br>
 				회원 비밀번호 : <%=memberInfo.getUser_pw() %> <br>
 				회원 이름 : <%=memberInfo.getUser_name() %> <br>

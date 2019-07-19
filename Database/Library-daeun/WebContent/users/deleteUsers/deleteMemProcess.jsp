@@ -43,7 +43,9 @@
 		DeleteMemService delService = DeleteMemService.getInstance();
 		
 		try{
+			
 		rCnt = delService.deleteMem(user_id);
+
 		
 		// 대출되어있으면 -> 예외처리로 응답 메세지 전달
 		} catch(SQLException e){
@@ -97,8 +99,14 @@
 				<%
 				if(rCnt > 0){
 				%>
-					<%=rCnt %>개 행이 삭제되었습니다!
-					<a href="<%= request.getContextPath()%>">메인페이지 이동</a>
+					
+					alert('<%=rCnt %>개 행이 삭제되었습니다!');
+					
+					<!-- 회원탈퇴 후, 자동 로그아웃 -->
+					<% session.removeAttribute("login"); %>
+					<script>alert('<%=session.getAttribute("login") %>');
+					location.href="<%=request.getContextPath() %>"; </script>
+				
 				<%	
 				}
 				%>
