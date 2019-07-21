@@ -4,14 +4,15 @@
     pageEncoding="UTF-8"%>
 <%
 	RDService rds = RDService.getInstance();
-	String ses = (String)session.getAttribute("login");
+	LoginInfo loginInfo = (LoginInfo)session.getAttribute("login");
+	String user_id = loginInfo.getUser_id();
 	
 
 	boolean ck = false;
 	int chk = 0;
 
 	try{
-		chk = rds.REVDelete(ses);
+		chk = rds.REVDelete(user_id);
 		ck = true;
 	}catch(SQLException e){
 	 e.printStackTrace();
@@ -54,7 +55,7 @@
 		<%
 		if(ck){
 		%>
-		<h4><%= ses %>님의 예약이 취소 되었습니다.</h4>
+		<h4><%= user_id %>님의 예약이 취소 되었습니다.</h4>
 		<% }else {%>
 		<h4>예약하신 정보가 없습니다.</h4>
 		<% } %>

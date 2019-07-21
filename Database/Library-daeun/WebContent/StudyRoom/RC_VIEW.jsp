@@ -13,8 +13,8 @@
 	int seat = Integer.parseInt(request.getParameter("seat"));
 	int chk = 0;
 	
-	
-	String user_id = (String)session.getAttribute("login");
+	LoginInfo loginInfo = (LoginInfo)session.getAttribute("login");
+	String user_id = loginInfo.getUser_id();
 	
 	
 	RCService rcs = RCService.getInstance();

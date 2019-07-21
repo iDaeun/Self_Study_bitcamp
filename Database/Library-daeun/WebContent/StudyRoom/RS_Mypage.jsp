@@ -6,10 +6,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <% 
-    		String user_id = (String)session.getAttribute("login");
-    
-    		RVservice service = RVservice.getInstance();
-    		user user = service.SeatRV(user_id);
+    LoginInfo loginInfo = (LoginInfo)session.getAttribute("login");
+	
+    int user_num = 0;
+    int user_time = 0;
+    		
+    		
+    		if(loginInfo != null){
+    			
+    			try {
+    				RVservice service = RVservice.getInstance();
+    	    		user user = service.SeatRV(loginInfo.getUser_id());
+    	    		user_num = user.getSeat_num();
+    	    		user_time = user.getStudy_time();
+    			} catch(Exception e){
+    				
+    			}
+    			}else{%>
+    			<script>alert('로그인을 해주세요.');
+    				location.href = "/lib/loginLogout/loginForm.jsp";
+    			</script>
+    			
+    			<%}	%>
     
     
     %>
@@ -44,11 +62,17 @@
 		<!-- context 시작 -->
 		<div id="context">
 		<h3>마이페이지</h3>
-		
-		좌석번호 : <%= user.getSeat_num() %><br>
-		선택한 시간 : <%= user.getStudy_time() %><br>
+		<%
+			if(user_num == 0 && user_time == 0){
+		%>
+			<h2>예약하신 자리가 없습니다</h2>
+		<%		
+			} else {
+		%>
+		좌석번호 : <%= user_num %><br>
+		선택한 시간 : <%= user_time %><br>
 		<a href="/lib/StudyRoom/RC.jsp">수정</a> <a href="/lib/StudyRoom/RD.jsp">삭제</a>
-		
+		<%} %>
 		</div>
 		<!-- footer 시작 -->
 		<%@include file="../frame/footer.jsp"%>

@@ -7,7 +7,8 @@
 	request.setCharacterEncoding("utf-8");
 
 	int time = Integer.parseInt(request.getParameter("time"));
-	String user_id = (String)session.getAttribute("login");
+	LoginInfo loginInfo = (LoginInfo)session.getAttribute("login");
+	String user_id = loginInfo.getUser_id();
 	int seat = Integer.parseInt(request.getParameter("seat"));
 	
 	Study_room studyroom = new Study_room(time, user_id, seat);

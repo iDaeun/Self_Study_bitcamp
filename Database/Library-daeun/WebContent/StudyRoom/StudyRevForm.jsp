@@ -44,7 +44,7 @@
 	display: inline-block;
 	width: 30px;
 	height: 30px;
-	background-color: chocolate;
+	background-color: #EE5A24;
 	color: beige;
 	text-align: center;
 	 line-height: 30px;
@@ -67,8 +67,10 @@
 	border : 2px solid black; 
 	}
 	#sub{
-	width: 50px;
-	background-color: chocolate;
+	width: 80px;
+	height : 30px;
+	border-radius : 5px;
+	background-color: black;
 	color: beige;
 	}
 	
@@ -91,8 +93,8 @@
 			<div id="seatwrap">
 			<div id="seat">
 			<h4 id="h4">좌석배치도</h4>
-			<h4 id="h4">이용 가능 좌석 : 오렌지</h4>
-			<h4 id="h4">이용 불가 좌석 : 브라운</h4>
+			<h4 id="h4" style="color: #EE5A24; font-weight: bold">이용 가능 좌석</h4>
+			<h4 id="h4" style="color: #34495e; font-weight: bold">이용 불가 좌석</h4>
 			<input type="button" class="button" id="1" value="1">
 			<input type="button" class="button" id="2" value="2">
 			<input type="button" class="button" id="3" value="3">
@@ -145,4 +147,203 @@
 
 </body>
 </html>
+<!-- 1번 시간에 자리가 있을 시  -->
+	<%
+	if(timeOne == 1){
+	%>	
+		<script>
+		$('#1s').css('display','none');
+	    $('#1').css('background-color','#34495e');				
+		</script>
+	<%		
+	}else if(timeOne == 2){
+	%>	
+		<script>
+		$('#2s').css('display','none');
+	    $('#2').css('background-color','#34495e');	
+		</script>
+	<%
+	}else if(timeOne == 3){
+	%>
+		<script>
+		$('#3s').css('display','none');
+	    $('#3').css('background-color','#34495e');	
+		</script>
+	<%
+	}else if(timeOne == 4){
+	%>
+		<script>
+		$('#4s').css('display','none');
+	    $('#4').css('background-color','#34495e');	
+		</script>
+	<%
+	}else if(timeOne == 5){
+	%>
+		<script>
+		$('#5s').css('display','none');
+	    $('#5').css('background-color','#34495e');	
+		</script>
+	<%
+	}
+	%>
+	
+	<!-- 2번 시간에 자리가 있을 시  -->
+	<%
+	if(timeTwo == 1){
+	%>	
+		<script>
+		$('#1s').css('display','none');
+	    $('#1').css('background-color','#34495e');				
+		</script>
+	<%		
+	}else if(timeTwo == 2){
+	%>	
+		<script>
+		$('#2s').css('display','none');
+	    $('#2').css('background-color','#34495e');	
+		</script>
+	<%
+	}else if(timeTwo == 3){
+	%>
+		<script>
+		$('#3s').css('display','none');
+	    $('#3').css('background-color','#34495e');	
+		</script>
+	<%
+	}else if(timeTwo == 4){
+	%>
+		<script>
+		$('#4s').css('display','none');
+	    $('#4').css('background-color','#34495e');	
+		</script>
+	<%
+	}else if(timeTwo == 5){
+	%>
+		<script>
+		$('#5s').css('display','none');
+	    $('#5').css('background-color','#34495e');	
+		</script>
+	<%
+	}
+	%>
+	
+	<!-- 3번 시간에 자리가 있을 시  -->
+	<%
+	if(timeThree == 1){
+	%>	
+		<script>
+		$('#1s').css('display','none');
+	    $('#1').css('background-color','#34495e');				
+		</script>
+	<%		
+	}else if(timeThree == 2){
+	%>	
+		<script>
+		$('#2s').css('display','none');
+	    $('#2').css('background-color','#34495e');	
+		</script>
+	<%
+	}else if(timeThree == 3){
+	%>
+		<script>
+		$('#3s').css('display','none');
+	    $('#3').css('background-color','#34495e');	
+		</script>
+	<%
+	}else if(timeThree == 4){
+	%>
+		<script>
+		$('#4s').css('display','none');
+	    $('#4').css('background-color','#34495e');	
+		</script>
+	<%
+	}else if(timeThree == 5){
+	%>
+		<script>
+		$('#5s').css('display','none');
+	    $('#5').css('background-color','#34495e');	
+		</script>
+	<%
+	}
+	%>
+	
+	<!-- 4번 시간에 자리가 있을 시  -->
+	<%
+	if(timeFour == 1){
+	%>	
+		<script>
+		$('#1s').css('display','none');
+	    $('#1').css('background-color','#34495e');				
+		</script>
+	<%		
+	}else if(timeFour == 2){
+	%>	
+		<script>
+		$('#2s').css('display','none');
+	    $('#2').css('background-color','#34495e');	
+		</script>
+	<%
+	}else if(timeFour == 3){
+	%>
+		<script>
+		$('#3s').css('display','none');
+	    $('#3').css('background-color','#34495e');	
+		</script>
+	<%
+	}else if(timeFour == 4){
+	%>
+		<script>
+		$('#4s').css('display','none');
+	    $('#4').css('background-color','#34495e');	
+		</script>
+	<%
+	}else if(timeThree == 5){
+	%>
+		<script>
+		$('#5s').css('display','none');
+	    $('#5').css('background-color','#34495e');	
+		</script>
+	<%
+	}
+	%>
+	
+	<!-- 5번 시간에 자리가 있을 시  -->
+	<%
+	if(timeFive == 1){
+	%>	
+		<script>
+		$('#1s').css('display','none');
+	    $('#1').css('background-color','#34495e');				
+		</script>
+	<%		
+	}else if(timeFive == 2){
+	%>	
+		<script>
+		$('#2s').css('display','none');
+	    $('#2').css('background-color','#34495e');	
+		</script>
+	<%
+	}else if(timeFive == 3){
+	%>
+		<script>
+		$('#3s').css('display','none');
+	    $('#3').css('background-color','#34495e');	
+		</script>
+	<%
+	}else if(timeFive == 4){
+	%>
+		<script>
+		$('#4s').css('display','none');
+	    $('#4').css('background-color','#34495e');	
+		</script>
+	<%
+	}else if(timeFive == 5){
+	%>
+		<script>
+		$('#5s').css('display','none');
+	    $('#5').css('background-color','#34495e');	
+		</script>
+	<%
+	}
+	%>
 	

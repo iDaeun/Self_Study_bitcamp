@@ -8,18 +8,18 @@
 <%
 	request.setCharacterEncoding("utf-8");
 %>
-<%
-		String user_id = (String)session.getAttribute("login");
+<%		
+		LoginInfo loginInfo = (LoginInfo)session.getAttribute("login");
 		String book_name = request.getParameter("bookname");
 		boolean chk = false;
 		int rCnt = 0;
 		
 		BookRentService service = BookRentService.getInstance();
 		
-		if(user_id != null){
+		if(loginInfo != null){
 		
 		try {
-			rCnt = service.BookRent(user_id, book_name);
+			rCnt = service.BookRent(loginInfo.getUser_id(), book_name);
 			chk = true;
 		} catch(Exception e){
 			

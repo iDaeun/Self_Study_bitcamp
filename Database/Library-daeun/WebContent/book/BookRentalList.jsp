@@ -12,7 +12,8 @@
 	request.setCharacterEncoding("utf-8");
 %>
 <%
-	String user_id = (String)session.getAttribute("login");
+LoginInfo loginInfo = (LoginInfo)session.getAttribute("login");
+String user_id = loginInfo.getUser_id();
 
 	BookRentListService service = BookRentListService.getInstance();
 	

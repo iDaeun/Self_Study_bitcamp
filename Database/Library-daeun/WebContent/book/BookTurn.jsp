@@ -6,7 +6,8 @@
 	request.setCharacterEncoding("utf-8");
 %>
 <%
-		String user_id = (String)session.getAttribute("login");
+LoginInfo loginInfo = (LoginInfo)session.getAttribute("login");
+String user_id = loginInfo.getUser_id();
 		String book_name = request.getParameter("bookname");
 		boolean chk = false;
 		int rCnt = 0;
