@@ -169,13 +169,26 @@ ALTER TABLE BOOK
       );
 
 select * from book;
+commit;
 -- 대출이면 => N !!!!
 insert into BOOK values ( '1', 'testbook1', 'testbook1', 'testbook1', 'testbook1');
-
+create sequence book_id
+start with 0
+minvalue 0
+;
+create sequence rent_id
+start with 0
+minvalue 0
+;
+select *
+from rent;
+insert into book values(book_id.nextval,'오늘의 점심은','백종원','코리아쿡','요리');
 select * from rent;
 delete from rent where book_ren = 'N';
 drop table book;
-
+drop table rent;
+drop sequence book_id;
+drop sequence rent_id;
 ---------------------------------------------------------
 -- 2. 건의사항
 
