@@ -65,6 +65,11 @@ CREATE TABLE USERS (
     constraint ur_id_pk primary key (USER_ID)
 );
 
+update users set USER_PHOTO = 'none' where USER_PHOTO = 'ddd';
+update users set USER_PHOTO = 'none' where USER_ID = 'test5';
+
+commit;
+
 select * from users;
 desc users;
 
@@ -87,6 +92,8 @@ insert into users values ( 'test3', 'test3', 'test삼', sysdate, '');
 
 drop table users;
 drop sequence users_idx_seq;
+
+delete from users where user_id = 'test10';
 
 commit;
 

@@ -48,6 +48,18 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="/lib/js/bootstrap.js"></script>
 
+<style>
+	#user_photo{
+		width: 25%;
+	}
+	
+	img{
+		max-width: 100%;
+		height: auto;
+	}
+</style>
+
+
 </head>
 <body>
 
@@ -73,20 +85,58 @@
 			%>
 			<h2>(<%=mListView.getStartRow()%>)번 ~ (<%=mListView.getEndRow()%>)번</h2>
 			<hr>
+			
 			<%	
 				for (MemberInfo memberInfo : mListView.getMemberList()){
 			%>
-			<div>
-				#0<%=memberInfo.getRownum() %> <br>
-				회원 아이디 : <%=memberInfo.getUser_id() %> <br>
-				회원 비밀번호 : <%=memberInfo.getUser_pw() %> <br>
-				회원 이름 : <%=memberInfo.getUser_name() %> <br>
-				가입 일자 : <%=format.format( memberInfo.getUser_reg() ) %> <br>
-				<hr>
-			</div>
+			
+			<table>
+			
+				<tr>
+					<td colspan="2">#0<%=memberInfo.getRownum() %></td>
+				</tr>
+				
+				<tr>
+					<td colspan="2">
+					<div id="user_photo">
+					<%if(memberInfo.getUser_photo().equals("none")){ %>
+						<!-- 프로필 없을때 -->
+						<img alt="사진" src="/lib/user_photo_upload/default.jpg"/>
+						
+					<% }else{ %>
+						<!-- 프로필 있을때 -->
+					<img alt="사진" src="/lib/user_photo_upload/<%=memberInfo.getUser_photo() %>"/>
+					
+					<%} %>
+					</div>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>회원 아이디</td>
+					<td><%=memberInfo.getUser_id() %></td>
+				</tr>
+				
+				<tr>
+					<td>회원 비밀번호</td>
+					<td><%=memberInfo.getUser_pw() %></td>
+				</tr>
+				
+				<tr>
+					<td>회원 이름</td>
+					<td><%=memberInfo.getUser_name() %></td>
+				</tr>
+				
+				<tr>
+					<td>가입 일자</td>
+					<td><%=format.format( memberInfo.getUser_reg() ) %></td>
+				</tr>
+			</table>
+			
 			<%		
 				}
 			}
+			
 				// 페이지 번호 나누기
 				for (int i = 1; i<= mListView.getPgTotalCnt(); i++){
 			%>

@@ -160,7 +160,7 @@
 					<table>
 						<tr>
 							<td>아이디</td>
-							<td> <input type="text" name="user_id" id="user_id" value=""> 
+							<td> <input type="text" name="user_id" id="user_id"> 
 								 <input type="button" value="중복아이디체크" id="id_check"><br>
 								 <span id="idChkMsg"></span>
 								 <span id="id_span"></span>
@@ -180,7 +180,7 @@
 						</tr>
 						<tr>
 							<td>사진</td>
-							<td><input	type="file" name="user_photo" id="user_photo"> </td>
+							<td><input type="file" name="user_photo" id="user_photo"> </td>
 						</tr>
 						<tr>
 							<td></td>

@@ -1,3 +1,4 @@
+<%@page import="users.model.MemberInfo"%>
 <%@page import="java.io.File"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="org.apache.commons.fileupload.FileItem"%>
@@ -12,70 +13,102 @@
 	request.setCharacterEncoding("utf-8");
 %>
 
-<!-- usebean - memberInfo.java에 데이터 저장 -->
-<jsp:useBean id="member" class="users.model.MemberInfo"/>
-<jsp:setProperty property="*" name="member" />
 
 <%
-	// 사진파일 저장
+	boolean photo = false;
+	//사진파일 저장
 	String user_id = "";
 	String user_pw = "";
 	String user_name = "";
 	String user_photo = "";
-    long fileSize = 0;
-    String user_photo_name = "";
+	long fileSize = 0;
+	String user_photo_name = "";
+	boolean memory = false;
+	String type = "";
+	String dir = "";
 	
-	// upload할 경로
-	String uploadPath = "/user_photo_upload";
-	String dir = request.getSession().getServletContext().getRealPath(uploadPath);
-	System.out.println(dir);
-	
-	boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-	DiskFileItemFactory factory = new DiskFileItemFactory();
-	ServletFileUpload upload = new ServletFileUpload(factory);
-	
-	List<FileItem> items = upload.parseRequest(request);
-	Iterator<FileItem> itr = items.iterator();
-	
-	while(itr.hasNext()){
-		FileItem item = itr.next();
+	// memberInfo 객체에 저장
+	MemberInfo memberInfo = new MemberInfo();
+
+		// upload할 경로
+		String uploadPath = "/user_photo_upload";
+		dir = request.getSession().getServletContext().getRealPath(uploadPath);
 		
-		// type 구별해주기
-		if(item.isFormField()){
-			// type != file
-			if(item.getFieldName().equals("user_id")){
-				user_id = item.getString("utf-8");
-			}
+		System.out.println("내가 지정한경로:"+dir);
+
+			// 1. multipart/form-data 여부 확인
+		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+		
+		if(isMultipart){
 			
-			if(item.getFieldName().equals("user_pw")){
-				user_pw = item.getString("utf-8");
-			}
+			// 2. 메모리나 파일로 업로드 데이터를 보관하는 factory설정
+		DiskFileItemFactory factory = new DiskFileItemFactory();
 			
-			if(item.getFieldName().equals("user_name")){
-				user_name = item.getString("utf-8");
-			}
+			// 3. 업로드 요청 처리하는 ServletFileUpload생성
+		ServletFileUpload upload = new ServletFileUpload(factory);
+
+		// 업로드 기준값
+		//factory.setSizeThreshold(sizeThreshold);
+		// upload.setSizaMax(-1); : 업로드 바이트는 무제한 
 			
-		} else {
-			// type == file
-			if(item.getFieldName().equals("user_photo")){
-				user_photo = item.getName(); // 파일이름
-				fileSize = item.getSize(); // 파일 사이즈
-				
-				// 중복되지 않도록 이름 처리
-				user_photo_name = System.nanoTime()+"_"+user_photo;
-				
-				// 파일 업로드
-				item.write(new File(dir, user_photo_name));
+			// 4. 업로드 요청 파싱 -> FileItem목록 구함
+		List<FileItem> items = upload.parseRequest(request);
+		Iterator<FileItem> itr = items.iterator();
+
+		while (itr.hasNext()) {
+			
+			FileItem item = itr.next();
+
+			// type 구별해주기
+			if (item.isFormField()) {
+				// type != file
+				if (item.getFieldName().equals("user_id")) {
+					user_id = item.getString("utf-8");
+					memberInfo.setUser_id(user_id); // id저장
+				}
+
+				if (item.getFieldName().equals("user_pw")) {
+					user_pw = item.getString("utf-8");
+					memberInfo.setUser_pw(user_pw); // pw저장
+				}
+
+				if (item.getFieldName().equals("user_name")) {
+					user_name = item.getString("utf-8");
+					memberInfo.setUser_name(user_name); // name저장
+				}
+
+			} else {
+				// type == file
+				if (item.getFieldName().equals("user_photo")) {
+					user_photo = item.getName(); // 파일이름
+					fileSize = item.getSize(); // 파일 사이즈
+					memory = item.isInMemory(); // 메모리 여부
+					type = item.getContentType(); // 파일타입
+					
+					// 파일 골랐을때만 파일 업로드 진행
+					if(fileSize>0){
+						
+						// 중복되지 않도록 이름 처리
+						user_photo_name = System.nanoTime() + "_" + user_photo;
+
+						// 파일 업로드
+						item.write(new File(dir, user_photo_name));
+
+						memberInfo.setUser_photo(user_photo_name); // 사진저장
+
+						photo = true;
+
+					}					
+				}
 			}
 		}
 	}
-	
 %>
 
 <%
 	RegService service = RegService.getInstance();
-	int rCnt = service.regInsert(member);
-%>
+	int rCnt = service.regInsert(memberInfo);
+%> 
 
 <!DOCTYPE html>
 <html>
@@ -101,8 +134,22 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="/lib/js/bootstrap.js"></script>
 
+<style>
+	#user_photo{
+		width: 25%;
+		height: 25%;
+	}
+	
+	img{
+		max-width: 100%;
+		max-height: auto;
+	}
+</style>
+
+
 </head>
 <body>
+	
 
 	<div id="main_wrap">
 		<!-- header 시작 -->
@@ -118,16 +165,38 @@
 			<div id="ct">
 				<%
 					if (rCnt > 0) {
-				%>
+				%> 
 				<h1>
 					회원가입 완료!<%=rCnt%>개 데이터 추가함
 				</h1>
-				<a href="<%=request.getContextPath()%>">메인페이지로 돌아가기</a>
+
 				<%
-					} else {
+					if (photo) {
 				%>
+				<div>
+					저장한 이미지 출력 <br> 
+					<div id="user_photo">
+					<img alt="사진"	src="/lib/user_photo_upload/<%=user_photo_name%>" />
+					</div>
+				</div>
+
+				파일 이름 : <%=user_photo%>(<%=fileSize%>)<br> 
+				파일 타입 : <%=type%><br> 
+				저장 파일 이름 : <%=user_photo_name%><br> 
+				저장 폴더 : <%=dir%><br> 
+				<%= memory ? "메모리저장" : "임시파일저장" %><br>
+				<a href="<%=request.getContextPath()%>">메인페이지로 돌아가기</a>
+
+				<%
+					}
+				
+				} else {
+				%>
+						
+				<%=rCnt %>
 				<h1>회원가입 실패</h1>
 				<a href="<%=request.getContextPath()%>">메인페이지로 돌아가기</a>
+
 				<%
 					}
 				%>

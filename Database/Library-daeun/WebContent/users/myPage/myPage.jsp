@@ -41,6 +41,19 @@
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="/lib/js/bootstrap.js"></script>
+
+<style>
+	#user_photo{
+		width: 25%;
+		height: 25%;
+	}
+	
+	img{
+		max-width: 100%;
+		max-height: auto;
+	}
+</style>
+
 </head>
 
 <body>
@@ -59,6 +72,21 @@
 			<div id="ct">
 				<h1>내 정보</h1>
 				<ul>
+					<li>
+					
+					<div id="user_photo">
+					<%if(memberInfo.getUser_photo().equals("none")){ %>
+						<!-- 프로필 없을때 -->
+						<img alt="사진" src="/lib/user_photo_upload/default.jpg"/>
+						
+					<% }else{ %>
+						<!-- 프로필 있을때 -->
+					<img alt="사진" src="/lib/user_photo_upload/<%=memberInfo.getUser_photo() %>"/>
+					
+					<%} %>
+					</div>
+					
+					</li>
 					<li>아이디: <%=memberInfo.getUser_id() %></li>
 					<li>비밀번호: <%=memberInfo.getUser_pw() %></li>
 					<li>이름: <%=memberInfo.getUser_name() %></li>

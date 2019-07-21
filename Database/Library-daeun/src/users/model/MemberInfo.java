@@ -12,14 +12,14 @@ public class MemberInfo {
 	
 	public MemberInfo() {
 		this.user_reg = new Timestamp(System.currentTimeMillis());
-		this.user_photo = "";
+		this.user_photo = "none";
 	}	
 	
 	public MemberInfo(String user_id, String user_pw, String user_name) {
 		this.user_id = user_id;
 		this.user_pw = user_pw;
 		this.user_name = user_name;
-		this.user_photo = "";
+		this.user_photo = "none";
 		this.user_reg = new Timestamp(System.currentTimeMillis());
 	}
 
@@ -88,5 +88,12 @@ public class MemberInfo {
 		return this.user_pw.equals(user_pw);
 	}
 
+	@Override
+	public String toString() {
+		return "MemberInfo [rownum=" + rownum + ", user_id=" + user_id + ", user_pw=" + user_pw + ", user_name="
+				+ user_name + ", user_reg=" + user_reg + ", user_photo=" + user_photo + "]";
+	}
+
+	
 
 }
