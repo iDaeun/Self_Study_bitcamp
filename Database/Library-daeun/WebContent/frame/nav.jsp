@@ -15,15 +15,15 @@
 		%>
 		<!-- ADMIN1일때 -->
 		<li><a href="/lib/users/managerCheckUsers/usersList.jsp">회원목록</a></li>
-		<li><a href="/lib/StudyRoom/RS_Mypage.jsp">열람실 예약 현황</a></li>
+		<li><a href="/lib/StudyRoom/UserList.jsp">열람실 예약 현황</a></li>
 		
 		<li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">도서<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="/lib/book/BookSearchForm.jsp">도서검색</a></li>
-                        <li><a href="/lib/book/BookAll.jsp">전체 도서 리스트</a></li>
-                         <li><a href="/lib/book/BookWriteForm.jsp">도서추가</a></li>
+                        <li><a href="/lib/book/BookWriteForm.jsp">도서추가</a></li>
                         <li><a href="/lib/book/BookDeleteForm.jsp">도서삭제</a></li>
+                        <li><a href="/lib/book/BookAll.jsp">전체도서 및 대출현황</a></li>
                         <li><a href="#">신청 도서 리스트</a></li>
                     </ul>
                 </li>

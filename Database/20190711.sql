@@ -75,20 +75,16 @@ desc users;
 
 drop table users;
 
-create sequence USERS_idx_seq
-start with 0
-minvalue 0
-;
 
-insert into users values ( 'admin1', 'admin1', '관리자', sysdate, '');
-insert into users values ( 'Jessie', 'J111', '제시', sysdate, '');
-insert into users values ( 'Forkey', 'F222', '포키', sysdate, '');
-insert into users values ( 'Woody', 'W333', '우디', sysdate, '');
-insert into users values ( 'Boo', 'B444', '보', sysdate, '');
-insert into users values ( 'Rex', 'R555', '렉스', sysdate, '');
-insert into users values ( 'test1', 'test1', 'test일', sysdate, '');
-insert into users values ( 'test2', 'test2', 'test이', sysdate, '');
-insert into users values ( 'test3', 'test3', 'test삼', sysdate, '');
+insert into users values ( 'admin1', 'admin1', '관리자', sysdate, 'none');
+insert into users values ( 'Jessie', 'J111', '제시', sysdate, 'none');
+insert into users values ( 'Forkey', 'F222', '포키', sysdate, 'none');
+insert into users values ( 'Woody', 'W333', '우디', sysdate, 'none');
+insert into users values ( 'Boo', 'B444', '보', sysdate, 'none');
+insert into users values ( 'Rex', 'R555', '렉스', sysdate, 'none');
+insert into users values ( 'test1', 'test1', 'test일', sysdate, 'none');
+insert into users values ( 'test2', 'test2', 'test이', sysdate, 'none');
+insert into users values ( 'test3', 'test3', 'test삼', sysdate, 'none');
 
 drop table users;
 drop sequence users_idx_seq;
@@ -97,9 +93,15 @@ delete from users where user_id = 'test10';
 
 commit;
 
+
+create sequence USERS_idx_seq
+start with 0
+minvalue 0
+;
+
 select user_id from users where user_id = 'admin';
 
-delete from users where user_id = 'test';
+delete from users where user_name = 'test';
 
 select count(*) from users;
 
@@ -228,7 +230,7 @@ CREATE TABLE STUDY_ROOM(
 
 drop table STUDY_ROOM;
 select * from STUDY_ROOM;
-
+delete STUDY_ROOM;
 insert into STUDY_ROOM values ( sysdate, '1111', 'test4', 1);
 
 ---------------------------------------------------------

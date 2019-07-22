@@ -1,3 +1,4 @@
+<%@page import="users.service.ChangeMyInfoService"%>
 <%@page import="users.model.MemberInfo"%>
 <%@page import="java.io.File"%>
 <%@page import="java.util.Iterator"%>
@@ -13,7 +14,6 @@
 	request.setCharacterEncoding("utf-8");
 %>
 
-
 <%
 	boolean photo = false;
 	//사진파일 저장
@@ -27,9 +27,9 @@
 	String type = "";
 	String dir = "";
 	
-	// memberInfo 객체에 저장
-	MemberInfo memberInfo = new MemberInfo();
-
+	ChangeMyInfoService service = ChangeMyInfoService.getInstance();
+	MemberInfo memberInfo = null;
+	
 		// upload할 경로
 		String uploadPath = "/user_photo_upload";
 		dir = request.getSession().getServletContext().getRealPath(uploadPath);
@@ -61,24 +61,32 @@
 
 			// type 구별해주기
 			if (item.isFormField()) {
-				// type != file
+				// type != file	
+				
+				// 1. 해당 아이디의 정보가 담긴 memberInfo객체 가져옴
 				if (item.getFieldName().equals("user_id")) {
 					user_id = item.getString("utf-8");
-					memberInfo.setUser_id(user_id); // id저장
+					memberInfo = service.select(user_id);
 				}
-
+				
+				// 2. 수정된 정보 반영 : 비밀번호 / 이름
 				if (item.getFieldName().equals("user_pw")) {
 					user_pw = item.getString("utf-8");
-					memberInfo.setUser_pw(user_pw); // pw저장
+					memberInfo.setUser_pw(user_pw); // pw 수정
 				}
 
 				if (item.getFieldName().equals("user_name")) {
 					user_name = item.getString("utf-8");
-					memberInfo.setUser_name(user_name); // name저장
+					memberInfo.setUser_name(user_name); // name 수정
 				}
+				
+				// * 아이디는 수정 못함
+				// * 사용자가 사진 수정 안함 -> 기존 사진 저장
 
 			} else {
 				// type == file
+				// 2. 수정된 정보 반영 : 사진
+				// * 사용자가 사진 수정함 -> 새로운 사진 저장
 				if (item.getFieldName().equals("user_photo")) {
 					user_photo = item.getName(); // 파일이름
 					fileSize = item.getSize(); // 파일 사이즈
@@ -94,7 +102,7 @@
 						// 파일 업로드
 						item.write(new File(dir, user_photo_name));
 
-						memberInfo.setUser_photo(user_photo_name); // 사진저장
+						memberInfo.setUser_photo(user_photo_name); // 사진 수정
 
 						photo = true;
 
@@ -106,9 +114,11 @@
 %>
 
 <%
-	RegService service = RegService.getInstance();
-	int rCnt = service.regInsert(memberInfo);
+	// 2. 해당 아이디의 정보 업데이트
+	int rCnt = 0;
+	rCnt = service.update(memberInfo, user_id);
 %> 
+
 
 <!DOCTYPE html>
 <html>
@@ -186,7 +196,7 @@
 					if (rCnt > 0) {
 				%> 
 				<h2>
-					회원가입 완료! <%=rCnt%>개 데이터 추가함
+					회원정보 수정 완료! <%=rCnt%>개 데이터 수정함
 				</h2>
 
 				<%
@@ -204,7 +214,7 @@
 				저장 폴더 : <%=dir%><br> 
 				저장 위치 : <%= memory ? "메모리저장" : "임시파일저장" %><br>
 				<hr>
-				<a id="move" href="<%=request.getContextPath()%>">메인페이지로 돌아가기</a>
+				<a id="move" href="myPage.jsp">수정된 정보 확인하기</a>
 				</div>
 				
 				<%
@@ -214,7 +224,7 @@
 				%>
 						
 				<%=rCnt %>
-				<h2>회원가입 실패</h2>
+				<h2>회원정보 수정 실패</h2>
 				<a id="move" href="<%=request.getContextPath()%>">메인페이지로 돌아가기</a>
 
 				<%
