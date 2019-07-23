@@ -98,7 +98,19 @@
 			<%	
 			} else {
 			%>
-			<h2>(<%=mListView.getStartRow()%>)번 ~ (<%=mListView.getEndRow()%>)번</h2>
+			<h2>(<%=mListView.getStartRow()%>)번 ~ 
+			
+				<%if(mListView.getEndRow() - mListView.getMemberTotalCnt()>0){
+				%>
+					(<%=mListView.getEndRow() - (mListView.getEndRow() - mListView.getMemberTotalCnt())%>)번			
+				<%	
+				} else {
+				%>
+					(<%=mListView.getEndRow()%>)번
+				<%	
+				}
+				%>
+			</h2>
 			<hr>
 			
 			<%	

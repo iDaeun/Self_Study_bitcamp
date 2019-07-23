@@ -230,6 +230,8 @@ CREATE TABLE STUDY_ROOM(
 
 drop table STUDY_ROOM;
 select * from STUDY_ROOM;
+select * from users;
+commit;
 delete STUDY_ROOM;
 insert into STUDY_ROOM values ( sysdate, '1111', 'test4', 1);
 
