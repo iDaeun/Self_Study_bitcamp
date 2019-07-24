@@ -35,22 +35,28 @@ import guestbook.service.GuestBookService;
 
 public class FrontController extends HttpServlet {
 	
+	// command패턴(= 인터페이스로 동일 메소드 호출) 실행하기 위해 MAP사용
 	private Map<String, GuestBookService> commands = new HashMap<String, GuestBookService>();
 	
 	@Override
-	public void init(ServletConfig config) throws ServletException {
+	public void init(ServletConfig config) throws ServletException { // init
 		String configfile = config.getInitParameter("config");
+		
+		// text기반 문서로 경로 & 서비스 객체 저장된 properties
 		Properties prop = new Properties();
 		
+		// prop.load를 쓰기 위해선 IO가 필요하다! (절대경로 -> inputstream 필요, 파일입출력)
 		FileInputStream fis = null;
 		// config 파일의 절대경로 
 		String configFilePath = config.getServletContext().getRealPath(configfile);
 		
-		// propertise에 load하기
+		// properties에 load하기 -> Key, Value => 문자열, 문자열로 저장
 		try {
+			
 			fis = new FileInputStream(configFilePath);
-			prop.load(fis);
+			prop.load(fis); 
 			System.out.println("프로퍼티 사이즈: "+ prop.size());
+			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,16 +65,19 @@ public class FrontController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+		// prop.keySet() -> key값을 set집합으로 만들어줌 -> iterator
+		// => commands "MAP"에 저장: key값, 서비스객체(Class사용)
 		Iterator itr = prop.keySet().iterator();
 		
 		while(itr.hasNext()) {
-			//System.out.println(itr.next()); **next 두개 들어가서 문제생김!!!!!!!!!!!1
-			String command = (String)itr.next(); // 사용자 요청 URI
-			String serviceClassName = prop.getProperty(command); // 서비스 클래스 이름
+			//System.out.println(itr.next()); **next 두개 들어가서 문제생김!!!!!!!!!!!
 			
-			// prop에 있는 클래스 이름으로 인스턴스 생성
-			
+			String command = (String)itr.next(); // 사용자 요청 URI (key값, 경로)
+			String serviceClassName = prop.getProperty(command); // 서비스 클래스 이름 (value값, 실행서비스)
+						
 			try {
+				
+				// prop에 있는 클래스 이름으로 인스턴스 생성
 				Class serviceClass = Class.forName(serviceClassName);
 				// 객체 생성
 				GuestBookService service = (GuestBookService) serviceClass.newInstance();
@@ -104,6 +113,7 @@ public class FrontController extends HttpServlet {
 	}
 
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// 1. 사용자 요청 분석
 		String commandUri = request.getRequestURI(); // /guest/guestList 등등 URI가 들어옴
 		if(commandUri.indexOf(request.getContextPath()) == 0) { // /guest -> 0 index인지?
@@ -113,13 +123,13 @@ public class FrontController extends HttpServlet {
 		System.out.println(commandUri);
 		
 		// 2. 사용자 요청에 맞는 모델 실행 (서비스.메소드 실행) -> view 페이지 반환
-		
 		String viewPage = "/WEB-INF/view/null.jsp";
 		
+		// "MAP" -> get(KEY) => service객체(VALUE) 가져옴
 		GuestBookService service = commands.get(commandUri); // null값을 반환하기도 한다
 		
 		if(service != null) {
-			viewPage = service.getViewName(request, response);
+			viewPage = service.getViewName(request, response); // Interface GuestBookService의 메소드
 		}
 		
 		// 3. view 로 포워딩

@@ -1,3 +1,8 @@
+## 경로 = 실행서비스 (매칭이 되어야함)
+## FrontController생성자 안에 있는 경로 & 서비스 객체 -> 계속 추가하는 것 대신
+## text 기반으로 문서로 저장함 (properties 객체 사용)
+## 특징 : Key, Value = String, String 형태로 저장, 문자로 저장 가능!!
+
 /guestWriteForm=guestbook.service.WriteFormService
 /guestWrite=guestbook.service.WriteMessageService
 /guestList=guestbook.service.GetMessageListService
