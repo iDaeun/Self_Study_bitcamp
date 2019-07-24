@@ -17,7 +17,7 @@
     <jsp:setProperty property = "*" name = "message" />
 
 	<%
-		WriteMessageService service = WriteMessageService.getInstance();
+		WriteMessageService service = new WriteMessageService();
 		int cnt = service.write(message);
 	%>
 	    
