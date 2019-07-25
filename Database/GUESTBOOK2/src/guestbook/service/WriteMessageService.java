@@ -22,28 +22,23 @@ public class WriteMessageService implements GuestBookService {
 	 * private WriteMessageService() {}
 	 */
 	
-	public int write(Message message) {
-		
-		int rCnt = 0;
-		
-		// 1. Connection 생성
-		// 2. dao 생성
-		// 3. insert 메소드 실행
-		
-		Connection conn = null;
-		try {
-			conn = ConnectionProvider.getConnection();
-			MessageDao dao = MessageDao.getInstance();
-			
-			rCnt = dao.insert(conn, message);
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return rCnt;
-	}
+	/*
+	 * public int write(Message message) {
+	 * 
+	 * int rCnt = 0;
+	 * 
+	 * // 1. Connection 생성 // 2. dao 생성 // 3. insert 메소드 실행
+	 * 
+	 * Connection conn = null; try { conn = ConnectionProvider.getConnection();
+	 * MessageDao dao = MessageDao.getInstance();
+	 * 
+	 * rCnt = dao.insert(conn, message);
+	 * 
+	 * } catch (SQLException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); }
+	 * 
+	 * return rCnt; }
+	 */
 
 	@Override
 	public String getViewName(HttpServletRequest request, HttpServletResponse response) {

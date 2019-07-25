@@ -6,5 +6,6 @@
 /guestWriteForm=guestbook.service.WriteFormService
 /guestWrite=guestbook.service.WriteMessageService
 /guestList=guestbook.service.GetMessageListService
-##/guestDelForm=guestbook.service.DeleteFormService
-##/guestDel=guestbook.service.DeleteMessageService
+/guestDelForm=guestbook.service.DeleteFormService
+/guestDel=guestbook.service.DeleteMessageService
+/=guestbook.service.GetMessageListService

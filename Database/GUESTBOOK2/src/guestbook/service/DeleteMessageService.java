@@ -3,22 +3,22 @@ package guestbook.service;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import guestbook.dao.MessageDao;
 import guestbook.model.Message;
 import jdbc.ConnectionProvider;
 import jdbc.JdbcUtil;
 
-public class DeleteMessageService {
-	// SINGLETON
-	private DeleteMessageService() {
-	}
-
-	private static DeleteMessageService service = new DeleteMessageService();
-
-	public static DeleteMessageService getInstance() {
-		return service;
-	}
-
+public class DeleteMessageService implements GuestBookService {
+	/*
+	 * // SINGLETON private DeleteMessageService() { }
+	 * 
+	 * private static DeleteMessageService service = new DeleteMessageService();
+	 * 
+	 * public static DeleteMessageService getInstance() { return service; }
+	 */
 	public int deleteMessage(int messageId, String password) throws SQLException, MessageNotFoundException, InvalidMessagePasswordException {
 		int resultCnt = 0;
 
@@ -73,5 +73,55 @@ public class DeleteMessageService {
 		}
 
 		return resultCnt;
+	}
+
+	@Override
+	public String getViewName(HttpServletRequest request, HttpServletResponse response) {
+		
+		String viewPage = "/WEB-INF/view/delete.jsp";
+		
+		int messageId = Integer.parseInt(request.getParameter("messageId"));
+		String password = request.getParameter("password");
+		
+		// 결과 : true / false
+		// 처리개수 : resultCnt
+		// 메시지 : msg
+		
+		boolean chk = false;
+		int resultCnt = 0;
+		String msg = "";
+		
+		try {
+			
+			resultCnt = deleteMessage(messageId, password);
+			chk = true;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			msg = e.getMessage();
+			
+		} catch (MessageNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			msg = e.getMessage();
+			
+		} catch (InvalidMessagePasswordException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			msg = e.getMessage();
+			
+		}
+		
+		// viewpage -> 체크해야하는 값, msg 전달
+		// viewpage와 결과 데이터를 공유(전달)
+		request.setAttribute("chk", chk);
+		request.setAttribute("resultCnt", resultCnt);
+		request.setAttribute("msg", msg);
+		
+		return viewPage;
 	}
 }
