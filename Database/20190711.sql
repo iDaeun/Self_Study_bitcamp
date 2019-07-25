@@ -1,17 +1,20 @@
 create table SurfingMemberInfo (
-    idx number(7),
+    idx number(7) constraint smi_idx_nn not null,
     id varchar2(20) constraint smi_id_nn not null,
     pw varchar2(20) constraint smi_pw_nn not null,
     name varchar2(20) constraint smi_name_nn not null,
     pNum varchar2(20),
-    photo varchar2(30),
+    photo varchar2(100),
     lv number(1),
-    registerDate date default sysdate,
+    registerDate TIMESTAMP default sysdate,
     
-    constraint smi_idx_pk primary key (idx),
-    constraint smi_id_uq unique (id),
-    constraint smi_pw_uq unique (pw)
+    constraint smi_id_pk primary key (id)
 );
+
+commit;
+
+insert into SurfingMemberInfo values (smi_idx_seq.nextval, 'dummy', 'dummy1', 'dummyname', '010-0000-0000', 'none', 5, sysdate);
+insert into SurfingMemberInfo values (smi_idx_seq.nextval, 'dummy1', 'dummy1', 'dummyname', '010-0000-0000', '1250792189099080_google-logo.png', 5, sysdate);
 
 create sequence smi_idx_seq
 start with 0

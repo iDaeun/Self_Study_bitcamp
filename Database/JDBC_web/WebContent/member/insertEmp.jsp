@@ -1,4 +1,4 @@
-<%@page import="member.memberInfo"%>
+<%@page import="surfing.model.memberInfo"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -7,7 +7,7 @@
     pageEncoding="UTF-8"%>
     
     <!-- 자바빈 사용 -->
-    <jsp:useBean id="member" class="member.memberInfo"/>
+    <jsp:useBean id="member" class="surfing.model.memberInfo"/>
 	<jsp:setProperty property="*" name="member"/>
     
     <%

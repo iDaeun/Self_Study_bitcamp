@@ -25,7 +25,7 @@
 				</tr>
 				<tr>
 					<td>메세지</td>
-					<td><textarea rows="3" clos="30" name="message"></textarea></td>
+					<td><textarea rows="3" cols="30" name="message"></textarea></td>
 				</tr>
 				<tr>
 					<td></td>
