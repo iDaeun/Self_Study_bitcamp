@@ -5,7 +5,7 @@ create table SurfingMemberInfo (
     name varchar2(20) constraint smi_name_nn not null,
     pNum varchar2(20),
     photo varchar2(100),
-    lv number(1),
+    lv number(2),
     registerDate TIMESTAMP default sysdate,
     
     constraint smi_id_pk primary key (id)
@@ -14,7 +14,7 @@ create table SurfingMemberInfo (
 commit;
 
 insert into SurfingMemberInfo values (smi_idx_seq.nextval, 'dummy', 'dummy1', 'dummyname', '010-0000-0000', 'none', 5, sysdate);
-insert into SurfingMemberInfo values (smi_idx_seq.nextval, 'dummy1', 'dummy1', 'dummyname', '010-0000-0000', '1250792189099080_google-logo.png', 5, sysdate);
+insert into SurfingMemberInfo values (smi_idx_seq.nextval, 'admin1', 'admin1', 'admin', '000-0000-0000', 'none', 0, sysdate);
 
 create sequence smi_idx_seq
 start with 0
