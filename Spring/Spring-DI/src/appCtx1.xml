@@ -27,10 +27,11 @@
 		</property>
 	</bean>
 	
-	<!-- 태그 안에서 ref속성으로 설정하기 -->
-	<!-- 만약 참조가 아니라면 ref대신 value사용 -->
+	<!-- 줄여쓰기 -->
 	<bean 
 	id="changePwService" class="member.ChangePasswordService" p:memberDao-ref="memberDao">
+		<!-- 태그 안에서 ref속성으로 설정하기 -->
+		<!-- 만약 참조가 아니라면 ref대신 value사용 -->
 		<!-- <property name="memberDao" ref="memberDao"/> -->
 		<!-- <constructor-arg ref="memberDao"/> -->
 	</bean>

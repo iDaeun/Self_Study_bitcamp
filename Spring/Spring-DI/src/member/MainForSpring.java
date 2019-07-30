@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 public class MainForSpring {
@@ -15,7 +14,7 @@ public class MainForSpring {
 	// 스프링 컨테이너 생성 : 조립기 설정파일 appCtx1.xml, main method안에서 불러야 하니깐 static으로
 	private static ApplicationContext ctx =
 
-			new GenericXmlApplicationContext("classpath:appCtx3.xml");
+			new GenericXmlApplicationContext("classpath:appCtx7.xml");
 
 	public static void main(String[] args) throws IOException {
 

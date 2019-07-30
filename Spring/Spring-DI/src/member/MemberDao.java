@@ -5,6 +5,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
+// 자동으로 빈으로 등록 = <bean id="어쩌구..">
+@Component("memberDao123")
 public class MemberDao {
 
 	private static long nextId = 0;

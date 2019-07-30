@@ -16,9 +16,10 @@
 		</constructor-arg>
 	</bean> -->
 	
-	<!-- @@ 프러퍼티 주입방식 @@ -->
+	<!-- @@ 프러퍼티 주입방식 = setter @@ -->
 	<!-- 주의 : bean생성까지는 가능, 오류표시 안해주므로 property썼는지 확인해야함 -->
 	<bean id="registService" class="member.MemberRegisterService">
+		<!-- 한번만 생성되고 활용되면 id안써도 됨  -->
 		<property name="memberDao">
 			<!-- <ref bean="memberDao"/> -->
 			<!-- 의존관계 설정 : 임의 빈 객체 전달 = MemberRegisterService생성할때만 한번 씀 -->
