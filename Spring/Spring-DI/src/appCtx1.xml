@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+	
+	<!-- MemberDao 객체를 bean으로 등록, 식별자는 memberDao -->
+	<bean id="memberDao" class="member.MemberDao"/>
+	
+	<!-- @@ 생성자 주입방식 @@ -->
+	<!-- MemberRegisterService 안에 생성자가 없으므로(bean생성 조건) 설정해줘야함 -->
+	<!-- 태그 사이에서 자식 태그로 설정하기 -->
+	<!-- <bean id="registService" class="member.MemberRegisterService">
+		<constructor-arg>
+			<ref bean="memberDao"/>
+		</constructor-arg>
+	</bean> -->
+	
+	<!-- @@ 프러퍼티 주입방식 @@ -->
+	<!-- 주의 : bean생성까지는 가능, 오류표시 안해주므로 property썼는지 확인해야함 -->
+	<bean id="registService" class="member.MemberRegisterService">
+		<property name="memberDao">
+			<!-- <ref bean="memberDao"/> -->
+			<!-- 의존관계 설정 : 임의 빈 객체 전달 = MemberRegisterService생성할때만 한번 씀 -->
+			<!-- 새로운 객체 MemberDao를 생성해서 넣는 것, 위에 있는 memberDao id값으로 쓰지 않음 -->
+			<bean class="member.MemberDao"/>
+		</property>
+	</bean>
+	
+	<!-- 태그 안에서 ref속성으로 설정하기 -->
+	<!-- 만약 참조가 아니라면 ref대신 value사용 -->
+	<bean 
+	id="changePwService" class="member.ChangePasswordService" p:memberDao-ref="memberDao">
+		<!-- <property name="memberDao" ref="memberDao"/> -->
+		<!-- <constructor-arg ref="memberDao"/> -->
+	</bean>
+
+</beans>
