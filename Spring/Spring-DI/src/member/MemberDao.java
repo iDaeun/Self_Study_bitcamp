@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 // 자동으로 빈으로 등록 = <bean id="어쩌구..">
 @Component("memberDao123")
-public class MemberDao {
+public class MemberDao implements Dao {
 
 	private static long nextId = 0;
 	private Map<String, Member> map = new HashMap<String, Member>();

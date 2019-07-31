@@ -6,30 +6,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-//@Service
-
+@Service("changePasswordService")
 // 암호변경 
-public class ChangePasswordService {
-
-	@Autowired
-	//@Qualifier("sys")
-	//@Resource(name="memberdao2")
-	//@Resource(name = "boardDao")
-	private MemberDao memberDao;
+public class ChangePasswordService2 {
 	
+	@Autowired
+	// @Qualifier("sys1") 
+	private MemberDao memberDao;
+
 	/*
-	 * public ChangePasswordService(MemberDao dao) {
+	 * public ChangePasswordService2(MemberDao dao) {
 	 * 
-	 * memberDao = dao;
-	 * 
-	 * }
+	 * memberDao = dao; }
 	 */
 
-	// setter 방식 (property사용)
 	/*
 	 * public void setMemberDao(MemberDao memberDao) { this.memberDao = memberDao; }
 	 */
-
+	
 	public void changePassword(String email, String oldPassword, String newPassword)
 			throws MemberNotFoundException, IdPasswordNotMatchingException {
 
@@ -44,5 +38,6 @@ public class ChangePasswordService {
 		memberDao.update(member);
 
 	}
+
 
 }
