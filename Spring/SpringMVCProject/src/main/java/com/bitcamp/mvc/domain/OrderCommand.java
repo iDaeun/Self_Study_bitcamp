@@ -1,0 +1,30 @@
+package com.bitcamp.mvc.domain;
+
+import java.util.List;
+
+public class OrderCommand {
+	
+	private List<OrderItem> orderItems; // OrderItem.java
+	private Address address; // Address.java
+	
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+	public void setOrderItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	
+	@Override
+	public String toString() {
+		return "OrderCommand [orderItems=" + orderItems + ", address=" + address + "]";
+	}
+	
+	
+	
+}
