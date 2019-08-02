@@ -43,7 +43,7 @@ public class CookieController {
 	
 	@RequestMapping(value = "/cookie/viewCookie", method=RequestMethod.POST)
 	public String viewCookie(
-			@CookieValue(value = "nickname", defaultValue = "none") String cValue,
+			@CookieValue(value = "nickname", defaultValue = "none") String cValue, 
 			@RequestParam(value = "cName", required = false) String cName,
 			HttpServletRequest request,
 			Model model
