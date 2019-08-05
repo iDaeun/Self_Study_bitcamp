@@ -111,7 +111,7 @@
  		// 아이디 중복체크 -> AJAX
  	 		$.ajax({
  	 			
- 	 			url: 'idCheck.do',
+ 	 			url: 'idCheck',
  	 			type: 'get',
  	 			data: { id: $(this).val() },
  	 			success: function(data){

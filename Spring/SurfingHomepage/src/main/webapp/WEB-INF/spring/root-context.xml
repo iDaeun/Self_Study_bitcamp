@@ -28,7 +28,7 @@
 
 
 	<!-- 자신의 PC(로컬)에 MySql을 설치했을 경우 -->
-	<bean id="dataSource"
+<!-- 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
 			value="com.mysql.cj.jdbc.Driver"></property>
@@ -39,11 +39,11 @@
 		<property name="password" value="admin"></property>
 	</bean>
 
-	<!-- mybatis SqlSessionFactoryBean -->
+	mybatis SqlSessionFactoryBean
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-	</bean>
+	</bean> -->
 
 
 </beans>

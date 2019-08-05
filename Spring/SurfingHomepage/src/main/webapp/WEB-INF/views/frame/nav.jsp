@@ -21,8 +21,8 @@
 			
 			<c:otherwise>
 			<!-- 로그인 안한 게스트 -->
-			<li><a class="nav" href="<c:url value='/member/loginForm.do' />">로그인</a></li>
-			<li><a class="nav" href="<c:url value='/reg/regForm' />">회원가입</a></li>
+			<li><a class="nav" href="<c:url value='/login/loginForm' />">로그인◀</a></li>
+			<li><a class="nav" href="<c:url value='/reg/regForm' />">회원가입◀</a></li>
 			<li><a class="nav" href="">수업목록</a></li>
 			</c:otherwise>
 			

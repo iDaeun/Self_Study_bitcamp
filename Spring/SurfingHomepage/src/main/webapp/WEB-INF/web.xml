@@ -30,4 +30,11 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	<!-- 서버 실행할때 DBCPInit실행하도록 : 커넥션 풀 -->
+	<servlet>
+		<servlet-name>DBCPInit</servlet-name>
+		<servlet-class>com.surfing.mvc.jdbc.DBCPInit</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
 </web-app>
