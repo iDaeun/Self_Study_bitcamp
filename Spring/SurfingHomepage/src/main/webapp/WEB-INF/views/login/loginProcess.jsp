@@ -1,4 +1,4 @@
-<%@page import="com.surfing.mvc.domain.LoginInfo"%>
+<%@page import="com.surfing.mvc.member.domain.LoginInfo"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.SQLException"%>
