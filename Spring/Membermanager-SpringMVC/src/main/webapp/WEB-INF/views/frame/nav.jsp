@@ -15,7 +15,7 @@
 		<li><a href="<c:url value='/member/regist' />">▶회원가입</a></li>
 		<li><a href="<c:url value='/member/mypage' />">▶MyPage1</a></li>
 		<li><a href="<c:url value='/member/mypage/mypage.do' />">MyPage2</a></li>
-		<li><a href="<c:url value='/member/memberList.jsp' />">회원리스트1</a></li>
-		<li><a href="<c:url value='/member/memberList2.jsp' />">회원리스트2</a></li>
+		<li><a href="<c:url value='/member/memberList' />">▶회원리스트1</a></li>
+		<li><a href="<c:url value='/member/memberList' />">▶회원리스트2</a></li>
 	</ul>
 </div>

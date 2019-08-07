@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,19 +18,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 <style>
-
-	#idCheck{
-		display: none;
+	table{
+		width : 80%;
+		border : 0;
+		border-collapse: collapse;
 	}
-	.color_red{
-		color: red;
-		font-weight: bold;
-	}
-	.color_blue{
-		color: blue;
-		font-weight: bold;
-	}
-
+	table td{
+			padding : 5px;
+			border: solid 3px;
+			text-align: center;
+			background-color: rgba(178, 190, 195,0.5);
+		}
 </style>
 
 </head>
@@ -48,42 +46,45 @@
         <!-- context 시작 -->
         <div id="context">
             <div id="ct">
-                <h2>REGISTER PAGE</h2>
-					
-				<form method="post" enctype="multipart/form-data">
+                <h2>MYPAGE</h2>
+				<form action="editMem" method="post" enctype="multipart/form-data">
 					<table>
                 	<tr>
                 		<td>아이디</td>
-                		<td><input type="text" name="id" id="id">
-                			<input type="checkbox" id="idCheck">
-                			<span id="idCheckSpan"></span>
-                		</td>
+                		<td>${memberInfo.id }</td>
                 	</tr>
                 	<tr>
                 		<td>비밀번호</td>
-                		<td><input type="password" name="pw"></td>
+                		<td>${memberInfo.pw }</td>
                 	</tr>
                 	<tr>
                 		<td>이름</td>
-                		<td><input type="text" name="name"></td>
+                		<td>${memberInfo.name }</td>
                 	</tr>
                 	<tr>
                 		<td>전화번호</td>
-                		<td><input type="text" name="pNum"></td>
+                		<td>${memberInfo.pNum }</td>
                 	</tr>
                 	<tr>
                 		<td>사진</td>
-                		<td><input type="file" name="photo"></td>
+                		<td>
+						<c:choose>
+							<c:when test="${memberInfo.photo eq 'none' }">
+								<img style="width: 200px" alt="사진" src='<c:url value="/file/member_photo_upload/none.jpg"/>' />
+							</c:when>
+							<c:otherwise>
+								<img style="width: 200px" alt="사진" src='<c:url value="/file/member_photo_upload/${memberInfo.photo}"/>' />
+							</c:otherwise>
+						</c:choose>
+						</td>
                 	</tr>
                 	<tr>
                 		<td>레벨</td>
-                		<td><input type="range" name="level" min="1" max="10" value="0" oninput="document.getElementById('value1').innerHTML=this.value;">
-                		<span id="value1"></span>
-                		</td>
+                		<td>${memberInfo.level }</td>
                 	</tr>
                 	<tr>
                 		<td></td>
-                		<td><input type="submit" value="가입하기" /></td>
+                		<td><input type="submit" value="회원정보 수정"/></td>
                 	</tr>
                 </table>
                </form>
@@ -95,43 +96,6 @@
 		<%@include file="../frame/footer.jsp" %>
         <!-- footer 끝 -->
     </div>
- 
- <script>
- 	$(document).ready(function(){
- 		
- 		$('#id').focusout(function(){
- 			
- 		// 아이디 중복체크 -> AJAX
- 	 		$.ajax({
- 	 			
- 	 			url: 'idCheck',
- 	 			type: 'get',
- 	 			data: { id: $(this).val() },
- 	 			success: function(data){
- 	 				
- 	 				alert(data);
- 	 				
- 	 				$('#idCheckSpan').html('');
- 	 				$('#idCheckSpan').removeClass('color_red');
- 	 				$('#idCheckSpan').removeClass('color_blue');
- 	 				
- 	 				if(data == 'Y'){
- 	 					$('#idCheck').prop('checked', true);
- 	 					$('#idCheckSpan').html('사용 가능한 아이디');
- 	 					$('#idCheckSpan').addClass('color_blue');
- 	 				} else {
- 	 					$('#idCheck').prop('checked', false);
- 	 					$('#idCheckSpan').html('사용 불가능한 아이디');
- 	 					$('#idCheckSpan').addClass('color_red');
- 	 				}
- 	 				
- 	 			}
- 	 			
- 	 		});
- 			
- 		});
- 		
- 	});
- </script>
+
  
 </body></html>

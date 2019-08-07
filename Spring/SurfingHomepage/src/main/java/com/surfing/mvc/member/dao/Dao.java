@@ -15,6 +15,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.surfing.mvc.member.domain.MemberInfo;
+import com.surfing.mvc.member.domain.SearchParam;
 
 @Repository
 public class Dao {
@@ -138,5 +139,87 @@ public class Dao {
 
 		return list;
 	}
+
+		public int selectTotalCount(Connection conn, SearchParam searchParam) {
+
+			int listTotalCount = 0;
+			Statement stmt = null;
+			ResultSet rs = null;
+			
+			String sql = "select count(*) from SurfingMemberInfo";
+			
+			if(searchParam != null) {
+				sql = "select count(*) from SurfingMemberInfo where ";
+				
+				if(searchParam.getsType().equals("both")) {
+					sql += " id like '%" +searchParam.getKeyword()+ "%' or name like '%" +searchParam.getKeyword() +"%'";
+				}
+				if(searchParam.getsType().equals("id")) {
+					sql += " id like '%" +searchParam.getKeyword()+ "%'";
+				}
+				if(searchParam.getsType().equals("name")) {
+					sql += " name like '%" +searchParam.getKeyword()+ "%'";
+				}
+			}
+			
+			try {
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery(sql);
+				if(rs.next()) {
+					listTotalCount = rs.getInt(1);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return listTotalCount;
+		}
+
+		public List<MemberInfo> selectList(Connection conn, int startRow, int endRow) {
+			
+			List<MemberInfo> memberList = new ArrayList<MemberInfo>();
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			// String sql = "select * from SurfingMemberInfo";
+			
+			String sql = "select rownum, id, pw, name, pnum, lv, registerdate, photo "
+					+ "from ( select rownum rnum, id, pw, name, pnum, lv, registerdate, photo "
+					+ "from ( select * from SurfingMemberInfo order by idx desc ) where rownum <= ? ) " + "where rnum >= ?";
+			
+			try {
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, endRow);
+				pstmt.setInt(2, startRow);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+										
+					memberList.add(new MemberInfo(rs.getInt("rownum"), rs.getString("id"), rs.getString("pw"), 
+							rs.getString("name"), rs.getString("pnum"), rs.getInt("lv"), rs.getTimestamp("registerdate"), rs.getString("photo")));
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return memberList;
+			
+		}
+
+		public int updateMem(Connection conn, MemberInfo memberInfo) {
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			String sql = "";
+			
+			return 0;
+		}
 	
 }

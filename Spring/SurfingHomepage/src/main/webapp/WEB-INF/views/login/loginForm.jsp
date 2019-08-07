@@ -44,7 +44,7 @@
         <div id="context">
             <div id="ct">
                 <h2>LOGIN PAGE</h2>
-                <form action="loginProcess" method="post">
+                <form method="post">
                 <table>
                 	<tr>
                 		<td>아이디</td>

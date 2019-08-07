@@ -69,7 +69,7 @@
 							<span style="font-weight: bold">저장한 이미지 출력</span> <br>
 							
 							<div id="user_photo">	
-							<img style="width: 200px" alt="사진" src='<c:url value="/member_photo_upload/${memberInfo.photoName}"/>' />
+							<img style="width: 200px" alt="사진" src='<c:url value="/file/member_photo_upload/${memberInfo.photoName}"/>' />
 							</div>
 							
 							파일 이름 : ${memberInfo.photoName} ( ${memberInfo.fileSize} ) <br> 

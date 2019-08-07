@@ -12,13 +12,14 @@ import com.surfing.mvc.member.domain.MemberInfo;
 import com.surfing.mvc.member.service.RegService;
 
 @Controller
+@RequestMapping("/regist")
 public class RegController {
 	
 	@Autowired
 	private RegService regService;
 	
 	// 회원가입 폼 요청
-	@RequestMapping(value = "/reg/regForm")
+	@RequestMapping(method = RequestMethod.GET)
 	public String getRegForm() {
 		
 		// reForm.jsp로 이동
@@ -26,7 +27,7 @@ public class RegController {
 	}
 	
 	// 회원가입 처리
-	@RequestMapping(value = "/reg/regProcess", method = RequestMethod.POST )
+	@RequestMapping(method = RequestMethod.POST )
 	public String regProcess(MemberInfo memberInfo, 
 							HttpServletRequest request,
 							Model model) {

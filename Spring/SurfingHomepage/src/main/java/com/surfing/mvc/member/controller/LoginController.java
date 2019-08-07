@@ -15,19 +15,20 @@ import com.surfing.mvc.member.service.LoginService;
 
 
 @Controller
+@RequestMapping("/login")
 public class LoginController {
 	
 	@Autowired
 	private LoginService loginService;
 	
 	// 로그인 폼 요청
-	@RequestMapping("/login/loginForm")
+	@RequestMapping(method = RequestMethod.GET)
 	public String getLoginForm() {
 		return "login/loginForm";
 	}
 	
 	// 로그인 처리
-	@RequestMapping(value = "login/loginProcess", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public String loginProcess(
 			@RequestParam("id") String id,
 			@RequestParam("pw") String pw,

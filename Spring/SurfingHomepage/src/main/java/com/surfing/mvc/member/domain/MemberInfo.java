@@ -16,10 +16,25 @@ public class MemberInfo {
 	private int level;
 	private Timestamp registerDate;
 	private String photoName;
-
+  
 	public MemberInfo() {
 		this.registerDate = new Timestamp(System.currentTimeMillis());
 	}
+	
+
+	public MemberInfo(int idx, String id, String pw, String name, String pNum, int level, Timestamp registerDate,
+			String photoName) {
+		super();
+		this.idx = idx;
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.pNum = pNum;
+		this.level = level;
+		this.registerDate = registerDate;
+		this.photoName = photoName;
+	}
+
 
 	public String getId() {
 		return id;
