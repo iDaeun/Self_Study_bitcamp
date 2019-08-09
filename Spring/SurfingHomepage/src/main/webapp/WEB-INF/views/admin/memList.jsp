@@ -54,8 +54,7 @@
 	
 	h2{
 		text-align: center;
-		margin: 10px;
-		padding: 20px;
+		padding: 20px 0 0 0;
 		color: white;
 	}
 	
@@ -100,6 +99,10 @@
 		margin: 0 5px;
 	}
 	
+	div.searchBox{
+	padding: 20px;
+	}
+	
 </style>
 </head>
 <body>
@@ -111,6 +114,17 @@
 
 <div id="wrap">
 <h2>회원 리스트</h2>
+	<div class="searchBox">
+	<form>
+		<select name="sType">
+			<option value="both">아이디+이름</option>
+			<option value="id">아이디</option>
+			<option value="name">이름</option>		
+		</select>
+		<input type="text" name="keyword"><input type="submit" value="검색">
+	</form>
+	</div>
+
 
 <table>
 	<tr>
@@ -153,7 +167,7 @@
 	<c:if test="${viewData.listTotalCount>0 }">
 	<div id="pagingBox">
 		<c:forEach begin="1" end="${viewData.pageTotalCount }" var="num">
-			<div><a href="memberList?p=${num }">${num }</a></div>
+			<div><a href="memberList?p=${num }&sType=${param.sType}&keyword=${param.keyword}">${num }</a></div>
 		</c:forEach>
 	</div>
 	

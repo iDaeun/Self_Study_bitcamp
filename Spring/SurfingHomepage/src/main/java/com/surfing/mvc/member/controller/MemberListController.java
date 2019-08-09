@@ -26,7 +26,11 @@ public class MemberListController {
 		
 		SearchParam searchParam = null;
 		
-		if(sType != null && keyword != null) {
+		if(sType != null && 
+				keyword != null
+				&& !sType.isEmpty()
+				&& !keyword.isEmpty()
+				) {
 			searchParam = new SearchParam();
 			searchParam.setsType(sType);
 			searchParam.setKeyword(keyword);

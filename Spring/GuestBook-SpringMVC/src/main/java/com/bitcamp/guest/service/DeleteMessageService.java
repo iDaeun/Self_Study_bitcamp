@@ -5,8 +5,10 @@ import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bitcamp.guest.dao.MessageDao;
+import com.bitcamp.guest.dao.MessageJdbcTemplateDao;
 import com.bitcamp.guest.domain.Message;
 import com.bitcamp.guest.jdbc.ConnectionProvider;
 import com.bitcamp.guest.jdbc.JdbcUtil;
@@ -15,21 +17,25 @@ import com.bitcamp.guest.jdbc.JdbcUtil;
 public class DeleteMessageService implements GuestBookService {
 
 	@Autowired
-	private MessageDao dao;
+	private MessageJdbcTemplateDao dao;
 
+	// private MessageDao dao;
+	
+	@Transactional // 트렌젝션 처리
 	public int deleteMessage(int messageId, String password)
 			throws SQLException, MessageNotFoundException, InvalidMessagePasswordException {
 		int resultCnt = 0;
 
-		Connection conn = null;
+		// Connection conn = null;
 		try {
-			conn = ConnectionProvider.getConnection();
+			// conn = ConnectionProvider.getConnection();
 
 			// 트렌젝션 처리
-			conn.setAutoCommit(false);
+			// conn.setAutoCommit(false);
 
 			// 1. 전달받은 게시물 아이디로 게시물 확인
-			Message message = dao.select(conn, messageId);
+			// Message message = dao.select(conn, messageId);
+			Message message = dao.select(messageId);
 
 			// 2. 게시물이 존재하지 않으면 예외처리
 			if (message == null) {
@@ -47,24 +53,25 @@ public class DeleteMessageService implements GuestBookService {
 			}
 
 			// 5. 비밀번호가 일치하면 삭제진행
-			resultCnt = dao.deleteMssage(conn, messageId);
+			//resultCnt = dao.deleteMssage(conn, messageId);
+			resultCnt = dao.deleteMssage(messageId);
 
 			// 정상처리
-			conn.commit();
+			//conn.commit();
 
-		} catch (SQLException e) {
-			// 예외발생 -> 트렌젝션의 rollback
-			JdbcUtil.rollback(conn);
-			e.printStackTrace();
-			throw e;
+//		} catch (SQLException e) {
+//			// 예외발생 -> 트렌젝션의 rollback
+//			//JdbcUtil.rollback(conn);
+//			e.printStackTrace();
+//			throw e;
 		} catch (MessageNotFoundException e) {
 			// 예외발생 -> 트렌젝션의 rollback
-			JdbcUtil.rollback(conn);
+			//JdbcUtil.rollback(conn);
 			e.printStackTrace();
 			throw e;
 		} catch (InvalidMessagePasswordException e) {
 			// 예외발생 -> 트렌젝션의 rollback
-			JdbcUtil.rollback(conn);
+			//JdbcUtil.rollback(conn);
 			e.printStackTrace();
 			throw e;
 		}

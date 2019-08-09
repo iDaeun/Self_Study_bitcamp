@@ -137,4 +137,23 @@ public class MemberDao { // name 안정해주면 -> memberDao
 		return totalCnt;
 	}
 
+	public int memberDelete(Connection conn, int id) {
+		
+		int rCnt = 0;
+		PreparedStatement pstmt = null;
+		String sql = "delete from member where idx = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			
+			rCnt = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rCnt;
+	}
+
 }

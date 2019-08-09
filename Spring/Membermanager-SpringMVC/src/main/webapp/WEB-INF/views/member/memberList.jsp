@@ -97,6 +97,7 @@ div.searchBox{
 					</td>
 					<td><fmt:formatDate value="${memberInfo.regDate}"
 							pattern="yyyy.MM.dd" /></td>
+					<td><a href="#" onclick="delMember(${memberInfo.idx})">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -117,7 +118,13 @@ div.searchBox{
 	<%@ include file="/WEB-INF/views/frame/footer.jsp"%>
 	<!-- 푸터 끝 -->
 
-
+	<script>
+		function delMember(idx){
+			if((confirm("삭제하시겠습니까?")){
+				locatino.href='memberDelete?memberId='+idx;
+			}
+		}
+	</script>
 
 </body>
 </html>

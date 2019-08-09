@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.guest.dao.MessageDao;
+import com.bitcamp.guest.dao.MessageJdbcTemplateDao;
 import com.bitcamp.guest.domain.Message;
 import com.bitcamp.guest.domain.MessageListView;
 import com.bitcamp.guest.jdbc.ConnectionProvider;
@@ -16,8 +17,12 @@ import com.bitcamp.guest.jdbc.ConnectionProvider;
 @Service("listService")
 public class GetMessageListService implements GuestBookService {
 
+	/*
+	 * @Autowired private MessageDao dao;
+	 */
+
 	@Autowired
-	private MessageDao dao;
+	private MessageJdbcTemplateDao dao;
 	
 	// 1. 한 페이지에 보여줄 게시글의 개수
 	private static final int MESSAGE_COUNT_PER_PAGE = 3;
@@ -28,16 +33,17 @@ public class GetMessageListService implements GuestBookService {
 		// 2. 현재 페이지 번호
 		int currentPageNumber = pageNumber;
 		
-		Connection conn;
+		//Connection conn;
 		
 		MessageListView view = null;
 		
-		try {
+		//try {
 			// Connection
-			conn = ConnectionProvider.getConnection();
+			//conn = ConnectionProvider.getConnection();
 			
 			// 전체 게시물의 개수
-			int messageTotalCount = dao.selectCount(conn);
+			// int messageTotalCount = dao.selectCount(conn);
+			int messageTotalCount = dao.selectCount();
 			
 			// 게시물 내용 리스트, DB 검색에 사용할 start_row, end_row
 			List<Message> messageList = null;
@@ -50,7 +56,8 @@ public class GetMessageListService implements GuestBookService {
 				firstRow = (pageNumber-1)*MESSAGE_COUNT_PER_PAGE+1;
 				endRow = firstRow + MESSAGE_COUNT_PER_PAGE -1;
 				
-				messageList = dao.selectList(conn, firstRow, endRow);
+				//messageList = dao.selectList(conn, firstRow, endRow);
+				messageList = dao.selectList(firstRow, endRow);
 				
 			} else {
 				currentPageNumber = 0;
@@ -64,10 +71,10 @@ public class GetMessageListService implements GuestBookService {
 					MESSAGE_COUNT_PER_PAGE, 
 					firstRow, endRow);
 			
-		} catch (SQLException e) {
+		/*} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		*/
 		return view;
 	}
 

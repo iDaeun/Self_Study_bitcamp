@@ -2,6 +2,7 @@ package com.surfing.mvc.member.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.surfing.mvc.jdbc.ConnectionProvider;
 import com.surfing.mvc.member.dao.Dao;
 import com.surfing.mvc.member.domain.ListViewData;
+import com.surfing.mvc.member.domain.MemberInfo;
 import com.surfing.mvc.member.domain.SearchParam;
 
 @Service("listService")
@@ -59,10 +61,23 @@ public class MemberListService {
 			// [mySQL] -----------------------------------------
 			// 구간 검색을 위한 index
 			// page 1 -> 0 index, page 2 -> 3 index, page 3 -> 6 index
-			 int index = (currentPageNumber-1)*MEMBER_CNT_LIST;
+			int index = (currentPageNumber-1)*MEMBER_CNT_LIST;
 			
+			// 조건에 따라 memberList뽑기
+			List<MemberInfo> memberList = null;
+			 
+			if(searchParam == null) {
+				memberList = dao.selectList(conn, startRow, endRow);
+			} else if(searchParam.getsType().equals("both")) {
+				memberList = dao.selecListByBoth(conn, startRow, endRow, searchParam);
+			} else if(searchParam.getsType().equals("id")) {
+				memberList = dao.selectListById(conn, startRow, endRow, searchParam);
+			} else if(searchParam.getsType().equals("name")) {
+				memberList = dao.selectListByName(conn, startRow, endRow, searchParam);
+			}
+						 
 			// 회원 정보 리스트
-			listData.setMemberList(dao.selectList(conn, startRow, endRow));
+			listData.setMemberList(memberList);
 			
 			// page 1 -> 9-0 = 9
 			// page 2 -> 9-3 = 6
