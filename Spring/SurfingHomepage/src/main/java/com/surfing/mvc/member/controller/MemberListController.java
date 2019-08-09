@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.surfing.mvc.member.domain.ListViewData;
 import com.surfing.mvc.member.domain.SearchParam;
@@ -17,7 +18,8 @@ public class MemberListController {
 	private MemberListService listService;
 	
 	@RequestMapping("/memberList")
-	public String memberList(
+	@ResponseBody // Json사용
+	public ListViewData memberList(
 			Model model,
 			@RequestParam(value = "p", defaultValue = "1") int pageNumber,
 			@RequestParam(value = "sType", required = false) String sType,
@@ -38,8 +40,8 @@ public class MemberListController {
 		
 		// service
 		ListViewData listData = listService.getListData(pageNumber, searchParam);
-		model.addAttribute("viewData",listData);
+		//model.addAttribute("viewData",listData);
 		
-		return "admin/memList";
+		return listData;
 	}
 }

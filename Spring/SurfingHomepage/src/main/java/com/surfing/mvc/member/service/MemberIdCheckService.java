@@ -18,23 +18,24 @@ public class MemberIdCheckService implements SurfingService {
 	
 	public String idCheck(String id) {
 		
-		Connection conn = null;
+		//Connection conn = null;
 		MemberInfo memberInfo = null;
 		
 		String resultCode = "N";
 		
-		try {
-			conn = ConnectionProvider.getConnection();
-			memberInfo = dao.searchMem(conn, id);
+		//try {
+			//conn = ConnectionProvider.getConnection();
+			//memberInfo = dao.searchMem(conn, id);
+			memberInfo = dao.searchMem(id);
 			
 			if(memberInfo == null) {
 				// 사용가능한 아이디임
 				resultCode = "Y";
 			}
 			
-		}catch (SQLException e) {
+		//}catch (SQLException e) {
 			// TODO: handle exception
-		}
+		//}
 				
 		return resultCode;
 	}

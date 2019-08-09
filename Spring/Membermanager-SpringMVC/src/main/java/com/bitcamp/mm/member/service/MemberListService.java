@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.bitcamp.mm.jdbc.ConnectionProvider;
 import com.bitcamp.mm.member.dao.MemberDao;
+import com.bitcamp.mm.member.dao.MemberJdbcTemplateDao;
 import com.bitcamp.mm.member.domain.ListViewData;
 import com.bitcamp.mm.member.domain.MemberInfo;
 import com.bitcamp.mm.member.domain.SearchParam;
@@ -16,8 +17,11 @@ import com.bitcamp.mm.member.domain.SearchParam;
 @Service("listService")
 public class MemberListService implements MemberService {
 	
+	/*
+	 * @Autowired private MemberDao dao;
+	 */
 	@Autowired
-	private MemberDao dao;
+	private MemberJdbcTemplateDao dao;
 	
 	final int MEMBER_CNT_LIST = 3;
 	
@@ -31,7 +35,8 @@ public class MemberListService implements MemberService {
 			// 현재 페이지 번호
 			listData.setCurrentPageNumber(currentPageNumber);
 			// 전체 게시물 개수
-			int totalCnt = dao.selectTotalCount(conn, searchParam);
+			//int totalCnt = dao.selectTotalCount(conn, searchParam);
+			int totalCnt = dao.selectTotalCount( searchParam);
 			
 			int totalPageCnt = 0;
 			// 전페 페이지 개수
@@ -48,7 +53,8 @@ public class MemberListService implements MemberService {
 			int index = (currentPageNumber-1)*MEMBER_CNT_LIST;
 			
 			// 회원 정보 리스트
-			listData.setMemberList(dao.selectList(conn, index, MEMBER_CNT_LIST));
+			//listData.setMemberList(dao.selectList(conn, index, MEMBER_CNT_LIST));
+			listData.setMemberList(dao.selectList( index, MEMBER_CNT_LIST));
 			
 			List<MemberInfo> memberList = null;
 			// 1. 검색 조건이 없는 경우 : selectList -> 전체 회원의 리스트

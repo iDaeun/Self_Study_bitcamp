@@ -17,7 +17,7 @@ import com.bitcamp.guest.domain.Message;
 import com.bitcamp.guest.jdbc.JdbcUtil;
 
 @Repository("jdbcTemplateDao")
-public class MessageJdbcTemplateDao { // 이름 정해주지 않으면 -> messageDao으로 자동설정
+public class MessageJdbcTemplateDao {
 	
 	@Autowired
 	private JdbcTemplate template;

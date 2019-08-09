@@ -34,11 +34,11 @@
 	</servlet-mapping>
 	
 	<!-- 서버 실행할때 DBCPInit실행하도록 : 커넥션 풀 -->
-	<servlet>
+	<!-- <servlet>
 		<servlet-name>DBCPInit</servlet-name>
 		<servlet-class>com.bitcamp.mm.jdbc.DBCPInit</servlet-class>
 		<load-on-startup>1</load-on-startup>
-	</servlet>
+	</servlet> -->
 	
 	<!-- 한글 인코딩처리 -->
 	<filter>

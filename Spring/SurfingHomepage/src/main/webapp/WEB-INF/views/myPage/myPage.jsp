@@ -73,7 +73,7 @@
 								<img style="width: 200px" alt="사진" src='<c:url value="/file/member_photo_upload/none.jpg"/>' />
 							</c:when>
 							<c:otherwise>
-								<img style="width: 200px" alt="사진" src='<c:url value="/file/member_photo_upload/${memberInfo.photo}"/>' />
+								<img style="width: 200px" alt="사진" src='<c:url value="/file/member_photo_upload/${memberInfo.photoName}"/>' />
 							</c:otherwise>
 						</c:choose>
 						</td>

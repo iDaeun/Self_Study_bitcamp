@@ -14,7 +14,7 @@ public class IdCheckController {
 	@Autowired
 	private MemberIdCheckService memberIdCheckService;
 	
-	@RequestMapping("/reg/idCheck")
+	@RequestMapping("/idCheck")
 	public String idCheck(@RequestParam("id") String id, Model model) {
 		
 		String resultCode = memberIdCheckService.idCheck(id);

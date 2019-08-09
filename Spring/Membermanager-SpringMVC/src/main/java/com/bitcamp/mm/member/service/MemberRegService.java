@@ -8,17 +8,23 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bitcamp.mm.jdbc.ConnectionProvider;
 import com.bitcamp.mm.member.dao.MemberDao;
+import com.bitcamp.mm.member.dao.MemberJdbcTemplateDao;
 import com.bitcamp.mm.member.domain.MemberInfo;
 import com.bitcamp.mm.member.domain.RequestMemberRegist;
 
 @Service("registService")
 public class MemberRegService implements MemberService {
 
+	/*
+	 * @Autowired private MemberDao dao;
+	 */
+
 	@Autowired
-	private MemberDao dao;
+	private MemberJdbcTemplateDao dao;
 
 	public int memberInsert(HttpServletRequest request, RequestMemberRegist regist) {
 
@@ -32,12 +38,12 @@ public class MemberRegService implements MemberService {
 		String newFileName = memberInfo.getuId() + "_" + regist.getuPhoto().getOriginalFilename();
 
 		int resultCnt = 0;
-		Connection conn = null;
+		// Connection conn = null;
 
 		try {
-			
-			conn = ConnectionProvider.getConnection();
-			
+
+			// conn = ConnectionProvider.getConnection();
+
 			// 파일 서버의 지정 경로에 저장
 			regist.getuPhoto().transferTo(new File(dir, newFileName));
 
@@ -45,20 +51,33 @@ public class MemberRegService implements MemberService {
 			memberInfo.setuPhoto(newFileName);
 
 			// DB저장
-			resultCnt = dao.insertMember(conn, memberInfo);
+			// resultCnt = dao.insertMember(conn, memberInfo);
+			resultCnt = dao.insertMember(memberInfo);
 
 		} catch (IllegalStateException e) {
 			// TODO: handle exception
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			new File(dir, newFileName).delete();
 		}
+		/*
+		 * catch (SQLException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); new File(dir, newFileName).delete(); }
+		 */
 
 		return resultCnt;
+	}
+
+	public char idCheck(String id) {
+		
+		char chk = dao.selectMemberById(id)==null?'Y':'N';
+		
+		return chk;
+	}
+	
+	public String idCheck1(String id) {
+		
+		return dao.selectMemberById(id)==null?"Y":"N";
 	}
 
 }

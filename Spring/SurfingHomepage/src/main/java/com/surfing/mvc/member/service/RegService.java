@@ -31,7 +31,7 @@ public class RegService implements SurfingService {
 	public int reg(MemberInfo memberInfo, HttpServletRequest request) {
 		
 		String path = "/file/member_photo_upload";
-		Connection conn = null;
+		//Connection conn = null;
 		int rCnt = 0;
 		
 		// 파일 저장
@@ -52,17 +52,18 @@ public class RegService implements SurfingService {
 		}
 		
 		// DB 저장
-		try {
+		//try {
 			
 			//conn = ds.getConnection();
 			
-			conn = ConnectionProvider.getConnection();
-			rCnt = dao.insertMem(conn, memberInfo);
+			//conn = ConnectionProvider.getConnection();
+			//rCnt = dao.insertMem(conn, memberInfo);
+			rCnt = dao.insertMem(memberInfo);
 			System.out.println("회원가입" + rCnt);
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		//} catch (SQLException e) {
+		//	e.printStackTrace();
+		//}
 		
 		return rCnt;
 	}

@@ -17,7 +17,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <style>
 	body {
-		background-image: url(/surfing/css/images/8.jpg);
+		background-image: url(/surfing/css/images/4.jpg);
 		background-size: 100%;
 		background-repeat: repeat;
 	}
@@ -25,8 +25,16 @@
 	.class{
 		margin: 5px;
 		border: 3px solid black;
+		padding: 10px;
+		font-weight: bold;
+	}
+	
+	.class:hover{
+		background-color: black;
+		color: white;
 	}
 </style>
+
 </head>
 <body>
 

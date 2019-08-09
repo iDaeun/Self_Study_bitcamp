@@ -11,6 +11,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -20,8 +21,6 @@ import com.surfing.mvc.member.domain.SearchParam;
 @Repository
 public class Dao {
 
-	private JdbcTemplate jdbcTemplate;
-
 	@Autowired
 	private JdbcTemplate template;
 
@@ -29,7 +28,12 @@ public class Dao {
 
 		String sql = "select * from SurfingMemberInfo where id = ?";
 
-		return template.queryForObject(sql, new MemberInfoRowMapper(), id);
+		try {
+			return template.queryForObject(sql, new MemberInfoRowMapper(), id);
+		} catch (EmptyResultDataAccessException e) {
+			// TODO: handle exception
+			return null;
+		}
 	}
 
 	// 아이디 -> 있으면 해당 객체 리턴 / 없으면 null 리턴
@@ -113,15 +117,15 @@ public class Dao {
 	 */
 
 	// --------------------------------------------------------------------------------------------------------
-	
+
 	public List<MemberInfo> selectAllMem() {
-		
+
 		String sql = "select * from SurfingMemberInfo order by idx";
-		
+
 		return template.query(sql, new MemberInfoRowMapper());
-		
+
 	}
-	
+
 	// 회원 전체 목록 뽑기
 	/*
 	 * public List<MemberInfo> selectAllMem(Connection conn) {
@@ -152,18 +156,19 @@ public class Dao {
 	 * 
 	 * return list; }
 	 */
-	
+
 	// --------------------------------------------------------------------------------------------------------
-	
+
 	public int selectTotalCount(SearchParam searchParam) {
-		
+
 		String sql = "select count(*) from SurfingMemberInfo";
 
 		if (searchParam != null) {
 			sql = "select count(*) from SurfingMemberInfo where ";
 
 			if (searchParam.getsType().equals("both")) {
-				sql += " id like '%" + searchParam.getKeyword() + "%' or name like '%" + searchParam.getKeyword() + "%'";
+				sql += " id like '%" + searchParam.getKeyword() + "%' or name like '%" + searchParam.getKeyword()
+						+ "%'";
 			}
 			if (searchParam.getsType().equals("id")) {
 				sql += " id like '%" + searchParam.getKeyword() + "%'";
@@ -172,11 +177,11 @@ public class Dao {
 				sql += " name like '%" + searchParam.getKeyword() + "%'";
 			}
 		}
-		
-		return template.update(sql);	
-			
+
+		return template.queryForObject(sql, Integer.class);
+
 	}
-	
+
 	/*
 	 * public int selectTotalCount(Connection conn, SearchParam searchParam) {
 	 * 
@@ -201,19 +206,19 @@ public class Dao {
 	 * 
 	 * return listTotalCount; }
 	 */
-	
+
 	// --------------------------------------------------------------------------------------------------------
-	
+
 	public List<MemberInfo> selectList(int startRow, int endRow) {
-		
+
 		String sql = "select rownum, id, pw, name, pnum, photo, lv, registerdate  "
 				+ "from ( select rownum rnum, id, pw, name, pnum, photo, lv, registerdate "
 				+ "from ( select * from SurfingMemberInfo order by idx desc ) where rownum <= ? ) " + "where rnum >= ?";
-		
+
 		return template.query(sql, new MemberInfoRowMapper(), endRow, startRow);
-		
+
 	}
-	
+
 	/*
 	 * public List<MemberInfo> selectList(Connection conn, int startRow, int endRow)
 	 * {
@@ -247,7 +252,7 @@ public class Dao {
 	 * 
 	 * }
 	 */
-	
+
 	// --------------------------------------------------------------------------------------------------------
 
 	public int updateMem(Connection conn, MemberInfo memberInfo) {
@@ -259,106 +264,126 @@ public class Dao {
 
 		return 0;
 	}
-	
+
 	// --------------------------------------------------------------------------------------------------------
-	
-	
 
-	public List<MemberInfo> selecListByBoth(Connection conn, int startRow, int endRow, SearchParam searchParam) {
+	public List<MemberInfo> selecListByBoth(int startRow, int endRow, SearchParam searchParam) {
 
-		List<MemberInfo> memberList = new ArrayList<MemberInfo>();
-
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		String sql = "select rownum, id, pw, name, pnum, lv, registerdate, photo "
-				+ "from ( select rownum rnum, id, pw, name, pnum, lv, registerdate, photo "
+		String sql = "rownum, id, pw, name, pnum, photo, lv, registerdate "
+				+ "from ( select rownum rnum, id, pw, name, pnum, photo, lv, registerdate "
 				+ "from ( select * from SurfingMemberInfo where id like ? or name like ? ) where rownum <= ? ) where rnum >= ?";
 
-		try {
+		return template.query(sql, new MemberInfoRowMapper(), "%" + searchParam.getKeyword() + "%",
+				"%" + searchParam.getKeyword() + "%", endRow, startRow);
 
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%" + searchParam.getKeyword() + "%");
-			pstmt.setString(2, "%" + searchParam.getKeyword() + "%");
-			pstmt.setInt(3, endRow);
-			pstmt.setInt(4, startRow);
-
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				memberList.add(new MemberInfo(rs.getInt("rownum"), rs.getString("id"), rs.getString("pw"),
-						rs.getString("name"), rs.getString("pnum"), rs.getInt("lv"), rs.getTimestamp("registerdate"),
-						rs.getString("photo")));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return memberList;
 	}
 
-	public List<MemberInfo> selectListById(Connection conn, int startRow, int endRow, SearchParam searchParam) {
+	/*
+	 * public List<MemberInfo> selecListByBoth(Connection conn, int startRow, int
+	 * endRow, SearchParam searchParam) {
+	 * 
+	 * List<MemberInfo> memberList = new ArrayList<MemberInfo>();
+	 * 
+	 * PreparedStatement pstmt = null; ResultSet rs = null;
+	 * 
+	 * String sql = "rownum, id, pw, name, pnum, photo, lv, registerdate " +
+	 * "from ( select rownum rnum, id, pw, name, pnum, photo, lv, registerdate " +
+	 * "from ( select * from SurfingMemberInfo where id like ? or name like ? ) where rownum <= ? ) where rnum >= ?"
+	 * ;
+	 * 
+	 * try {
+	 * 
+	 * pstmt = conn.prepareStatement(sql); pstmt.setString(1, "%" +
+	 * searchParam.getKeyword() + "%"); pstmt.setString(2, "%" +
+	 * searchParam.getKeyword() + "%"); pstmt.setInt(3, endRow); pstmt.setInt(4,
+	 * startRow);
+	 * 
+	 * rs = pstmt.executeQuery(); while (rs.next()) { memberList.add(new
+	 * MemberInfo(rs.getInt("rownum"), rs.getString("id"), rs.getString("pw"),
+	 * rs.getString("name"), rs.getString("pnum"), rs.getInt("lv"),
+	 * rs.getTimestamp("registerdate"), rs.getString("photo"))); } } catch
+	 * (SQLException e) { // TODO Auto-generated catch block e.printStackTrace(); }
+	 * 
+	 * return memberList; }
+	 */
 
-		List<MemberInfo> memberList = new ArrayList<MemberInfo>();
+	// --------------------------------------------------------------------------------------------------------
 
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+	public List<MemberInfo> selectListById(int startRow, int endRow, SearchParam searchParam) {
 
-		String sql = "select rownum, id, pw, name, pnum, lv, registerdate, photo "
-				+ "from ( select rownum rnum, id, pw, name, pnum, lv, registerdate, photo "
+		String sql = "select rownum, id, pw, name, pnum, photo, lv, registerdate "
+				+ "from ( select rownum rnum, id, pw, name, pnum, photo, lv, registerdate "
 				+ "from ( select * from SurfingMemberInfo where id like ? ) where rownum <= ? ) where rnum >= ?";
 
-		try {
+		return template.query(sql, new MemberInfoRowMapper(), "%" + searchParam.getKeyword() + "%", endRow, startRow);
 
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%" + searchParam.getKeyword() + "%");
-			pstmt.setInt(2, endRow);
-			pstmt.setInt(3, startRow);
-
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				memberList.add(new MemberInfo(rs.getInt("rownum"), rs.getString("id"), rs.getString("pw"),
-						rs.getString("name"), rs.getString("pnum"), rs.getInt("lv"), rs.getTimestamp("registerdate"),
-						rs.getString("photo")));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return memberList;
 	}
 
-	public List<MemberInfo> selectListByName(Connection conn, int startRow, int endRow, SearchParam searchParam) {
+	/*
+	 * public List<MemberInfo> selectListById(Connection conn, int startRow, int
+	 * endRow, SearchParam searchParam) {
+	 * 
+	 * List<MemberInfo> memberList = new ArrayList<MemberInfo>();
+	 * 
+	 * PreparedStatement pstmt = null; ResultSet rs = null;
+	 * 
+	 * String sql = "select rownum, id, pw, name, pnum, photo, lv, registerdate " +
+	 * "from ( select rownum rnum, id, pw, name, pnum, photo, lv, registerdate " +
+	 * "from ( select * from SurfingMemberInfo where id like ? ) where rownum <= ? ) where rnum >= ?"
+	 * ;
+	 * 
+	 * try {
+	 * 
+	 * pstmt = conn.prepareStatement(sql); pstmt.setString(1, "%" +
+	 * searchParam.getKeyword() + "%"); pstmt.setInt(2, endRow); pstmt.setInt(3,
+	 * startRow);
+	 * 
+	 * rs = pstmt.executeQuery(); while (rs.next()) { memberList.add(new
+	 * MemberInfo(rs.getInt("rownum"), rs.getString("id"), rs.getString("pw"),
+	 * rs.getString("name"), rs.getString("pnum"), rs.getInt("lv"),
+	 * rs.getTimestamp("registerdate"), rs.getString("photo"))); } } catch
+	 * (SQLException e) { // TODO Auto-generated catch block e.printStackTrace(); }
+	 * 
+	 * return memberList; }
+	 */
 
-		List<MemberInfo> memberList = new ArrayList<MemberInfo>();
+	// --------------------------------------------------------------------------------------------------------
 
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+	public List<MemberInfo> selectListByName(int startRow, int endRow, SearchParam searchParam) {
 
-		String sql = "select rownum, id, pw, name, pnum, lv, registerdate, photo "
-				+ "from ( select rownum rnum, id, pw, name, pnum, lv, registerdate, photo "
+		String sql = "select rownum, id, pw, name, pnum, photo, lv, registerdate "
+				+ "from ( select rownum rnum, id, pw, name, pnum, photo, lv, registerdate "
 				+ "from ( select * from SurfingMemberInfo where name like ? ) where rownum <= ? ) where rnum >= ?";
 
-		try {
+		return template.query(sql, new MemberInfoRowMapper(), "%" + searchParam.getKeyword() + "%", endRow, startRow);
 
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%" + searchParam.getKeyword() + "%");
-			pstmt.setInt(2, endRow);
-			pstmt.setInt(3, startRow);
-
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				memberList.add(new MemberInfo(rs.getInt("rownum"), rs.getString("id"), rs.getString("pw"),
-						rs.getString("name"), rs.getString("pnum"), rs.getInt("lv"), rs.getTimestamp("registerdate"),
-						rs.getString("photo")));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return memberList;
 	}
 
+	/*
+	 * public List<MemberInfo> selectListByName(Connection conn, int startRow, int
+	 * endRow, SearchParam searchParam) {
+	 * 
+	 * List<MemberInfo> memberList = new ArrayList<MemberInfo>();
+	 * 
+	 * PreparedStatement pstmt = null; ResultSet rs = null;
+	 * 
+	 * String sql = "select rownum, id, pw, name, pnum, photo, lv, registerdate " +
+	 * "from ( select rownum rnum, id, pw, name, pnum, photo, lv, registerdate " +
+	 * "from ( select * from SurfingMemberInfo where name like ? ) where rownum <= ? ) where rnum >= ?"
+	 * ;
+	 * 
+	 * try {
+	 * 
+	 * pstmt = conn.prepareStatement(sql); pstmt.setString(1, "%" +
+	 * searchParam.getKeyword() + "%"); pstmt.setInt(2, endRow); pstmt.setInt(3,
+	 * startRow);
+	 * 
+	 * rs = pstmt.executeQuery(); while (rs.next()) { memberList.add(new
+	 * MemberInfo(rs.getInt("rownum"), rs.getString("id"), rs.getString("pw"),
+	 * rs.getString("name"), rs.getString("pnum"), rs.getInt("lv"),
+	 * rs.getTimestamp("registerdate"), rs.getString("photo"))); } } catch
+	 * (SQLException e) { // TODO Auto-generated catch block e.printStackTrace(); }
+	 * 
+	 * return memberList; }
+	 */
 }

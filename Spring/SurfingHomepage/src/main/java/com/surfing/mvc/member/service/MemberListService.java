@@ -25,15 +25,16 @@ public class MemberListService {
 		
 		ListViewData listData = new ListViewData();
 		
-		try {
+		//try {
 			
-			Connection conn = ConnectionProvider.getConnection();
+			//Connection conn = ConnectionProvider.getConnection();
 			
 			// 현재 페이지 번호
 			listData.setCurrentPageNumber(currentPageNumber);
 			
 			// 전체 게시물 개수
-			int listTotalCount = dao.selectTotalCount(conn, searchParam);
+			//int listTotalCount = dao.selectTotalCount(conn, searchParam);
+			int listTotalCount = dao.selectTotalCount(searchParam);
 			listData.setListTotalCount(listTotalCount);
 			
 			int pageTotalCount = 0;
@@ -67,13 +68,17 @@ public class MemberListService {
 			List<MemberInfo> memberList = null;
 			 
 			if(searchParam == null) {
-				memberList = dao.selectList(conn, startRow, endRow);
+				//memberList = dao.selectList(conn, startRow, endRow);
+				memberList = dao.selectList(startRow, endRow);
 			} else if(searchParam.getsType().equals("both")) {
-				memberList = dao.selecListByBoth(conn, startRow, endRow, searchParam);
+				//memberList = dao.selecListByBoth(conn, startRow, endRow, searchParam);
+				memberList = dao.selecListByBoth(startRow, endRow, searchParam);
 			} else if(searchParam.getsType().equals("id")) {
-				memberList = dao.selectListById(conn, startRow, endRow, searchParam);
+				//memberList = dao.selectListById(conn, startRow, endRow, searchParam);
+				memberList = dao.selectListById(startRow, endRow, searchParam);
 			} else if(searchParam.getsType().equals("name")) {
-				memberList = dao.selectListByName(conn, startRow, endRow, searchParam);
+				//memberList = dao.selectListByName(conn, startRow, endRow, searchParam);
+				memberList = dao.selectListByName(startRow, endRow, searchParam);
 			}
 						 
 			// 회원 정보 리스트
@@ -86,10 +91,10 @@ public class MemberListService {
 			// [mySQL] -----------------------------------------
 			
 			
-		} catch (SQLException e) {
+		//} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			//e.printStackTrace();
+		//}
 		
 		return listData;
 	}

@@ -27,21 +27,23 @@ public class MyPageService implements SurfingService {
 		String id = loginInfo.getId();
 		System.out.println(id);
 		
-		Connection conn = null;
+		//Connection conn = null;
 		MemberInfo memberInfo = null;
 		
-		try {
+		//try {
 			
-			conn = ConnectionProvider.getConnection();
+			//conn = ConnectionProvider.getConnection();
 			
 			// 해당 아이디 정보 가져오기
-			memberInfo = dao.searchMem(conn, id);
+			//memberInfo = dao.searchMem(conn, id);
+			memberInfo = dao.searchMem(id);
+			
 			System.out.println(memberInfo);
 			
-		} catch (SQLException e) {
+		//} catch (SQLException e) {
 			// TODO: handle exception
-			e.printStackTrace();
-		}
+			//e.printStackTrace();
+		//}
 		
 		return memberInfo;
 		

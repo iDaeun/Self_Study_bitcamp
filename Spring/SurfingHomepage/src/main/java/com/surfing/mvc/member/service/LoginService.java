@@ -19,16 +19,17 @@ public class LoginService implements SurfingService {
 
 	public boolean login(String id, String pw) throws SQLException, IdNotFoundException, PwInvalidException {
 
-		Connection conn = null;
+		// Connection conn = null;
 		MemberInfo memberInfo = null;
 		boolean chk = false;
 
 		try {
 
-			conn = ConnectionProvider.getConnection();
+			// conn = ConnectionProvider.getConnection();
 
 			// 아이디 존재?
-			memberInfo = dao.searchMem(conn, id);
+			// memberInfo = dao.searchMem(conn, id);
+			memberInfo = dao.searchMem(id);
 
 			if (memberInfo == null) {
 				throw new IdNotFoundException("해당 아이디가 없습니다");
@@ -41,9 +42,9 @@ public class LoginService implements SurfingService {
 			// 아이디&비밀번호 존재
 			chk = true;
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw e;
+			// } catch (SQLException e) {
+			// e.printStackTrace();
+			// throw e;
 		} catch (IdNotFoundException e) {
 			e.printStackTrace();
 			throw e;
@@ -51,7 +52,7 @@ public class LoginService implements SurfingService {
 			e.printStackTrace();
 			throw e;
 		}
-		
+
 		return chk;
 
 	}
