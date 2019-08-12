@@ -17,7 +17,7 @@ public class MemberListController {
 	@Autowired
 	private MemberListService listService;
 	
-	@RequestMapping("/memberList")
+	@RequestMapping("/jason/memberList")
 	@ResponseBody // Json사용
 	public ListViewData memberList(
 			Model model,

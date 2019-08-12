@@ -111,9 +111,9 @@ public class MemberInfo {
 	//}
 	
 	// 파일 사이즈
-	public long getFileSize() {
-		return photo.getSize();
-	}
+	//public long getFileSize() {
+	//	return photo.getSize();
+	//}
 	
 	// 비밀번호 확인
 	public boolean matchPassword(String pw) {

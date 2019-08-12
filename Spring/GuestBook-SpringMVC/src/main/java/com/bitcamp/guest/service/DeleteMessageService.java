@@ -3,12 +3,15 @@ package com.bitcamp.guest.service;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bitcamp.guest.dao.MessageDao;
 import com.bitcamp.guest.dao.MessageJdbcTemplateDao;
+import com.bitcamp.guest.dao.MessageSessionDao;
+import com.bitcamp.guest.dao.MessageSessionTemplateDao;
 import com.bitcamp.guest.domain.Message;
 import com.bitcamp.guest.jdbc.ConnectionProvider;
 import com.bitcamp.guest.jdbc.JdbcUtil;
@@ -17,14 +20,20 @@ import com.bitcamp.guest.jdbc.JdbcUtil;
 public class DeleteMessageService implements GuestBookService {
 
 	@Autowired
-	private MessageJdbcTemplateDao dao;
-
+	//private MessageJdbcTemplateDao dao;
 	// private MessageDao dao;
+	//private MessageSessionTemplateDao dao;
+	private SqlSessionTemplate template;
+	
+	private MessageSessionDao dao;
 	
 	@Transactional // 트렌젝션 처리
 	public int deleteMessage(int messageId, String password)
 			throws SQLException, MessageNotFoundException, InvalidMessagePasswordException {
 		int resultCnt = 0;
+		
+		// dao생성
+		dao = template.getMapper(MessageSessionDao.class);
 
 		// Connection conn = null;
 		try {

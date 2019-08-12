@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ver01 : SqlSessionTemplate이용하여 DAO구현 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 필수 속성 : dao에서 식별하기 위한 이름이기 때문!!! -->
+<mapper namespace="com.bitcamp.guest.mapper.mybatis.guestMapper">
+
+	<insert id="insertMessage"
+		parameterType="com.bitcamp.guest.domain.Message">
+		insert into guestbook_message (message_id, guest_name,
+		password, message) values (GM_MID_SEQ.NEXTVAL, #{guestName},
+		#{password}, #{message})
+	</insert>
+
+	<select id="selectCount" resultType="int">
+		select count(*) from
+		guestbook_message
+	</select>
+
+	<select id="selectList" parameterType="map" resultMap="messageResultmap">
+		<!-- 크기 비교할때 CDATA사용 -->
+		<![CDATA[
+		select message_id, guest_name, password, message from
+		( select rownum rnum, message_id, guest_name, password, message from (
+		select * from guestbook_message m order by m.message_id desc ) where
+		rownum <= #{endRow}) where rnum >= #{firstRow}]]>
+	</select>
+	
+	<select id="select" resultType="com.bitcamp.guest.domain.Message">
+		select * from guestbook_message where message_id = #{id}
+	</select>
+
+	<delete id="deleteMessage">
+		delete from guestbook_message where message_id = #{id}
+	</delete>
+	
+	<!-- DB상의 컬럼 이름과 자바 클래스의 변수 이름이 달라서 mapping시켜야함  -->
+	<resultMap type="com.bitcamp.guest.domain.Message" id="messageResultmap">
+		<id property="id" column="message_id"/> <!-- pk = id -->
+		<result property="guestName" column="guest_name"/>
+		<result property="password" column="password"/>
+		<result property="message" column="message"/>
+	</resultMap>
+
+</mapper>

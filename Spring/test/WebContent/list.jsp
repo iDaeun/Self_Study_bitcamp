@@ -5,7 +5,10 @@
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +23,7 @@
 	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	
+
 <style>
 * {
 	margin: 0;
@@ -113,7 +116,7 @@ div.searchBox {
 
 	<div id="main_wrap">
 		<!-- header 시작 -->
-		<%@include file="../frame/header.jsp"%>
+		<%@include file="/WEB-INF/views/frame/header.jsp"%>
 		<!-- header 끝 -->
 
 		<div id="wrap">
@@ -124,7 +127,8 @@ div.searchBox {
 						<option value="both">아이디+이름</option>
 						<option value="id">아이디</option>
 						<option value="name">이름</option>
-					</select> <input type="text" name="keyword"><input type="submit" value="검색">
+					</select> <input type="text" name="keyword"><input type="submit"
+						value="검색">
 				</form>
 			</div>
 
@@ -142,19 +146,18 @@ div.searchBox {
 				</tr>
 
 				<!-- table 행 반복 시작 -->
-				
+
 				<tr id="list">
 				</tr>
 
 				<!-- table 행 반복 끝 -->
 			</table>
-			
-			<div id="pagingBox">
-			</div>
+
+			<div id="pagingBox"></div>
 
 		</div>
 	</div>
-	
+
 	<script>
 		$(function(){
 			p(1);
@@ -175,14 +178,15 @@ div.searchBox {
 					
 					var list = data.memberList;
 					
-					$.each(data,function(index,list){
-						output += '<td>'+번호+'</td>';
+					
+					 $.each(list,function(index,list){
+						output += '<td>'+'번호'+'</td>';
 						output += '<td>'+list.id+'</td>';
 						output += '<td>'+list.pw+'</td>';
 						output += '<td>'+list.name+'</td>';
 						output += '<td>'+list.pNum+'</td>';
 						output += '<td>';
-						if(list.photoName.equals('none')){
+						if(list.photoName == 'none'){
 							output += " <img style='width: 200px' src='/surfing/file/member_photo_upload/none.jpg' /> "; 
 						} else {
 							output += " <img style='width: 200px' src='/surfing/file/member_photo_upload/"+list.photoName+"/>"; 
@@ -193,26 +197,28 @@ div.searchBox {
 						var date = new Date(list.registerDate);
 						output += date + '</td>';	
 						
-					});
+					}); 
 					
 										
-					var no = data.no;
+					/* var no = data.no;
 					var paging = '';
-					var sType = ${param.sType}
-					var keyword = ${param.keyword}
+					var sType = '${param.sType}';
+					var keyword = '${param.keyword}';
 					for(var j=1; j<=data.pageTotalCount; j++){
 						paging += '<span><a href="memberList?sType='+sType+'&keyword='+keyword+'" onclick="p('+j+')"></a></span>'
-					}
+					} */
 										
-					$('#list').append(output);
-					$('#pagingBox').html(paging);
+					$('#list').html(output);
+
+					
+					//$('#pagingBox').html(paging);
 					
 				}
 				
 			});
 		}
 	</script>
-	
-	
+
+
 </body>
 </html>

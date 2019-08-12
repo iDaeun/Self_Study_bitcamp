@@ -3,13 +3,18 @@ package com.bitcamp.guest.service;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.guest.dao.MessageDao;
 import com.bitcamp.guest.dao.MessageJdbcTemplateDao;
+import com.bitcamp.guest.dao.MessageSessionDao;
+import com.bitcamp.guest.dao.MessageSessionTemplateDao;
 import com.bitcamp.guest.domain.Message;
 import com.bitcamp.guest.domain.MessageListView;
 import com.bitcamp.guest.jdbc.ConnectionProvider;
@@ -22,13 +27,19 @@ public class GetMessageListService implements GuestBookService {
 	 */
 
 	@Autowired
-	private MessageJdbcTemplateDao dao;
+	//private MessageJdbcTemplateDao dao;
+	//private MessageSessionTemplateDao dao;
+	private SqlSessionTemplate template;
+	
+	private MessageSessionDao dao;
 	
 	// 1. 한 페이지에 보여줄 게시글의 개수
 	private static final int MESSAGE_COUNT_PER_PAGE = 3;
 	
 	public MessageListView getMessageListView(int pageNumber) {
 		
+		// dao생성(자동매핑)
+		dao = template.getMapper(MessageSessionDao.class);
 		
 		// 2. 현재 페이지 번호
 		int currentPageNumber = pageNumber;
@@ -57,7 +68,11 @@ public class GetMessageListService implements GuestBookService {
 				endRow = firstRow + MESSAGE_COUNT_PER_PAGE -1;
 				
 				//messageList = dao.selectList(conn, firstRow, endRow);
-				messageList = dao.selectList(firstRow, endRow);
+				//messageList = dao.selectList(firstRow, endRow);
+				Map<String,Object> params = new HashMap<String, Object>();
+				params.put("firstRow", firstRow);
+				params.put("endRow", endRow);
+				messageList = dao.selectList(params);
 				
 			} else {
 				currentPageNumber = 0;

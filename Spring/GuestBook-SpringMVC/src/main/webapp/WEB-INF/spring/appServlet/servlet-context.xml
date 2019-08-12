@@ -38,6 +38,22 @@
 	<beans:bean id="jdbcTemplate"
 		class="org.springframework.jdbc.core.JdbcTemplate"
 		p:dataSource-ref="dataSource" />
+	
+	<!-- Mybatis설정 : dataSource, mapper경로 -->
+	<beans:bean
+		id = "sqlSessionFactory"
+		class = "org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource"/>
+		<beans:property name="mapperLocations" value="classpath:com/bitcamp/guest/mapper/mybatis/*.xml"></beans:property>
+	</beans:bean>
+	
+	<beans:bean
+		id = "sqlSession"
+		class = "org.mybatis.spring.SqlSessionTemplate"
+		>
+		<beans:constructor-arg index="0" ref="sqlSessionFactory"/>
+	
+	</beans:bean>
 
 	<context:component-scan
 		base-package="com.bitcamp.guest" />
