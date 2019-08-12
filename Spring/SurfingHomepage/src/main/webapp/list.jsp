@@ -132,26 +132,11 @@ div.searchBox {
 				</form>
 			</div>
 
-
-			<table>
-				<tr>
-					<td>번호</td>
-					<td>아이디</td>
-					<td>비밀번호</td>
-					<td>이름</td>
-					<td>전화번호</td>
-					<td>사진</td>
-					<td>레벨</td>
-					<td>가입날짜</td>
-				</tr>
-
 				<!-- table 행 반복 시작 -->
 
-				<span id="list">
-				</span>
+				<div id="list"></div>
 
 				<!-- table 행 반복 끝 -->
-			</table>
 
 			<div id="pagingBox"></div>
 
@@ -178,9 +163,11 @@ div.searchBox {
 					
 					var list = data.memberList;
 					
+					output += '<table><tr><td>번호</td>';
+					output += '<td>아이디</td><td>비밀번호</td><td>이름</td><td>전화번호</td><td>사진</td><td>레벨</td>	<td>가입날짜</td></tr>';		
 					
 					 $.each(list,function(index,list){
-						output += '<tr><td>'+'번호'+'</td>';
+						output += '<tr><td>번호</td>';
 						output += '<td>'+list.id+'</td>';
 						output += '<td>'+list.pw+'</td>';
 						output += '<td>'+list.name+'</td>';
@@ -192,22 +179,19 @@ div.searchBox {
 						output += '<td>';
 						var date = new Date(list.registerDate);
 						output += date + '</td></tr>';	
-						
 					}); 
-					
+						output += '</table>';
 										
-					/* var no = data.no;
+					var no = data.no;
 					var paging = '';
 					var sType = '${param.sType}';
 					var keyword = '${param.keyword}';
 					for(var j=1; j<=data.pageTotalCount; j++){
 						paging += '<span><a href="memberList?sType='+sType+'&keyword='+keyword+'" onclick="p('+j+')"></a></span>'
-					} */
+					}
 										
 					$('#list').html(output);
-
-					
-					//$('#pagingBox').html(paging);
+					$('#pagingBox').html(paging);
 					
 				}
 				

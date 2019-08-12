@@ -1,5 +1,5 @@
 package com.bitcamp.guest.dao;
-
+//ver02: 자동매핑 사용
 import java.util.List;
 import java.util.Map;
 

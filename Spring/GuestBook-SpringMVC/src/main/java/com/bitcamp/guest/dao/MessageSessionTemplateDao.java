@@ -1,6 +1,6 @@
 package com.bitcamp.guest.dao;
 // ★★ SQL문 작성 기능 ★★
-
+//ver01 : SqlSessionTemplate이용하여 DAO구현
 import java.util.List;
 import java.util.Map;
 

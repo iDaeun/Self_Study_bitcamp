@@ -44,4 +44,31 @@ public class MemberListController {
 		
 		return listData;
 	}
+	
+	@RequestMapping("/memberList")
+	public String memberList1(
+			Model model,
+			@RequestParam(value = "p", defaultValue = "1") int pageNumber,
+			@RequestParam(value = "sType", required = false) String sType,
+			@RequestParam(value = "keyword", required = false) String keyword
+			) {
+		
+		SearchParam searchParam = null;
+		
+		if(sType != null && 
+				keyword != null
+				&& !sType.isEmpty()
+				&& !keyword.isEmpty()
+				) {
+			searchParam = new SearchParam();
+			searchParam.setsType(sType);
+			searchParam.setKeyword(keyword);
+		}
+		
+		// service
+		ListViewData listData = listService.getListData(pageNumber, searchParam);
+		model.addAttribute("viewData",listData);
+		
+		return "admin/memList";
+	}
 }
