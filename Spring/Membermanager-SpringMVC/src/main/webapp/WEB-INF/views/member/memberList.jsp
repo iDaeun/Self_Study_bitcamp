@@ -120,8 +120,9 @@ div.searchBox{
 
 	<script>
 		function delMember(idx){
-			if((confirm("삭제하시겠습니까?")){
-				locatino.href='memberDelete?memberId='+idx;
+			if(confirm("삭제하시겠습니까?")){
+				//locatino.href='memberDelete?memberId='+idx;
+				locatino.href='delete/'+idx;
 			}
 		}
 	</script>

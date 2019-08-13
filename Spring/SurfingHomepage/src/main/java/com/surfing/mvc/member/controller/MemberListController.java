@@ -17,10 +17,9 @@ public class MemberListController {
 	@Autowired
 	private MemberListService listService;
 	
-	@RequestMapping("/jason/memberList")
+	@RequestMapping("/json/memberList")
 	@ResponseBody // Json사용
 	public ListViewData memberList(
-			Model model,
 			@RequestParam(value = "p", defaultValue = "1") int pageNumber,
 			@RequestParam(value = "sType", required = false) String sType,
 			@RequestParam(value = "keyword", required = false) String keyword
@@ -40,7 +39,6 @@ public class MemberListController {
 		
 		// service
 		ListViewData listData = listService.getListData(pageNumber, searchParam);
-		//model.addAttribute("viewData",listData);
 		
 		return listData;
 	}

@@ -41,12 +41,27 @@
 		</beans:property>
 	</beans:bean>
 
+	<!-- Mybatis설정 : dataSource, mapper경로 -->
+	<beans:bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="mapperLocations"
+			value="classpath:com/bitcamp/mm/mapper/mybatis/*.xml">
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0"
+			ref="sqlSessionFactory" />
+	</beans:bean>
+
 
 	<!-- 스캔하여 자동으로 빈으로 등록해줌 -->
 	<context:component-scan
 		base-package="com.bitcamp.mm" />
 
-	
+
 	<!-- dataSource 설정 (mySql) -->
 	<beans:bean id="dataSource"
 		class="org.apache.commons.dbcp2.BasicDataSource"
@@ -56,15 +71,14 @@
 
 	<beans:bean id="jdbcTemplate"
 		class="org.springframework.jdbc.core.JdbcTemplate"
-		p:dataSource-ref="dataSource"
-		 />
+		p:dataSource-ref="dataSource" />
 
 	<!-- PlatformTransactionManager 빈 설정 -->
 	<beans:bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<beans:property name="dataSource" ref="dataSource" />
-	</beans:bean> 
-	
+	</beans:bean>
+
 	<!-- @Transactional 애노테이션 활성화 설정 -->
 	<tx:annotation-driven
 		transaction-manager="transactionManager" />

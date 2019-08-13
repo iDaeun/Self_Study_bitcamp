@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.bitcamp.mm.jdbc.ConnectionProvider;
 import com.bitcamp.mm.member.dao.MemberDao;
 import com.bitcamp.mm.member.dao.MemberJdbcTemplateDao;
+import com.bitcamp.mm.member.dao.MemberSessionDao;
 import com.bitcamp.mm.member.domain.MemberInfo;
 import com.bitcamp.mm.member.domain.RequestMemberRegist;
 
@@ -24,9 +27,15 @@ public class MemberRegService implements MemberService {
 	 */
 
 	@Autowired
-	private MemberJdbcTemplateDao dao;
+	// private MemberJdbcTemplateDao dao;
+	private SqlSessionTemplate template;
+
+	private MemberSessionDao dao;
 
 	public int memberInsert(HttpServletRequest request, RequestMemberRegist regist) {
+
+		// dao 생성
+		dao = template.getMapper(MemberSessionDao.class);
 
 		// 서버경로
 		String path = "/uploadfile/userphoto";
@@ -69,15 +78,15 @@ public class MemberRegService implements MemberService {
 	}
 
 	public char idCheck(String id) {
-		
-		char chk = dao.selectMemberById(id)==null?'Y':'N';
-		
+
+		char chk = dao.selectMemberById(id) == null ? 'Y' : 'N';
+
 		return chk;
 	}
-	
+
 	public String idCheck1(String id) {
-		
-		return dao.selectMemberById(id)==null?"Y":"N";
+
+		return dao.selectMemberById(id) == null ? "Y" : "N";
 	}
 
 }

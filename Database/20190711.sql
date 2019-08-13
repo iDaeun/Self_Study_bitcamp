@@ -262,5 +262,9 @@ insert into NEWBOOK values ( 1, 'newbooktest', 'newbooktest', 'newbooktest', 'te
 
 commit;
 
-
+truncate table guestbook_message;
+select * from guestbook_message;
+drop sequence GM_MID_SEQ;
+create sequence GM_MID_SEQ;
+commit;
 

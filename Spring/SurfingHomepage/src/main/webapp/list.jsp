@@ -86,14 +86,14 @@ table tr:first-child>td {
 	font-weight: bold;
 }
 
-div #pagingBox {
+div #pagingBox1 {
 	overflow: hidden;
 	padding: 15px;
 	width: 80%;
 	margin: 0 auto;
 }
 
-#pagingBox>div {
+#pagingBox1>div {
 	float: left;
 	width: 30px;
 	height: 30px;
@@ -137,8 +137,10 @@ div.searchBox {
 				<div id="list"></div>
 
 				<!-- table 행 반복 끝 -->
-
+			
+			<div id="pagingBox1">
 			<div id="pagingBox"></div>
+			</div>
 
 		</div>
 	</div>
@@ -148,14 +150,14 @@ div.searchBox {
 			p(1);
 		});
 		
-		function p(num){
+		function p(num, sType, keyword){
 			alert(num);
 			
 			$.ajax({
 				
-				url: 'jason/memberList',
+				url: 'json/memberList',
 				type : 'get',
-				data : {p:num},
+				data : {p:num, sType:sType, keyword:keyword},
 				success : function(data){
 					alert(JSON.stringify(data));
 					
@@ -187,7 +189,7 @@ div.searchBox {
 					var sType = '${param.sType}';
 					var keyword = '${param.keyword}';
 					for(var j=1; j<=data.pageTotalCount; j++){
-						paging += '<span><a href="memberList?sType='+sType+'&keyword='+keyword+'" onclick="p('+j+')"></a></span>'
+						paging += '<span><a onclick="p('+j+')">'+j+'</a></span>'
 					}
 										
 					$('#list').html(output);

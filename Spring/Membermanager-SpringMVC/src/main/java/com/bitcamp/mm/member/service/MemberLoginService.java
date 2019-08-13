@@ -5,24 +5,30 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.mm.jdbc.ConnectionProvider;
 import com.bitcamp.mm.member.dao.MemberDao;
 import com.bitcamp.mm.member.dao.MemberJdbcTemplateDao;
+import com.bitcamp.mm.member.dao.MemberSessionDao;
 import com.bitcamp.mm.member.domain.MemberInfo;
 
 @Service("loginService")
 public class MemberLoginService implements MemberService {
 
-	// @Autowired
-	// private MemberDao dao;
-
 	@Autowired
-	private MemberJdbcTemplateDao dao;
+	// private MemberDao dao;
+	//private MemberJdbcTemplateDao dao;
+	private SqlSessionTemplate template;
+	
+	private MemberSessionDao dao;
 
 	public boolean login(String id, String pw, HttpServletRequest request) {
+		
+		//dao 생성
+		dao = template.getMapper(MemberSessionDao.class);
 
 		boolean loginChk = false;
 
