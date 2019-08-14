@@ -11,5 +11,7 @@ public interface MemberSessionDao {
 	public int insertMember(MemberInfo memberInfo);
 	public int selectTotalCount(SearchParam searchParam);
 	public List<MemberInfo> selectList(Map<String,Object>params);
+	public List<MemberInfo> selectAllList(); // 전체 리스트 받아옴
+	public int memberDelete(int id);// 회원 정보 삭제
 	
 }

@@ -43,21 +43,22 @@ public class MemberRegService implements MemberService {
 		String dir = request.getSession().getServletContext().getRealPath(path);
 		MemberInfo memberInfo = regist.toMemberInfo();
 
-		// 새로운 파일 이름 생성
-		String newFileName = memberInfo.getuId() + "_" + regist.getuPhoto().getOriginalFilename();
-
 		int resultCnt = 0;
 		// Connection conn = null;
+		String newFileName = "";
 
 		try {
+			if (regist.getuPhoto() != null) {
+				// 새로운 파일 이름 생성
+				newFileName = memberInfo.getuId() + "_" + regist.getuPhoto().getOriginalFilename();
+				// conn = ConnectionProvider.getConnection();
 
-			// conn = ConnectionProvider.getConnection();
+				// 파일 서버의 지정 경로에 저장
+				regist.getuPhoto().transferTo(new File(dir, newFileName));
 
-			// 파일 서버의 지정 경로에 저장
-			regist.getuPhoto().transferTo(new File(dir, newFileName));
-
-			// 데이터베이스 저장을 하기 위한 파일 이름 set
-			memberInfo.setuPhoto(newFileName);
+				// 데이터베이스 저장을 하기 위한 파일 이름 set
+				memberInfo.setuPhoto(newFileName);
+			} 
 
 			// DB저장
 			// resultCnt = dao.insertMember(conn, memberInfo);
