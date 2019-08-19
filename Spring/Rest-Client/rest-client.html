@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <style>
+        div.card {
+            float: left;
+            margin: 2px;
+            width: 33%;
+            border: 3px solid;
+            padding: 5px;
+        }
+
+        div#memberlist {
+            overflow: hidden;
+        }
+
+        div#editForm {
+            display: none;
+            background-color: antiquewhite;
+            border: 3px solid black;
+            margin: 2px;
+            width: 33%;
+            padding: 5px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="editForm">
+        <h1>회원 수정</h1>
+        <hr>
+        <div id="editMemberList"></div>
+    </div>
+    <h1>회원리스트</h1>
+    <hr>
+    <div id="memberlist">
+    </div>
+
+
+
+    <script>
+        $(document).ready(function() {
+
+            list();
+
+        });
+
+        function del(idx) {
+
+            if (confirm('삭제하시겠습니까?')) {
+                $.ajax({
+                    url: 'http://localhost:9090/mm/rest/members/' + idx,
+                    type: 'DELETE',
+                    success: function(data) {
+                        //alert(JSON.stringify(data));
+                        if (data == 'SUCCESS') {
+                            alert('삭제되었습니다');
+                            list();
+                        }
+                    }
+                });
+            }
+        }
+
+        function edmit(idx) {
+            if (confirm('수정하시겠습니까?')) {
+                $('#editForm').css("display", "block");
+                $.ajax({
+                    url: 'http://localhost:9090/mm/rest/members/' + idx,
+                    type: 'GET',
+                    success: function(data) {
+
+                        var html = '';
+
+                        html += 'idx : ' + data.idx + '<br>\n';
+                        html += '<input type="hidden" id="idx" value="' + data.idx + '">';
+                        html += 'uId : ' + data.uId + '<br>\n';
+                        html += '<input type="hidden" id="uId" value="' + data.uId + '">';
+                        html += 'uName : <input type="text" id="uName" value="' + data.uName + '"><br>\n';
+                        html += 'uPw : <input type="text" id="uPw" value="' + data.uPw + '"><br>\n';
+                        html += 'uPhoto : <input type="text" id="uPhoto" name="uPhoto" value="' + data.uPhoto + '"> <br>\n';
+                        html += '<button onclick="edmitProcess(' + data.idx + ')">수정완료</button>';
+
+                        $('#editMemberList').html(html);
+                    }
+                });
+            }
+        }
+
+        function edmitProcess(idx) {
+
+            if (confirm('수정하시겠습니까?')) {
+                $.ajax({
+                    url: 'http://localhost:9090/mm/rest/members',
+                    type: 'PUT',
+                    data: JSON.stringify({
+                        idx: $('#idx').val(),
+                        uName: $('#uName').val(),
+                        uPw: $('#uPw').val(),
+                        oldFile: $('#uPhoto').val()
+                    }),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function(data) {
+                        //alert(JSON.stringify(data));
+                        if (data == 'SUCCESS') {
+                            alert('수정되었습니다');
+                            $('#editForm').css("display", "none");
+                            list();
+                        }
+                    }
+                });
+            }
+        }
+
+        function list() {
+            $.ajax({
+                url: 'http://localhost:9090/rc/list',
+                type: 'GET',
+                success: function(data) {
+                    //alert(JSON.stringify(data));
+
+                    var html = '';
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<div class="card">\n';
+                        html += 'idx : ' + data[i].idx + '<br>\n';
+                        html += 'uId : ' + data[i].uId + '<br>\n';
+                        html += 'uName : ' + data[i].uName + '<br>\n';
+                        html += 'uPhoto : ' + data[i].uPhoto + '<br>\n';
+                        html += '<button onclick="del(' + data[i].idx + ')">삭제하기</button> ';
+                        html += '<button onclick="edmit(' + data[i].idx + ')">수정하기</button><br>\n';
+                        html += '</div>\n';
+                    }
+
+                    $('#memberlist').html(html);
+
+                }
+            });
+        }
+
+    </script>
+</body>
+
+</html>

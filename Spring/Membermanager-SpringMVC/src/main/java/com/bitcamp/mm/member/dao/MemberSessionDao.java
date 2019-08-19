@@ -13,5 +13,7 @@ public interface MemberSessionDao {
 	public List<MemberInfo> selectList(Map<String,Object>params);
 	public List<MemberInfo> selectAllList(); // 전체 리스트 받아옴
 	public int memberDelete(int id);// 회원 정보 삭제
+	public MemberInfo selectMemberByIdx(int id); // 회원 정보 수정을 위한 정보 획득
+	public int memberUpdate(MemberInfo memberInfo); // 회원 정보 수정
 	
 }

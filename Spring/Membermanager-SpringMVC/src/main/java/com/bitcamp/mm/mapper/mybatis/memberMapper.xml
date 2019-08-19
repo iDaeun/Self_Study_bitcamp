@@ -61,4 +61,16 @@
 	<delete id="memberDelete">
 	delete from member where idx = #{idx}
 	</delete>
+	
+	<!-- 회원 정보 수정을 위한 정보 획득 -->
+   <select id="selectMemberByIdx" resultMap="memberResultmap">
+      select * from member where IDX= #{idx}
+   </select>
+
+   <!-- 회원정보수정 -->
+   <update id="memberUpdate"
+      parameterType="com.bitcamp.mm.member.domain.MemberInfo">
+      update member set uname = #{uName}, upw = #{uPw},
+      uphoto= #{uPhoto} where idx = #{idx}
+   </update>
 </mapper>
