@@ -55,6 +55,22 @@
 		<beans:constructor-arg index="0"
 			ref="sqlSessionFactory" />
 	</beans:bean>
+	
+
+	<!-- 여러개의 interceptor를 등록할 수 있음 -->
+	<interceptors>
+		<!-- interceptor 생성 : 로그인 체크 기능 -->
+		<interceptor>
+			<mapping path="/member/mypage/**"/> <!-- mypage뒤의 모든 경로는 interceptor 실행함 -->
+			<mapping path="/member/json/**"/>
+			<exclude-mapping path="/member/mypage/help/**"/>
+			<beans:bean class="com.bitcamp.mm.interceptor.AuthCheckInterceptor" />
+		</interceptor>
+		<!-- <interceptor>
+			<mapping path="/member/json/**"/>
+			<beans:bean class="com.bitcamp.mm.interceptor.AuthCheckInterceptor" />
+		</interceptor> -->
+	</interceptors>
 
 
 	<!-- 스캔하여 자동으로 빈으로 등록해줌 -->
@@ -77,6 +93,23 @@
 	<beans:bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+	
+	<beans:bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<beans:property name="host" value="smtp.gmail.com" />
+		<beans:property name="port" value="587" /><!-- 465 or 25 -->
+		<beans:property name="username" value="kkang2309@gmail.com" />
+		<beans:property name="password" value="chayin831" />
+		<beans:property name="defaultEncoding" value="utf-8" />
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
+				<beans:prop key="mail.smtp.auth">true</beans:prop>
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+				<beans:prop key="mail.debug">true</beans:prop>
+			</beans:props>
+		</beans:property>
 	</beans:bean>
 
 	<!-- @Transactional 애노테이션 활성화 설정 -->
