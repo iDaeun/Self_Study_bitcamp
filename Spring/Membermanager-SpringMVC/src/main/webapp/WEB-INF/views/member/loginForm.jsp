@@ -26,7 +26,7 @@
 <div id="contents">
 	<h3>로그인 페이지</h3>
 	<hr>
-	<form action="login.do" method="post">
+	<form method="post">
 		<table>
 			<tr>
 				<td>아이디</td>

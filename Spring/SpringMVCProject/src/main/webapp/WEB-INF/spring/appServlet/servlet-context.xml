@@ -53,10 +53,16 @@
 			</beans:props>
 		</beans:property>
 	</beans:bean>
-
+	
+	<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	
 		<context:component-scan
 			base-package="com.bitcamp.mvc" />
 
-
+	<beans:bean id="AES256Util" class="com.bitcamp.mvc.AES256Util">
+		<beans:constructor-arg>
+			<beans:value>1111111111111111</beans:value> <!-- 16자리로 제한 -->
+		</beans:constructor-arg>
+	</beans:bean>
 
 </beans:beans>

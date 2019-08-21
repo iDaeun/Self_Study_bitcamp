@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,20 +38,27 @@ public class LoginController {
 	public String login(
 			@RequestParam("uId") String id,
 			@RequestParam("uPw") String pw,
-			HttpServletRequest request
+			HttpServletRequest request,
+			Model model
 			) {
 		
+		String view = "";
+		
 		// 로그인 실패 -> loginFail.jsp -> loginForm.jsp
-		String view = "member/loginFail";
-		boolean loginChk = loginService.login(id, pw, request);
+		//String view = "member/loginFail";
+		int loginChk = loginService.login(id, pw, request);
 		
-		if(loginChk) {
-			// 로그인 성공 -> redirect
+		if(loginChk==0) {
+			// 인증 회원 로그인 성공 -> redirect
 			view = "redirect:/main";
+		} else if (loginChk==1) {
+			// 미인증 회원 -> 이메일 다시 보내기
+			model.addAttribute("id",id);
+			view = "member/regCheck";
+		} else if (loginChk==2) {
+			// 로그인 실패 -> loginFail.jsp -> loginForm.jsp
+			view = "member/loginFail";
 		}
-		
-		
-		
 		
 		return view;
 	}

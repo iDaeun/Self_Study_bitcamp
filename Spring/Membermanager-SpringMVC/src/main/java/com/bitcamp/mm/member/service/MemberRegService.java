@@ -25,7 +25,10 @@ public class MemberRegService implements MemberService {
 	/*
 	 * @Autowired private MemberDao dao;
 	 */
-
+	
+	@Autowired
+	private MailSenderService mailSenderService;
+	
 	@Autowired
 	// private MemberJdbcTemplateDao dao;
 	private SqlSessionTemplate template;
@@ -63,6 +66,9 @@ public class MemberRegService implements MemberService {
 			// DB저장
 			// resultCnt = dao.insertMember(conn, memberInfo);
 			resultCnt = dao.insertMember(memberInfo);
+			
+			// 메일발송
+			mailSenderService.send(memberInfo);
 
 		} catch (IllegalStateException e) {
 			// TODO: handle exception

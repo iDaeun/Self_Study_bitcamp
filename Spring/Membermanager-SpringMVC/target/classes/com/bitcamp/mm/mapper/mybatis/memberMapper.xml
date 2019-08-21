@@ -21,8 +21,8 @@
 
 	<insert id="insertMember"
 		parameterType="com.bitcamp.mm.member.domain.MemberInfo">
-		insert into member (uid, uname, upw, uphoto) values
-		(#{uId}, #{uName},#{uPw}, #{uPhoto})
+		insert into member (uid, uname, upw, uphoto, code) values
+		(#{uId}, #{uName},#{uPw}, #{uPhoto}, #{code})
 	</insert>
 
 	<select id="selectList" parameterType="map"
@@ -73,4 +73,5 @@
       update member set uname = #{uName}, upw = #{uPw},
       uphoto= #{uPhoto} where idx = #{idx}
    </update>
+     
 </mapper>

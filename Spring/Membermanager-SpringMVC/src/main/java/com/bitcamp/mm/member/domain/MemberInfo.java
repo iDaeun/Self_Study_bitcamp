@@ -1,6 +1,9 @@
 package com.bitcamp.mm.member.domain;
 
 import java.util.Date;
+import java.util.Random;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 // usebean Class
 public class MemberInfo {
@@ -12,10 +15,31 @@ public class MemberInfo {
 	private String uName;
 	private String uPhoto;
 	private Date regDate;
+	
+	@JsonIgnore
+	private char verify;
+	private String code;
 
 	// default 생성자 필수
 	public MemberInfo() {
 		this.regDate = new Date();
+		this.code = getRandomCode();
+	}
+
+	public char getVerify() {
+		return verify;
+	}
+
+	public void setVerify(char verify) {
+		this.verify = verify;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public MemberInfo(String uId, String uPw, String uName, String uPhoto) {
@@ -25,6 +49,7 @@ public class MemberInfo {
 		this.uName = uName;
 		this.uPhoto = uPhoto;
 		this.regDate = new Date();
+		this.code = getRandomCode();
 	}
 
 	public MemberInfo(int idx, String uId, String uPw, String uName, String uPhoto, Date regDate) {
@@ -35,6 +60,7 @@ public class MemberInfo {
 		this.uName = uName;
 		this.uPhoto = uPhoto;
 		this.regDate = regDate;
+		this.code = getRandomCode();
 	}
 
 	// 변수들의 Getter/Setter 시작
@@ -94,7 +120,28 @@ public class MemberInfo {
 				+ ", regDate=" + regDate + "]";
 	}
 	
-
+	// 2019.08.21 난수 발생시키기
+	public String getRandomCode() {
+		
+		Random rand = new Random(System.nanoTime());
+		StringBuffer sb = new StringBuffer();
+		
+		// 총 20문자 길이의 난수를 생성
+		for(int i=0; i<20; i++) {
+			// 랜덤으로 true 또는 false 생성
+			if(rand.nextBoolean()) {
+				sb.append(rand.nextInt(10)); //0~9까지 난수 생성
+			} else {
+				sb.append((char)(rand.nextInt(26)+97)); //알파벳 난수 생성
+			}
+		}
+		
+		System.out.println("생성된 난수: "+sb);
+		
+		return sb.toString();
+		
+	}
+	
 	// 화면 결과 출력을 위한 HTML 코드 반환
 	public String makeHtmlDiv() {
 		String str = "";
@@ -119,22 +166,9 @@ public class MemberInfo {
 	}
 	
 	// 비밀번호 체크 확인
-	// 2017.07.25 메서드 추가
+	// 2019.07.25 메서드 추가
 	public boolean pwChk(String pw) {
 		return uPw != null && uPw.trim().length()>0 && uPw.equals(pw);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

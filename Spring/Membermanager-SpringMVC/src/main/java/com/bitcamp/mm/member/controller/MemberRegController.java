@@ -18,8 +18,6 @@ public class MemberRegController {
 	
 	@Autowired
 	private MemberRegService registService;
-	@Autowired
-	private MailSenderService mailSenderService;
 	
 	// member/regist => 
 	// 1. nav에서 '회원가입' 클릭 -> get방식  
@@ -40,9 +38,7 @@ public class MemberRegController {
 		
 		int resultCnt = registService.memberInsert(request, regist);
 		model.addAttribute("rCnt",resultCnt);
-		
-		mailSenderService.send(regist.getuId());
-		
+				
 		return "member/memberRegist";
 	}
 }
