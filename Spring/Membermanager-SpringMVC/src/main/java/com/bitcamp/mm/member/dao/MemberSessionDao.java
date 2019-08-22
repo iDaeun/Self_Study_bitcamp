@@ -15,4 +15,5 @@ public interface MemberSessionDao {
 	public int memberDelete(int id);// 회원 정보 삭제
 	public MemberInfo selectMemberByIdx(int id); // 회원 정보 수정을 위한 정보 획득
 	public int memberUpdate(MemberInfo memberInfo); // 회원 정보 수정
+	public int verify(String id); // 인증메일 -> verify상태값 Y로 변경
 }

@@ -28,15 +28,17 @@
 		<c:if test="${code eq null}">
 			<!-- 인증하지 않고 로그인 했을때  -->
 			<h3>인증되지 않은 아이디입니다</h3>
-			<input type="hidden" value="${id}" id="id">
-			<h2>
-				<a href="sendEmail">인증 이메일 다시 보내기</a>
-			</h2>
+			<button onclick="send('${id}')">인증 이메일 다시 보내기</button>
 		</c:if>
 
 		<c:if test="${code ne null}">
 			<!-- 이메일 => 인증링크로 들어왔을때 -->
+			<c:if test="${result>0}">
 			<h3>인증되었습니다!</h3>
+			</c:if>
+			<c:if test="${result<0}">
+			<h3>인증실패...</h3>
+			</c:if>
 		</c:if>
 
 	</div>
@@ -48,16 +50,23 @@
 	<!-- 푸터 끝 -->
 
 	<script>
-		$(document).ready(function() {
+		function send(id) {
+			
 			$.ajax({
 				url : 'sendEmail',
 				type : 'get',
-				data : {id: $('#id').val()},
-				success: function(data){
+				data : {id: id},
+				success : function(data) {
+					alert(data);
 					
+					if(data == 'SUCCESS'){
+						alert('재전송 완료, 이메일을 확인해주세요!');
+					} else {
+						alert('재전송 실패');
+					}
 				}
 			});
-		});
+		}
 	</script>
 
 </body>
