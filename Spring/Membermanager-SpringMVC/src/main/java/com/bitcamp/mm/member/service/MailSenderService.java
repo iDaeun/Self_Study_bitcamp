@@ -50,7 +50,7 @@ public class MailSenderService {
 			
 			message.setText(htmlMsg, "UTF-8", "html");
 			message.setFrom(new InternetAddress("ekdms2309@naver.com"));
-			message.addRecipient(RecipientType.TO, new InternetAddress(memberInfo.getuId(), "바보욱표", "UTF-8"));
+			message.addRecipient(RecipientType.TO, new InternetAddress(memberInfo.getuId(), "USER", "UTF-8"));
 			
 			sender.send(message);
 			
