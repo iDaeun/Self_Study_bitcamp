@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.petsite.members.dao.MemberDao;
@@ -18,6 +19,19 @@ public class RegService {
 	@Autowired
 	private SqlSessionTemplate template;
 	private MemberDao dao;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
+	public MemberInfo checkId(String id) {
+		
+		dao = template.getMapper(MemberDao.class);
+		
+		MemberInfo memberInfo = null;
+		memberInfo = dao.selectById(id);
+		
+		return memberInfo;
+	}
 	
 	public int memInsert(HttpServletRequest request, MemberInfo memberInfo) {
 		
@@ -31,7 +45,7 @@ public class RegService {
 		String newFileName = "";
 		
 		if(memberInfo.getPic() != null) {
-			newFileName = memberInfo.getId()+"_"+memberInfo.getPic_name();
+			newFileName = memberInfo.getId()+"_"+memberInfo.getPic().getOriginalFilename();
 			
 			try {
 				
@@ -46,6 +60,9 @@ public class RegService {
 				e.printStackTrace();
 			}
 		}
+		
+		// 비밀번호 암호화
+		memberInfo.setPw(encoder.encode(memberInfo.getPw()));
 		
 		// DB저장
 		rCnt = dao.insertMem(memberInfo);		
