@@ -31,7 +31,20 @@ public class LoginController {
 			) {
 		
 		int cnt = loginService.login(id, pw, request);
+		String view = "";
 		
-		return new ResponseEntity<String>(cnt>0?"success":"fail", HttpStatus.OK);
+		if(cnt==1) {
+			// 1. 인증 처리됨 -> 메인 화면으로 
+			view = "";
+		} else if (cnt==2) {
+			// 2. 미인증 회원 -> 이메일 다시 보내기
+			view = "";
+		} else if (cnt==3) {
+			// 3. 로그인 실패 -> loginFail 페이지
+			view = "";
+		}
+		
+		/* return new ResponseEntity<String>(cnt>0?"success":"fail", HttpStatus.OK); */
+		return new ResponseEntity<String>(view, HttpStatus.OK);
 	}
 }

@@ -44,7 +44,7 @@ public class MailSenderService {
 		MemberInfo memberInfo = null;
 		
 		memberInfo = dao.selectById(id);
-		if(memberInfo != null && memberInfo.getVerify().equals('Y')) {
+		if(memberInfo != null && memberInfo.getVerify()=='Y') {
 			
 		}
 		

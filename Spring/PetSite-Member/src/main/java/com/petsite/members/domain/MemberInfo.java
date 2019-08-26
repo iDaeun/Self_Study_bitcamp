@@ -19,7 +19,7 @@ public class MemberInfo {
 	
 	@JsonIgnore
 	private String code;
-	private String verify;
+	private char verify;
 	
 	// 생성자
 	public MemberInfo() {
@@ -35,11 +35,11 @@ public class MemberInfo {
 		this.code = code;
 	}
 
-	public String getVerify() {
+	public char getVerify() {
 		return verify;
 	}
 
-	public void setVerify(String verify) {
+	public void setVerify(char verify) {
 		this.verify = verify;
 	}
 	
