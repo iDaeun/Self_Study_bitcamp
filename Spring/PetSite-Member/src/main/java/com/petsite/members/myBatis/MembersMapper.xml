@@ -26,7 +26,17 @@
 	select * from members where m_id = #{id}
 	</select>
 	
+	<!-- verify값 변경 -->
 	<update id="updateVerify">
 	update members set m_verify = 'Y' where m_id = #{id} 
 	</update>
+	
+	<!-- 내정보 수정  -->
+	<update id="updateMem" parameterType="com.petsite.members.domain.MemberInfo">
+	update members set m_pw = #{pw}, m_address = #{address} where m_id = #{id}
+		<if test="pic_name != null">
+		update members set m_pw = #{pw}, m_address = #{address}, m_img = #{pic_name} where m_id = #{id}
+		</if>	
+	</update>
+	
 </mapper>

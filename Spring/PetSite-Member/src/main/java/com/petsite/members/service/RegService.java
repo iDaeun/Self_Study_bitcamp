@@ -28,7 +28,6 @@ public class RegService {
 		dao = template.getMapper(MemberDao.class);
 
 		MemberInfo memberInfo = dao.selectById(id);
-		System.out.println(memberInfo);
 
 		return memberInfo;
 	}

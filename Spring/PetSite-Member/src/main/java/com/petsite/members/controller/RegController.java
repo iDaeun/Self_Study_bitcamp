@@ -44,7 +44,6 @@ public class RegController {
 	public String checkId(@RequestParam("id") String id) {
 
 		MemberInfo memberInfo = regService.checkId(id);
-		System.out.println(memberInfo);
 		return memberInfo == null ? "Y" : "N";
 	}
 }
