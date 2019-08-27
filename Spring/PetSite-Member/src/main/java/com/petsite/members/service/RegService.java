@@ -15,43 +15,43 @@ import com.petsite.members.domain.MemberInfo;
 
 @Service("regService")
 public class RegService {
-	
+
 	@Autowired
 	private SqlSessionTemplate template;
 	private MemberDao dao;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder encoder;
-	
+
 	public MemberInfo checkId(String id) {
-		
+
 		dao = template.getMapper(MemberDao.class);
-		
-		MemberInfo memberInfo = null;
-		memberInfo = dao.selectById(id);
-		
+
+		MemberInfo memberInfo = dao.selectById(id);
+		System.out.println(memberInfo);
+
 		return memberInfo;
 	}
-	
+
 	public int memInsert(HttpServletRequest request, MemberInfo memberInfo) {
-		
+
 		dao = template.getMapper(MemberDao.class);
-		
+
 		// 사진 저장 경로
 		String path = "/file";
 		String dir = request.getSession().getServletContext().getRealPath(path);
-		
+
 		int rCnt = 0;
 		String newFileName = "";
-		
-		if(memberInfo.getPic() != null) {
-			newFileName = memberInfo.getId()+"_"+memberInfo.getPic().getOriginalFilename();
-			
+
+		if (memberInfo.getPic() != null) {
+			newFileName = memberInfo.getId() + "_" + memberInfo.getPic().getOriginalFilename();
+
 			try {
-				
+
 				memberInfo.getPic().transferTo(new File(dir, newFileName));
 				memberInfo.setPic_name(newFileName);
-				
+
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -60,13 +60,13 @@ public class RegService {
 				e.printStackTrace();
 			}
 		}
-		
+
 		// 비밀번호 암호화
 		memberInfo.setPw(encoder.encode(memberInfo.getPw()));
-		
+
 		// DB저장
-		rCnt = dao.insertMem(memberInfo);		
-		
+		rCnt = dao.insertMem(memberInfo);
+
 		return rCnt;
 	}
 }

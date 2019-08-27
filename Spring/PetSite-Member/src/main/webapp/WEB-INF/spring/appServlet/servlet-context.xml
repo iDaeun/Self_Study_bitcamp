@@ -82,11 +82,11 @@
 		</beans:property>
 	</beans:bean>
 	
-	<interceptors>
-		<interceptor> <!-- 로그인 체크 기능 -->
+<!-- 	<interceptors>
+		<interceptor> 로그인 체크 기능
 		<mapping path="/members/mypage/**"/>
 		<beans:bean class="com.petsite.members.interceptor.LoginCheckInterceptor"/>
 		</interceptor>
-	</interceptors>
+	</interceptors> -->
 	
 </beans:beans>

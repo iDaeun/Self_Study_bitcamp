@@ -35,13 +35,13 @@ public class LoginController {
 		
 		if(cnt==1) {
 			// 1. 인증 처리됨 -> 메인 화면으로 
-			view = "";
+			view = "success";
 		} else if (cnt==2) {
 			// 2. 미인증 회원 -> 이메일 다시 보내기
-			view = "";
+			view = "undefined";
 		} else if (cnt==3) {
 			// 3. 로그인 실패 -> loginFail 페이지
-			view = "";
+			view = "loginfail";
 		}
 		
 		/* return new ResponseEntity<String>(cnt>0?"success":"fail", HttpStatus.OK); */

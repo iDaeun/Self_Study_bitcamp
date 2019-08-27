@@ -27,6 +27,12 @@ public class MemberInfo {
 		this.code = getRandom();
 	}
 	
+	// 아이디로 생성자 만들기
+	public MemberInfo(String id) {
+		this.id = id;
+		this.code = getRandom();
+	}
+	
 	public String getCode() {
 		return code;
 	}
