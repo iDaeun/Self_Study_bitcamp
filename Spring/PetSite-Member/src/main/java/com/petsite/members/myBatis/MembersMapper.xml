@@ -33,10 +33,18 @@
 	
 	<!-- 내정보 수정  -->
 	<update id="updateMem" parameterType="com.petsite.members.domain.MemberInfo">
-	update members set m_pw = #{pw}, m_address = #{address} where m_id = #{id}
+		update members set
+		<if test="pic_name == null">
+		m_pw = #{pw}, m_address = #{address} where m_id = #{id}
+		</if>
 		<if test="pic_name != null">
-		update members set m_pw = #{pw}, m_address = #{address}, m_img = #{pic_name} where m_id = #{id}
+		m_img = #{pic_name} where m_id = #{id}
 		</if>	
 	</update>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="deleteMem">
+		delete from members where m_id = #{id}
+	</delete>
 	
 </mapper>
