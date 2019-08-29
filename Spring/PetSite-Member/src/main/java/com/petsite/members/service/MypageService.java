@@ -79,6 +79,9 @@ public class MypageService {
 		// 비밀번호 암호화
 		memberInfo.setPw(encoder.encode(memberInfo.getPw()));
 		
+		// 주소 재설정 (기본주소 + 상세주소)
+		memberInfo.setAddress(memberInfo.addAddress());
+		
 		// DB저장
 		cnt = dao.updateMem(memberInfo);
 		

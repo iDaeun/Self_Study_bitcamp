@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	
     <nav class="navbar navbar-transparent navbar-fixed-top"
 		role="navigation">
 		<div class="container">
@@ -22,9 +23,13 @@
 						data-toggle="dropdown"> My Page <b class="caret"></b>
 					</a>
 						<ul class="dropdown-menu">
-							<li><a href="#"> 회원가입</a></li>
-							<li><a href="#"> 로그인</a></li>
-							<li><a href="#"> 마이페이지</a></li>
+							<c:if test="${id eq null}">
+							<li><a href="http://localhost:9090/psClient/reg.jsp"> 회원가입</a></li>
+							<li><a href="http://localhost:9090/psClient/login.jsp"> 로그인</a></li>
+							</c:if>
+							<c:if test="${id ne null}">
+							<li><a href="http://localhost:9090/psClient/membersC/mypage.jsp"> 마이페이지</a></li>
+							</c:if>
 						</ul></li>
 
 				</ul>
@@ -34,6 +39,8 @@
 					<li><a href="#"> <i class=""></i> 후원하기
 					</a></li>
 					<li><a href="#"> <i class=""></i> 정보 및 훈련
+					</a></li>
+					<li><a href="<c:url value='/'/>"> <i class=""></i> 홈
 					</a></li>
 				</ul>
 

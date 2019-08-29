@@ -13,6 +13,7 @@ public class MemberInfo {
 	private String pw;
 	private String name;
 	private String address;
+	private String detailAddress;
 	private MultipartFile pic;
 	private String pic_name;
 	private Date regDate;
@@ -131,6 +132,19 @@ public class MemberInfo {
 			}
 		}
 		return sb.toString();
+	}
+
+	public String getDetailAddress() {
+		return detailAddress;
+	}
+
+	public void setDetailAddress(String detailAddress) {
+		this.detailAddress = detailAddress;
+	}
+	
+	// 기본주소 + 상세주소
+	public String addAddress() {
+		return this.address + " " + this.detailAddress;
 	}
 	
 }
