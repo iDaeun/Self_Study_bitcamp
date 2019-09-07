@@ -44,7 +44,7 @@
 			<h1 class="logo cursive">Find your New Family</h1>
 			<br>
 			<div class="content">
-				<h4 class="motto">메인페이지!!!</h4>
+				<!-- <h4 class="motto">메인페이지!!!</h4> -->
 				<div class="subscribe">
 					<!--<h5 class="info-text">
                         Join the waiting list for the beta. We keep you posted.

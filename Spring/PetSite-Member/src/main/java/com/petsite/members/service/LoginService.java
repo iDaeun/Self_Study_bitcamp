@@ -34,22 +34,11 @@ public class LoginService {
 		// 1. 인증 처리됨 -> 암호화된 비밀번호 비교
 		if(verify == 'Y' && memberInfo!=null && encoder.matches(pw, memberInfo.getPw())) {
 			cnt = 1;
-			// 로그인 정보 session에 저장
-			//request.getSession().setAttribute("login", memberInfo.change());
-			//System.out.println(request.getSession().getAttribute("login"));
 		} else if (verify == 'N') {
 			cnt = 2; // 2. 미인증 회원
 		} else {
 			cnt = 3; // 3. 로그인 실패
 		}
-		
-		// 암호화된 비밀번호 비교
-		/*
-		 * if(memberInfo!=null && encoder.matches(pw, memberInfo.getPw())) { cnt = 1; //
-		 * 로그인 정보 session에 저장 request.getSession().setAttribute("login",
-		 * memberInfo.change());
-		 * System.out.println(request.getSession().getAttribute("login")); }
-		 */
 		
 		return cnt; 
 	}

@@ -40,7 +40,7 @@ public class LoginCheckFilter implements Filter {
 		if(loginChk) {
 			chain.doFilter(request, response);
 		} else {
-			res.sendRedirect("http://localhost:9090/psClient/login.jsp");
+			res.sendRedirect("http://15.164.166.15:8080/psClient/login.jsp");
 		}
 		
 	}

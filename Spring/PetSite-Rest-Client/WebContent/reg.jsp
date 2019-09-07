@@ -184,15 +184,16 @@ input[type=checkbox] {
 				}
 
 				$.ajax({
-					url : 'http://localhost:9090/ps/members/reg',
+					url : 'http://15.164.166.15:8080/ps/members/reg',
 					type : 'POST',
 					data : formData,
 					processData : false, //파일 전송 시 필수
 					contentType : false, //파일 전송 시 필수
+					dataType: 'text',
 					success : function(data) {
 						alert(data);
 						alert('이메일로 인증키를 발송하였습니다. 인증 후 사용해주세요!');
-						location.href = "http://localhost:9090/psClient/login.jsp";
+						location.href = "${pageContext.request.contextPath}/login.jsp";
 					}
 				});
 				return false;
@@ -230,18 +231,17 @@ input[type=checkbox] {
 		function checkId() {
 
 			var id = $('#id').val();
-			alert(id + '여기');
 			if (id.length < 1) {
 				alert('아이디를 입력해주세요!');
 			} else {
 				$.ajax({
-					url : 'http://localhost:9090/ps/members/reg',
+					url : 'http://15.164.166.15:8080/ps/members/reg',
 					type : 'GET',
 					data : {
 						id : id
 					},
+					dataType: 'text',
 					success : function(data) {
-						alert(data);
 						if (data == 'Y') {
 							$('#checkIdSpan').html("사용 가능한 아이디");
 							$('#checkIdSpan').css('color', 'green');

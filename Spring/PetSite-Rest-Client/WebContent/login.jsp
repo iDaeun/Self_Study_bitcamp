@@ -74,19 +74,16 @@ input{
 										<td><input class="form-control" type="password" id="pw" name="pw" required></td>
 									</tr>
 									<tr>
-										<td colspan="2"><input type="submit" style="float: right" class="btn btn-warning btn-fill" value="LOGIN!"></td>
+										<td colspan="2"><input type="submit" style="float: right" class="btn btn-warning btn-fill" value="LOGIN!">
+										<span id="span"></span>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2"><a id="custom-login-btn" href="javascript:loginWithKakao()">
+										<img style="float: right" src="images/kakao_account_login_btn_medium_narrow.png" /></a></td>
 									</tr>
 								</table>
 							</form>
-							<table id="table">
-							<tr>
-								<td colspan="2"><a id="custom-login-btn" href="javascript:loginWithKakao()">
-								<img src="images/kakao_account_login_btn_medium_narrow.png" /></a></td>
-							</tr>
-							<tr>
-								<td><span id="span"></span></td>
-							</tr>
-							</table>
 					</div>
 				</div>
 			</div>
@@ -109,18 +106,18 @@ input{
                 var id = $('#id').val();
 
                 $.ajax({
-                    url: 'http://localhost:9090/ps/members/login',
+                    url: 'http://15.164.166.15:8080/ps/members/login',
                     type: 'POST',
                     data: $('#form').serialize(),
                     success: function(data) {
-                        alert(data.view);
-                        alert(data.id);
+                        //alert(data.view);
+                        //alert(data.id);
                         if (data.view == 'success') {
                             //인증처리됨 -> 메인화면으로
-                            alert('인증되었습니다!');
+                            alert('인증완료된 회원입니다!');
                             
                             $.ajax({
-                            	url: "http://localhost:9090/psClient/loginProcess.jsp",
+                            	url: "${pageContext.request.contextPath}/loginProcess.jsp",
                             	data: {
                             		id: data.id
                             	},
@@ -128,7 +125,8 @@ input{
                             });
                            	
                             /* Swal.fire('인증되었습니다!')*/
-                            location.href = "http://localhost:9090/psClient/index.jsp";
+                            /* location.href = "http://15.164.166.15:8080/psClient/index.jsp"; */
+                            location.href = "${pageContext.request.contextPath}/index.jsp";
                             //location.href = "main.html";
                         }
                         if (data.view == 'undefined') {
@@ -136,7 +134,7 @@ input{
                             var chk = confirm('미인증 상태입니다, 인증키를 다시 보내시겠습니까?');
                             if (chk) {
                                 $.ajax({
-                                    url: 'http://localhost:9090/ps/members/verify/resend',
+                                    url: 'http://15.164.166.15:8080/ps/members/verify/resend',
                                     data: {
                                         id: id
                                     },
@@ -156,7 +154,7 @@ input{
                         if (data.view == 'loginfail') {
                             //로그인 실패
                             alert('로그인 실패, 다시 로그인해주세요!');
-                            location.replace("http://localhost:9090/psClient/login.jsp");
+                            location.replace("${pageContext.request.contextPath}/login.jsp");
                             //location.replace("login.html");
                         }
                     }
@@ -171,18 +169,18 @@ input{
             Kakao.Auth.login({
                 success: function(authObj) {
                    
-                	alert('Auth.login >>>>> '+JSON.stringify(authObj));
+                	//alert('Auth.login >>>>> '+JSON.stringify(authObj));
 
                     // 정보 확인 -> id(email) session에 저장
                         Kakao.API.request({
                             url: '/v2/user/me',
                             success: function(res) {
-                                alert('API.request >>>>> '+JSON.stringify(res));
+                                //alert('API.request >>>>> '+JSON.stringify(res));
                                 var id = res.kakao_account.email;
                                 var type = 'kakao';
                                 
                                 $.ajax({
-                                    url: "http://localhost:9090/psClient/loginProcess.jsp",
+                                    url: "${pageContext.request.contextPath}/loginProcess.jsp",
                                     data: {
                                         id: id,
                                         type: type
@@ -190,7 +188,7 @@ input{
                                     type: 'GET',
                                     success: function(data){
                                     	alert('[카카오]로그인 성공');
-                                    	location.href = "http://localhost:9090/psClient/index.jsp";
+                                    	location.href = "${pageContext.request.contextPath}/index.jsp";
                                     }
                                 });
                             },

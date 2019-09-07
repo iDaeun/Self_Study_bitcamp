@@ -24,24 +24,20 @@
 					</a>
 						<ul class="dropdown-menu">
 							<c:if test="${id eq null}">
-							<li><a href="http://localhost:9090/psClient/reg.jsp"> 회원가입</a></li>
-							<li><a href="http://localhost:9090/psClient/login.jsp"> 로그인</a></li>
+							<li><a href="<c:url value='/reg.jsp' />"> 회원가입</a></li>
+							<li><a href="<c:url value='/login.jsp' />"> 로그인</a></li>
 							</c:if>
 							<c:if test="${id ne null}">
-							<li><a href="http://localhost:9090/psClient/membersC/mypage.jsp"> 마이페이지</a></li>
+							<li><a href="<c:url value='/membersC/mypage.jsp' />"> 마이페이지</a></li>
 							</c:if>
 						</ul></li>
 
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"> <i class=""></i> 유기동물 목록
-					</a></li>
-					<li><a href="#"> <i class=""></i> 후원하기
-					</a></li>
-					<li><a href="#"> <i class=""></i> 정보 및 훈련
-					</a></li>
-					<li><a href="<c:url value='/'/>"> <i class=""></i> 홈
-					</a></li>
+					<li><a href="<c:url value='/membersC/adoptdog.jsp' />"> <i class=""></i> 유기동물 목록</a></li>
+					<li><a href="<c:url value='/membersC/donationView.jsp' />"> <i class=""></i> 후원하기</a></li>
+					<li><a href="<c:url value='/membersC/main.jsp' />"> <i class=""></i> 정보 및 훈련</a></li>
+					<li><a href="<c:url value='/'/>"> <i class=""></i> 홈</a></li>
 				</ul>
 
 			</div>

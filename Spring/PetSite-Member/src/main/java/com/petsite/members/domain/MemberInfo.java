@@ -1,6 +1,7 @@
 package com.petsite.members.domain;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
@@ -16,7 +17,7 @@ public class MemberInfo {
 	private String detailAddress;
 	private MultipartFile pic;
 	private String pic_name;
-	private Date regDate;
+	private String regDate;
 	
 	@JsonIgnore
 	private String code;
@@ -24,8 +25,8 @@ public class MemberInfo {
 	
 	// 생성자
 	public MemberInfo() {
-		this.regDate = new Date();
 		this.code = getRandom();
+		this.regDate = time();
 	}
 	
 	// 아이디로 생성자 만들기
@@ -91,11 +92,11 @@ public class MemberInfo {
 		this.pic = pic;
 	}
 
-	public Date getRegDate() {
+	public String getRegDate() {
 		return regDate;
 	}
 
-	public void setRegDate(Date regDate) {
+	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
 
@@ -113,9 +114,11 @@ public class MemberInfo {
 		this.pic_name = pic_name;
 	}
 	
-	// LoginInfo로 바꿈
-	public LoginInfo change() {
-		return new LoginInfo(id, pw, name, pic_name, address, regDate);
+	// 시간 포맷
+	public String time() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = new Date();
+		return format.format(date);
 	}
 	
 	// 난수 생성

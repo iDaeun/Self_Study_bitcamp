@@ -3,8 +3,6 @@ package com.petsite.members.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.petsite.members.domain.LoginInfo;
 import com.petsite.members.domain.MemberInfo;
 import com.petsite.members.service.MypageService;
 
@@ -28,11 +24,11 @@ public class MypageController {
 	private MypageService mypageService;
 
 	@GetMapping
-	// public MemberInfo myInfo() {
 	public MemberInfo myInfo(HttpServletRequest request, @RequestParam("id") String id) {
 
 		MemberInfo memberInfo = mypageService.myInfo(id);
-
+		System.out.println(memberInfo);
+		
 		return memberInfo;
 	}
 
@@ -41,6 +37,7 @@ public class MypageController {
 	public MemberInfo editMyInfo(String id) {
 
 		MemberInfo memberInfo = mypageService.myInfo(id);
+		
 
 		return memberInfo;
 	}
@@ -57,15 +54,11 @@ public class MypageController {
 	// 내정보 수정 (그 외 업로드)
 	@PutMapping
 	public String editProcess1(@RequestBody MemberInfo memberInfo) {
-		// public ResponseEntity<String> editProcess1(@RequestBody MemberInfo
-		// memberInfo){
 
 		System.out.println("editProcess1" + memberInfo);
 		int cnt = mypageService.editProcess(memberInfo);
 
 		return cnt > 0 ? "success" : "fail";
-		// return new ResponseEntity<String>(cnt > 0 ? "success" : "fail",
-		// HttpStatus.OK);
 	}
 	
 	// 회원탈퇴

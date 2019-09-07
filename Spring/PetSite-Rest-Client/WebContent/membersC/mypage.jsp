@@ -104,7 +104,7 @@ input{
         	
         	var type = '${type}';
         	
-        	alert(type);
+        	//alert(type);
         	
         	if(type == 'kakao'){
         		// 카카오로 로그인 되어있을 때
@@ -147,10 +147,12 @@ input{
         	Kakao.API.request({
                 url: '/v2/user/me',
                 success: function(res) {
-                    alert(JSON.stringify(res));
+                    //alert(JSON.stringify(res));
+                    
                     var id = res.kakao_account.email;
-                    var pic = res.properties.thumbnail_image;
+                    var pic = res.properties.profile_image;
                     var nickname = res.properties.nickname;
+                
 
                     var html = '';
                     html += '<h2>카카오로 로그인 중입니다</h2>'
@@ -160,7 +162,7 @@ input{
                     html += '<tr><td>닉네임: </td>';
                     html += '<td>' + nickname + '</td></tr>';
                     html += '<tr><td>사진</td>';
-                    html += '<td><img src="'+pic+'"></td></tr></table>';
+                    html += '<td><img class="img-circle" style="width:150px" src="'+pic+'"></td></tr></table>';
                     html += '<button onclick="logoutWithKakao()" style="float: right" class="btn btn-warning btn-fill">로그아웃</button>';
 
                     $('#myInfo').html(html);
@@ -175,14 +177,15 @@ input{
         function logoutWithKakao() {
             Kakao.Auth.logout(function() {
             	
-            	alert('카카오 토큰 제거');
+            	//alert('카카오 토큰 제거');
             	
             	$.ajax({
-                	url: "http://localhost:9090/psClient/logout.jsp",
+                	url: "${pageContext.request.contextPath}/logout.jsp",
                 	type: 'GET',
+                	dataType: 'text',
                 	success: function(data){
                     	alert(data);
-                    	location.href = "http://localhost:9090/psClient/index.jsp";
+                    	location.href = "${pageContext.request.contextPath}/index.jsp";
                     }
                 });
             });
@@ -193,11 +196,11 @@ input{
         	var id = '${id}';
 
             $.ajax({
-                url: 'http://localhost:9090/ps/members/mypage',
+                url: 'http://15.164.166.15:8080/ps/members/mypage',
                 type: 'GET',
                 data: {id: id},
                 success: function(data) {
-                    alert(JSON.stringify(data));
+                    //alert(JSON.stringify(data));
 
                     var html = '';
                     html += '<table id="table"> <tr>';
@@ -210,7 +213,7 @@ input{
                     html += '<tr><td>주소</td>';
                     html += '<td>' + data.address + '</td></tr>';
                     html += '<tr><td>사진</td>';
-                    html += '<td><img class="img-rounded" alt="Cinque Terre" src="http://localhost:9090/ps/file/' + data.pic_name + '"></td></tr>';
+                    html += '<td><img class="img-rounded" alt="Cinque Terre" src="http://15.164.166.15:8080/ps/file/' + data.pic_name + '"></td></tr>';
                     html += '<tr><td>가입날짜</td>';
                     html += '<td>' + data.regDate + '</td></tr></table>';
                     html += '<button style="float: right" class="btn btn-warning btn-fill" onclick="edit(\'' + data.id + '\')">회원수정</button>';
@@ -226,14 +229,15 @@ input{
         function logout(id){
         	
         	$.ajax({
-            	url: "http://localhost:9090/psClient/logout.jsp",
+            	url: "${pageContext.request.contextPath}/logout.jsp",
             	data: {
             		id: id
             	},
             	type: 'GET',
+            	dataType: 'text',
             	success: function(data){
                 	alert(data);
-                	location.href = "http://localhost:9090/psClient/index.jsp";
+                	location.href = "${pageContext.request.contextPath}/index.jsp";
                 }
             });
         	
@@ -242,14 +246,26 @@ input{
         function deleteMem(id){
         	
         	$.ajax({
-        		url: 'http://localhost:9090/ps/members/mypage',
+        		url: 'http://15.164.166.15:8080/ps/members/mypage',
                 type: 'DELETE',
                 data: JSON.stringify({
                 	id: id
                 }),
                 contentType: 'application/json; charset=utf-8',
+                dataType: 'text',
                 success: function(data){
                 	alert(data);
+	                	$.ajax({
+	                    	url: "${pageContext.request.contextPath}/logout.jsp",
+	                    	data: {
+	                    		id: id
+	                    	},
+	                    	type: 'GET',
+	                    	success: function(data){
+	                        	alert(data);
+	                        	location.href = "${pageContext.request.contextPath}/index.jsp";
+	                        }
+	                    });
                 }
         	});
         }
@@ -257,19 +273,19 @@ input{
         function edit(id) {
 
             $.ajax({
-                url: 'http://localhost:9090/ps/members/mypage/id',
+                url: 'http://15.164.166.15:8080/ps/members/mypage/id',
                 type: 'GET',
                 data: {
                     id: id
                 },
                 success: function(data) {
-                    alert(JSON.stringify(data));
+                    //alert(JSON.stringify(data));
 
                     var html = '';
 
                     /*사진*/
                     html += '<table id="table"><tr><td>사진</td>';
-                    html += '<td><img class="img-rounded" alt="Cinque Terre" src="http://localhost:9090/ps/file/' + data.pic_name + '"></td></tr>';
+                    html += '<td><img class="img-rounded" alt="Cinque Terre" src="http://15.164.166.15:8080/ps/file/' + data.pic_name + '"></td></tr>';
                     html += '<tr><td>사진수정</td>';
                     html += '<td><input type="file" id="pic"></td>';
                     html += '<td><input id="feditbtn" class="btn btn-warning btn-fill" type="button" value="사진 업로드"></td></tr></table><hr>';
@@ -298,7 +314,7 @@ input{
                     /*사진 업로드*/
                     $('#feditbtn').click(function() {
 						
-                    	alert('들어옴');
+                    	//alert('들어옴');
                         var formData = new FormData(); // 파일 전송 -> FormData()활용
 
                         formData.append('id', $('#id').val());
@@ -310,11 +326,12 @@ input{
                         }
 
                         $.ajax({
-                            url: 'http://localhost:9090/ps/members/mypage',
+                            url: 'http://15.164.166.15:8080/ps/members/mypage',
                             type: 'POST',
                             data: formData,
                             processData: false, //파일 전송 시 필수
                             contentType: false, //파일 전송 시 필수
+                            dataType: 'text',
                             success: function(data) {
                                 alert(data);
                             }
@@ -341,7 +358,7 @@ input{
                         }
 
                         $.ajax({
-                            url: 'http://localhost:9090/ps/members/mypage',
+                            url: 'http://15.164.166.15:8080/ps/members/mypage',
                             type: 'PUT',
                             data: JSON.stringify({
                                 id: $('#id').val(),
@@ -350,9 +367,10 @@ input{
                                 detailAddress: $('#detailAddress').val()
                             }),
                             contentType: 'application/json; charset=utf-8',
+                            dataType: 'text',
                             success: function(data) {
                                 alert(data);
-                                location.href = "http://localhost:9090/psClient/membersC/mypage.jsp";
+                                location.href = "${pageContext.request.contextPath}/membersC/mypage.jsp";
                             }
                         });
                         return false;
@@ -364,7 +382,7 @@ input{
         }
         
         function cancel(){
-        	location.href = "http://localhost:9090/psClient/membersC/mypage.jsp";
+        	location.href = "${pageContext.request.contextPath}/membersC/mypage.jsp";
         }
 
         function checkPw() {
