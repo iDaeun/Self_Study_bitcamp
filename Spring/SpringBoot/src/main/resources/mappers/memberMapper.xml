@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO interface의 full name을 namespace의 속성으로 사용 -->
+<mapper namespace="com.example.demo.mapper.MemberMapper">
+	
+	
+	<!-- DB와 이름 맞추기 -->
+	<resultMap type="com.example.demo.domain.MemberInfo"
+		id="memberResultmap">
+		<id property="idx" column="idx" />
+		<result property="uId" column="uid" />
+		<result property="uPw" column="upw" />
+		<result property="uName" column="uname" />
+		<result property="uPhoto" column="uphoto" />
+		<result property="regDate" column="regdate" />
+	</resultMap>
+
+	<select id="selectMemberById" resultMap="memberResultmap">
+		select * from member
+		where uid = #{uId}
+	</select>
+
+
+</mapper>

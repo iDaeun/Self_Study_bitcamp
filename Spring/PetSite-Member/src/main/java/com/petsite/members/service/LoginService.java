@@ -1,6 +1,7 @@
 package com.petsite.members.service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class LoginService {
 		
 		int cnt = 0;
 		MemberInfo memberInfo = null;
+		
 		
 		memberInfo = dao.selectById(id);
 		
