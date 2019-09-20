@@ -2,6 +2,9 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.dao.MemberDaoImpl;
 import com.example.demo.domain.MemberInfo;
 import com.example.demo.entity.MemberEntity;
 import com.example.demo.mapper.MemberMapper;
@@ -27,8 +31,15 @@ public class IndexController {
 
 	@RequestMapping("/")
 	@ResponseBody
-	public String index() {
-		return "Spring Boot Start";
+//	public String index() {
+//		return "Spring Boot Start";
+//	}
+	public List<MemberEntity> index() {
+		
+		// @query 어노테이션 활용
+		List<MemberEntity> list = repository.findall();
+		
+		return list;
 	}
 
 	@RequestMapping("/hello")
@@ -157,4 +168,70 @@ public class IndexController {
 		
 		return entitys;
 	}
+	
+	// EntityManager활용하여 기본적인 데이터베이스 처리 (별도의 코드작성없이 구현)
+	@PersistenceContext
+	EntityManager entityManager;
+	
+	private MemberDaoImpl dao; // 생성자 주입형식이라서 autowired(자동주입)이 아님, 유지보수면에서 더 좋은 방법
+	
+	@RequestMapping("/listall")
+	@ResponseBody
+	public List<MemberEntity> memberListAll() {
+		
+		this.dao = new MemberDaoImpl(entityManager);
+		
+		List<MemberEntity> list = dao.getAll();
+		
+		for (MemberEntity memberEntity : list) {
+			System.out.println(memberEntity);
+		}
+		
+		return list;		
+	}
+	
+	@RequestMapping("/listbyidx/{idx}")
+	@ResponseBody
+	public MemberEntity memberByIdx(@PathVariable("idx") long idx) {
+		
+		this.dao = new MemberDaoImpl(entityManager);
+		
+		MemberEntity entity = dao.findByIdx(idx);
+		System.out.println(entity);
+		
+		return entity;		
+	}
+	
+	@RequestMapping("/listbyname/{name}")
+	@ResponseBody
+	public List<MemberEntity> memberByIdx(@PathVariable("name") String name) {
+		
+		this.dao = new MemberDaoImpl(entityManager);
+		
+		List<MemberEntity> list = dao.findByUname(name);
+		
+		for (MemberEntity memberEntity : list) {
+			System.out.println(memberEntity);
+		}
+		
+		return list;		
+	}
+	
+	// JPQL 활용
+	@RequestMapping("/listfind/{str}")
+	@ResponseBody
+	public List<MemberEntity> listFind(@PathVariable("str") String str) {
+		
+		this.dao = new MemberDaoImpl(entityManager);
+		
+		List<MemberEntity> list = dao.find(str);
+		
+		for (MemberEntity memberEntity : list) {
+			System.out.println(memberEntity);
+		}
+		
+		return list;		
+	}
+	
+	
 }
