@@ -29,23 +29,13 @@ public class IndexController {
 	@Autowired
 	private MemberMapper mapper;
 
-	@RequestMapping("/")
-	@ResponseBody
-//	public String index() {
-//		return "Spring Boot Start";
-//	}
-	public List<MemberEntity> index() {
-		
-		// @query 어노테이션 활용
-		List<MemberEntity> list = repository.findall();
-		
-		return list;
-	}
 
 	@RequestMapping("/hello")
 	public void hello1() {
 
 	}
+	
+	// ================ mapper ====================
 
 	@RequestMapping("/memberInfo")
 	public void selectById() {
@@ -70,6 +60,22 @@ public class IndexController {
 		}
 
 		return info;
+	}
+	
+	// ================================================	
+	
+	// ================ repository ====================
+	@RequestMapping("/")
+	@ResponseBody
+//	public String index() {
+//		return "Spring Boot Start";
+//	}
+	public List<MemberEntity> index() {
+		
+		// @query 어노테이션 활용
+		List<MemberEntity> list = repository.findall();
+		
+		return list;
 	}
 
 	@RequestMapping("/member/list")
@@ -125,7 +131,7 @@ public class IndexController {
 		return "delete";
 	}
 	
-	// idx로 검색
+	// idx로 검색 && MemberRepository에 정의
 	@RequestMapping("/member/member/{idx}")
 	@ResponseBody
 	public MemberEntity getMemberInfo(@PathVariable("idx") long idx) {
@@ -138,7 +144,7 @@ public class IndexController {
 		return entity;
 	}
 	
-	// 이름으로 검색
+	// 이름으로 검색 && MemberRepository에 정의
 	@RequestMapping("/member/memberbyname/{name}")
 	@ResponseBody
 	public List<MemberEntity> getMemberInfo(@PathVariable("name") String name) {
@@ -151,7 +157,7 @@ public class IndexController {
 		return entitys;
 	}
 	
-	// 2개의 idx 사이 범위의 리스트 검색
+	// 2개의 idx 사이 범위의 리스트 검색 && MemberRepository에 정의
 	@RequestMapping("/member/memberbetween")
 	@ResponseBody
 	public List<MemberEntity> getMemberInfo() {
@@ -168,6 +174,10 @@ public class IndexController {
 		
 		return entitys;
 	}
+	
+	// ===================================================
+	
+	// ================ MemberDao - MemberDaoImpl ====================
 	
 	// EntityManager활용하여 기본적인 데이터베이스 처리 (별도의 코드작성없이 구현)
 	@PersistenceContext
@@ -233,5 +243,5 @@ public class IndexController {
 		return list;		
 	}
 	
-	
+	// ===================================================
 }
