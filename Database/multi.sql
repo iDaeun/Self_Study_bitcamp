@@ -519,3 +519,104 @@ where mgr = (select empno from emp where ename = 'KING');
     update문 : 기존 레코드의 값을 변경시켜주는 문장
     update 테이블명 set 컬럼명=값, 컬럼명2=값2;
 */
+
+create table stuTable(
+    idx number primary key,
+    name varchar2(10) not null,
+    phoneNum number(16) not null
+);
+
+select 'abc' || 'efg' from dual;
+select ename || ' is a ' || job from emp;
+select trim (leading '0' from '000hello000') from dual;
+select trim (trailing '0' from '000hello000') from dual;
+select trim (both '0' from '000hello000') from dual;
+select instr('welcome to my home', 'o', 9, 1 ) from dual; -- 9번째부터 찾겠음, 그중 처음 만난 문자
+select sysdate from dual;
+select current_date from dual;
+select current_timestamp from dual;
+select ename, hiredate, hiredate+3 from emp;
+
+-- 현재까지 며칠 일했는지 계산, 몇주 며칠인지 계산
+select ename, hiredate, sysdate
+, trunc(sysdate-hiredate)
+, trunc((sysdate-hiredate)/7) weeks
+, round(mod((sysdate-hiredate),7),0) days 
+from emp;
+
+select current_timestamp, extract(year from current_timestamp) from dual;
+select sysdate,
+extract(day from sysdate), extract(month from sysdate), extract(year from sysdate) from dual;
+
+select ename, extract(day from hiredate) as day, extract(year from hiredate) as year, extract(month from hiredate) as month
+from emp where deptno = 20;
+
+select ename, sal, to_char(sal, '999,999') from emp; -- to_char : 숫자를 문자로 변환
+select to_char(sysdate, 'MM') from dual;
+select to_char(sysdate, 'MI') from dual;
+select to_date('2019-10-29', 'YYYY-MM-DD') from dual; -- to_date : 문자를 날짜로 변환
+select to_date('110815 143000','YYMMDD HH24MISS')from dual;
+select to_char(to_date('990815','YYMMDD'),'YYYY.MM.DD') from dual;
+
+select '0001', cast ('0001' as number) from dual; -- 문자 => 숫자
+select cast ('2019-10-29' as date) from dual; -- 문자 => 날짜
+
+select coalesce(null,1),
+coalesce(null, 'test', null, 'test2') from dual;
+-- 여러개의 인자 중 첫번째로 null이 아닌 값 리턴
+
+select ename, sal, comm, greatest(sal,comm) from emp where comm is not null;
+
+select ename, sal, 
+    case when sal>2000 then '상' else '하' end
+from emp;
+
+create table score(
+    student_no varchar2(20) primary key,
+    name varchar2(20) not null,
+    kor number(3) default 0,
+    eng number(3) default 0,
+    mat number(3) default 0
+);
+
+desc score;
+
+insert into score values ('1','kim',90,80,70);
+insert into score values ('2','park',88,85,75);
+insert into score values ('3','hong',99,89,79);
+insert into score values ('4','choi',100,100,100);
+
+select * from score;
+
+select name,kor,eng,mat, (kor+eng+mat) 총점, round((kor+eng+mat)/3,2) 평균,
+    case 
+    when (kor+eng+mat)/3 >= 90 then 'A'
+    when (kor+eng+mat)/3 >= 80 then 'B'
+    when (kor+eng+mat)/3 >= 70 then 'C'
+    when (kor+eng+mat)/3 >= 60 then 'D'
+    else 'F'
+end 등급
+from score;
+
+select empno, ename, sal, job,
+case job 
+    when 'ANALYST' then sal *1.1
+    when 'CLERK' then sal *1.2
+    else sal
+end salary
+from emp;
+
+select deptno, ename, sal,
+rank() over(order by sal desc) 급여순위
+from emp;
+
+select deptno, ename, sal,
+dense_rank() over(order by sal desc) 급여순위 -- dense_rank() 동률 무시함
+from emp;
+
+select deptno, ename, sal,
+rank() over(
+    PARTITION by deptno -- partition by 컬럼 : 순위를 컬럼을 기준으로 한 그룹을 대상으로 매김
+    order by sal desc
+) from emp;
+
