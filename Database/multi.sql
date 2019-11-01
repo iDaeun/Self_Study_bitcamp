@@ -620,3 +620,45 @@ rank() over(
     order by sal desc
 ) from emp;
 
+select * from emp;
+select ename, sal from emp;
+
+select * from emp where MGR = any(select mgr from emp where ename = 'FORD' or ename = 'BLAKE');
+select * from emp where MGR = any(select mgr from emp where ename in('FORD','BLAKE'));
+select * from emp where MGR in (select mgr from emp where ename in('FORD','BLAKE'));
+
+select * from emp 
+where (mgr, deptno) in(select mgr,deptno from emp where ename in('FORD','BLAKE'))
+and ename not in ('FORD','BLAKE')
+;
+
+--------
+create table emp3(
+    empno number(4),
+    ename varchar2(10),
+    job varchar2(10),
+    mgr number(4),
+    hiredate date,
+    sal number(7,2),
+    comm number(7,2),
+    deptno number(2)
+);
+
+--테이블에 레코드 삽입
+INSERT INTO EMP3 VALUES(7369,'SMITH','CLERK',7902,TO_DATE('17-12-1980','DD-MM-YYYY'),800,NULL,20);
+INSERT INTO EMP3 VALUES(7499,'ALLEN','SALESMAN',7698,TO_DATE('20-02-1981','DD-MM-YYYY'),1600,300,30);
+INSERT INTO EMP3 VALUES(7521,'WARD','SALESMAN',7698,TO_DATE('22-02-1981','DD-MM-YYYY'),1250,500,30);
+INSERT INTO EMP3 VALUES(7566,'JONES','MANAGER',7839,TO_DATE('02-04-1981','DD-MM-YYYY'),2975,NULL,20);
+INSERT INTO EMP3 VALUES(7654,'MARTIN','SALESMAN',7698,TO_DATE('28-09-1981','DD-MM-YYYY'),1250,1400,30);
+INSERT INTO EMP3 VALUES(7698,'BLAKE','MANAGER',7839,TO_DATE('01-05-1981','DD-MM-YYYY'),2850,NULL,30);
+INSERT INTO EMP3 VALUES(7782,'CLARK','MANAGER',7839,TO_DATE('09-06-1981','DD-MM-YYYY'),2450,NULL,10);
+INSERT INTO EMP3 VALUES(7788,'SCOTT','ANALYST',7566,TO_DATE('09-12-1982','DD-MM-YYYY'),3000,NULL,20);
+INSERT INTO EMP3 VALUES(7839,'KING','PRESIDENT',NULL,TO_DATE('17-11-1981','DD-MM-YYYY'),5000,NULL,10);
+INSERT INTO EMP3 VALUES(7844,'TURNER','SALESMAN',7698,TO_DATE('08-09-1981','DD-MM-YYYY'),1500,NULL,30);
+INSERT INTO EMP3 VALUES(7876,'ADAMS','CLERK',7788,TO_DATE('12-01-1983','DD-MM-YYYY'),1100,NULL,20);
+INSERT INTO EMP3 VALUES(7900,'JAMES','CLERK',7698,TO_DATE('03-12-1981','DD-MM-YYYY'),950,NULL,30);
+INSERT INTO EMP3 VALUES(7902,'FORD','ANALYST',7566,TO_DATE('03-12-1981','DD-MM-YYYY'),3000,NULL,20);
+INSERT INTO EMP3 VALUES(7934,'MILLER','CLERK',7782,TO_DATE('23-01-1982','DD-MM-YYYY'),1300,NULL,10);
+
+commit;
+select * from emp3 order by empno;
